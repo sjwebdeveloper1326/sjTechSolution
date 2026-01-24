@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Student Directory - SJ.Tech{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold" style="color:#ff2c91;">Student Directory</h2>
+
+        <a href="{% url 'student_add' %}" class="btn btn-lg" style="background:#ff2c91; color:white;">
+            + Enroll Student
+        </a>
+    </div>
+
+    <div class="table-responsive shadow-lg rounded">
+        <table class="table table-dark table-striped table-bordered align-middle">
+            <thead class="table-danger">
+                <tr>
+                    <th>Photo</th>
+                    <th>Name</th>
+                    <th>Course</th>
+                    <th>Student ID</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Fee Paid</th>
+                    <th>Group</th>
+                    <th>Join Date</th>
+                    <th>Status</th>
+                    <th style="width:180px;">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for s in students %}
+                <tr>
+                    <td>
+                        {% if s.photo %}
+                            <img src="{{ s.photo.url }}" class="img-thumbnail"
+                                 style="height:60px; width:60px; object-fit:cover;">
+                        {% else %}
+                            <div class="d-flex justify-content-center align-items-center bg-secondary text-white rounded"
+                                 style="height:60px; width:60px; font-size:24px;">
+                                {{ s.name.0 }}
+                            </div>
+                        {% endif %}
+                    </td>
+
+                    <td>{{ s.name }}</td>
+                    <td>{{ s.course }}</td>
+                    <td>{{ s.student_id }}</td>
+                    <td>{{ s.email }}</td>
+                    <td>{{ s.phone }}</td>
+                    <td>₹{{ s.feePaid|default:"0.00" }}</td>
+
+                    <td>
+                        {% if s.jointStudents %}
+                            {{ s.jointStudents|join:", " }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+
+                    <td>{{ s.date_of_joining }}</td>
+
+                    <td>
+                        <span class="badge bg-{% if s.status == 'active' %}success{% else %}danger{% endif %}">
+                            {{ s.status|title }}
+                        </span>
+                    </td>
+
+                    <td>
+                        <a href="{% url 'student_edit' s.id %}" 
+                           class="btn btn-sm btn-outline-light me-1">Edit</a>
+
+                        <a href="{% url 'student_delete' s.id %}" 
+                           class="btn btn-sm btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td colspan="11" class="text-center py-4 fs-4">No students found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}

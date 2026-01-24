@@ -1,0 +1,35 @@
+<div class="modal fade" id="globalDeleteModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark text-white">
+
+      <div class="modal-header border-0">
+        <h5 class="modal-title text-danger">Confirm Delete</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <p id="deleteMessage"></p>
+      </div>
+
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+        <form id="deleteForm" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+function openDeleteModal(url, name) {
+    document.getElementById("deleteForm").action = url;
+    document.getElementById("deleteMessage").innerHTML = 
+        `Are you sure you want to delete <strong>${name}</strong>?`;
+    var modal = new bootstrap.Modal(document.getElementById('globalDeleteModal'));
+    modal.show();
+}
+</script>

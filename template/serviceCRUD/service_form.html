@@ -1,0 +1,118 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Service create / edit
+{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="h5 mb-4 ">
+                        {% if form.instance.id %}
+                            Edit Service
+                        {% else %}
+                            Add New Service
+                        {% endif %}
+                    </h3>
+
+                    <!-- Form: note fields names must match your ServiceForm fields -->
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+
+                        <!-- Icon -->
+                        <div class="mb-3">
+                            <label for="id_icon" class="form-label">Icon (FontAwesome classes)</label>
+                            <input
+                                id="id_icon"
+                                name="icon"
+                                class="form-control"
+                                placeholder="e.g. fas fa-laptop-code"
+                                value="{{ form.icon.value|default_if_none:'' }}">
+                            <div class="form-text">Use Font Awesome class names like <code>fas fa-laptop-code</code>.</div>
+                            {% if form.icon.errors %}
+                                <div class="text-danger small mt-1">{{ form.icon.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Title -->
+                        <div class="mb-3">
+                            <label for="id_title" class="form-label">Title</label>
+                            <input
+                                id="id_title"
+                                name="title"
+                                class="form-control"
+                                placeholder="e.g. Web Development"
+                                value="{{ form.title.value|default_if_none:'' }}">
+                            {% if form.title.errors %}
+                                <div class="text-danger small mt-1">{{ form.title.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-3">
+                            <label for="id_description" class="form-label">Description</label>
+                            <textarea
+                                id="id_description"
+                                name="description"
+                                class="form-control"
+                                rows="5"
+                                placeholder="Short description...">{{ form.description.value|default_if_none:'' }}</textarea>
+                            {% if form.description.errors %}
+                                <div class="text-danger small mt-1">{{ form.description.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-pink btn-lg">
+                                <i class="fas fa-save me-2"></i> Save Service
+                            </button>
+                            <a href="{% url 'service_list' %}" class="btn btn-outline-secondary">Cancel</a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+ {% block extra_css %}
+<style>
+.btn-pink { background:#ff2c91; color:#fff; border-radius:8px; border:none; }
+.btn-pink:hover { background:#ff1f78; color:#fff; }
+
+/* Force form text visible */
+.card * {
+    color: #000 !important;
+}
+
+/* Input + textarea text visible */
+.form-control {
+    color: #000 !important;
+}
+
+/* Placeholder also visible */
+.form-control::placeholder {
+    color: #999 !important;
+}
+
+/* Labels visible */
+.form-label {
+    color: #000 !important;
+}
+
+/* Heading visible */
+.card-body h3 {
+    color: #000 !important;
+}
+
+</style>
+{% endblock %}

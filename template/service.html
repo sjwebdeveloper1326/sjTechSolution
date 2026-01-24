@@ -1,0 +1,66 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Service List Employee - SJ.Tech
+{% endblock %}
+
+{% block content %}
+<!-- service section start -->
+<section class="d2c_service_wrapper" id="service">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Left Side Text (unchanged) -->
+            <div class="col-xl-6 mb-4 mb-xl-0">
+                <h3 class="d2c_sub_title position-relative">
+                    Our <span>Services</span>
+                </h3>
+                <h2 class="d2c_title position-relative">
+                    We have <span>Everything</span> What you Need...
+                </h2>
+                <p>
+                    Discover the range of services we offer at SJ.Tech Solution. From
+                    tech consulting to software development, we're here to provide you
+                    with expert solutions that cater to your tech-related needs.
+                </p>
+                <div class="row">
+                    <div class="col-md-5">
+                        <ul>
+                            <li>Tech Consulting</li>
+                            <li>Product Reviews</li>
+                            <li>Tech Teaching</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-7">
+                        <ul>
+                            <li>Tech Trend</li>
+                            <li>Coding Workshops</li>
+                            <li>Online Bootcamps</li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="#contact" class="btn">get in touch</a>
+            </div>
+
+            <!-- Right Side Cards - Dynamic with Same Layout -->
+            <div class="col-xl-6">
+                <div class="row">
+                    {% for service in services %}
+                        <div class="col-md-6 {% if forloop.counter|divisibleby:2 %}mt-xl-4{% endif %} {% if forloop.counter == 3 %}mb-4 mb-md-0{% else %}mb-4{% endif %} {% if forloop.counter == 3 %}d2c_service_card position-relative{% endif %}">
+                            <div class="d2c_card_wrapper">
+                                <div class="d2c_icon_wrapper">
+                                    <i class="{{ service.icon }}"></i>
+                                </div>
+                                <h3>{{ service.title }}</h3>
+                                <p>{{ service.description }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- service section end -->
+{% endblock %}

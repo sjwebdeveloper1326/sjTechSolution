@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Register - SJ.Tech{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <h2 class="text-center mb-4" style="color:#ff2c91;">Register</h2>
+
+    <!-- User Type Select -->
+    <div class="mb-4">
+        <label class="form-label">Select User Type</label>
+        <select id="userType" class="form-select bg-dark text-white">
+            <option value="student" selected>Student</option>
+            <option value="employee">Employee</option>
+        </select>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Include Student Form -->
+        <div id="studentForm">
+            {% include "partials/student_form.html" %}
+        </div>
+
+        <!-- Include Employee Form -->
+        <div id="employeeForm" class="d-none">
+            {% include "partials/employee_form.html" %}
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center mt-4">
+            <button class="btn btn-lg px-5" style="background:#ff2c91; color:white;">
+                Register
+            </button>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
+
+
+{% block extra_script %}
+<script>
+    const userType = document.getElementById("userType");
+    const studentForm = document.getElementById("studentForm");
+    const employeeForm = document.getElementById("employeeForm");
+
+    userType.addEventListener("change", function () {
+        if (this.value === "student") {
+            studentForm.classList.remove("d-none");
+            employeeForm.classList.add("d-none");
+        } else {
+            employeeForm.classList.remove("d-none");
+            studentForm.classList.add("d-none");
+        }
+    });
+</script>
+{% endblock %}

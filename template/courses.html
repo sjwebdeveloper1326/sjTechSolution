@@ -1,0 +1,194 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Cources - SJ.Tech
+{% endblock %}
+
+{% block content %}
+
+<div data-bs-spy="scroll" data-bs-target="#d2c_main_nav" class="position-relative">
+    <!-- Courses Hero -->
+    <section class="d2c_hero_wrapper" style="background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 100px 0;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1>Grow Your Skills with <span style="color:#ff69b4;">SJ.Tech Courses</span></h1>
+                    <p class="lead">Master modern tech with hands-on, project-based online courses. From beginners to advanced — we have a path for you.</p>
+                    <a href="#courses-list" class="btn" style="background:#ff69b4; color:white;">Explore Courses</a>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <img src="{% static 'assets/images/home-hero-vector-unscreen.gif' %}" alt="Online Learning" class="img-fluid" style="max-height: 300px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- {% load static %} -->
+<section class="py-5 bg-light" id="courses-list">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h3 class="title position-relative">  <span>Our Courses</span></h3>
+            <h2 class="title"><span>New Batch 2025 </span><span style="color:#ff69b4;">Starting Soon!</span></h2>
+        </div>
+
+        <!-- Fixed & Super Clean Slider -->
+        <div id="coursesCarousel" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+
+                {% for course in courses %}
+                    {% if forloop.counter0|divisibleby:3 %}
+                        {% if not forloop.first %}</div></div>{% endif %}  <!-- Close previous slide -->
+                        <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}">
+                            <div class="row g-4 justify-content-center">
+                    {% endif %}
+
+                    <!-- Course Card -->
+                    <div class="col-11 col-sm-8 col-md-6 col-lg-4">
+                        <div class="d2c_card_wrapper h-100 position-relative overflow-hidden shadow-sm" 
+                             style="border-radius:15px; background:white; transition:0.3s;">
+                            
+                            {% if course.is_new %}
+                                <span class="position-absolute top-0 end-0 bg-warning text-dark px-3 py-1 rounded-start fw-bold" 
+                                      style="font-size:0.8rem; z-index:2;">NEW</span>
+                            {% endif %}
+
+                            <div class="p-4 pb-5">
+                                <h4 class="{% if 'Python' in course.title %}text-primary{% else %}text-dark{% endif %} fw-bold">
+                                    {{ course.title }}
+                                </h4>
+                                <p class="text-muted small">{{ course.subtitle }}</p>
+                                
+                                <ul class="small text-success list-unstyled">
+                                    {% for feature in course.features %}
+                                        <li class="mb-1">• {{ feature }}</li>
+                                    {% endfor %}
+                                </ul>
+
+                                <!-- <a href="#contact" class="btn mt-4 w-100 text-white fw-bold"
+                                   style="background:#ff69b4; border-radius:50px; box-shadow:0 4px 15px rgba(255,105,180,0.4);">
+                                    Enroll Now
+                                </a> -->
+                                <a href="{% url 'enroll_page' %}?course={{ course.title|urlencode }}"
+   class="btn mt-4 w-100 text-white fw-bold"
+   style="background:#ff69b4; border-radius:50px; 
+          box-shadow:0 4px 15px rgba(255,105,180,0.4);
+          transition: all 0.3s;">
+   Enroll Now
+</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if forloop.last %}
+                        </div></div>  <!-- Close last row & slide -->
+                    {% endif %}
+                {% empty %}
+                    <div class="text-center py-5">
+                        <h4>No courses available yet!</h4>
+                    </div>
+                {% endfor %}
+
+                {% if courses|length > 3 and courses|length|divisibleby:3 == False %}
+                    </div></div>  <!-- Force close if last slide incomplete -->
+                {% endif %}
+
+            </div>
+
+            <!-- Left & Right Arrows – Ab 100% dikhega -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#coursesCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" style="background-color:#ff69b4; width:50px; height:50px; border-radius:50%;"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#coursesCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" style="background-color:#ff69b4; width:50px; height:50px; border-radius:50%;"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+
+            <!-- Dots (only if more than 3 courses) -->
+            {% if courses.count > 3 %}
+            <div class="carousel-indicators mt-4">
+                {% for i in courses|length|make_list %}
+                    {% if forloop.counter0|divisibleby:3 %}
+                    <button type="button" data-bs-target="#coursesCarousel" data-bs-slide-to="{{ forloop.counter0|divisibleby:3|add:-1 }}"
+                            {% if forloop.counter0 == 0 %}class="active"{% endif %}></button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center mt-5">
+            <div class="d2c_card_wrapper p-5 text-white" style="background: linear-gradient(45deg, #ff69b4, #ff8c00); border-radius:20px;">
+                <h3>New Batch Starts: <strong>January 2025</strong></h3>
+                <p>Limited seats | Early bird discount 20% OFF</p>
+                <a href="#contact" class="btn btn-light btn-lg fw-bold">Register Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+ {% block extra_css %}
+<!-- Final CSS – Arrows + Hover Effect -->
+<style>
+.carousel-control-prev, .carousel-control-next {
+    opacity: 1 ;
+    width: 45px ;
+    height: 40px ;
+    top: 65%;
+    font-size: 15px;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+}
+
+@media (max-width: 768px) {
+    .carousel-control-prev { left: 5px; }
+    .carousel-control-next { right: 5px; }
+    .carousel-control-prev, .carousel-control-next {
+        width: 45px !important;
+        height: 45px !important;
+    }
+}
+</style>
+{% endblock %}
+</div>
+{% block extra_script %}
+
+<script>
+// Auto-select course jab URL mein ?course= aa jaye
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const courseFromUrl = urlParams.get('course');
+    if (courseFromUrl) {
+        const select = document.querySelector('select[name="course"]');
+        if (select) {
+            // Exact match ya partial match
+            for (let option of select.options) {
+                if (option.value.includes(courseFromUrl) || courseFromUrl.includes(option.value)) {
+                    option.selected = true;
+                    break;
+                }
+            }
+        }
+        // Optional: URL clean kar do taaki refresh pe dobara na dikhe
+        history.replaceState(null, null, window.location.pathname);
+    }
+});
+</script>
+{% endblock %}
+{% endblock %}
+
+<!-- <div class="col-md-6 mb-4">
+                <div class="d2c_card_wrapper">
+                  <div class="d2c_icon_wrapper">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                  </div>
+                  <h3>Tech Teaching & Training</h3>
+                  <p>
+                    Learn in-demand skills with our expert-led online courses in
+                    Web Development, Python, React, Django, Digital Marketing &
+                    more. Live classes, projects, and certifications included.
+                  </p>
+                </div>
+              </div> -->

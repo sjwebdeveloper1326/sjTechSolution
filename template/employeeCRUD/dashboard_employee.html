@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Employee Dashboard{% endblock %}
+
+{% block extra_css %}
+<style>
+    body { background: #0c0f26; }
+    .dash-box {
+        background:#11152f; padding:30px; border-radius:20px;
+        box-shadow:0 0 15px rgba(255,20,147,0.3);
+    }
+    .profile-img {
+        width:120px; height:120px; border-radius:50%;
+        object-fit:cover; border:3px solid #ff5db1;
+    }
+    .label { color:#bbb; margin-bottom:2px; font-size:13px; }
+    .value { color:#fff; font-size:16px; font-weight:600; }
+    table { color:#fff; }
+    .table-dark th { background:#1a1d3a !important; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <!-- Profile Section -->
+    <div class="dash-box mb-5">
+        <div class="text-center mb-4">
+            {% if employee.photo %}
+            <img src="{{ employee.photo.url }}" class="profile-img">
+            {% else %}
+            <img src="{% static 'default/user.png' %}" class="profile-img">
+            {% endif %}
+
+            <h2 class="text-white mt-3">{{ employee.name }}</h2>
+            <p class="text-pink">{{ employee.designation }}</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <p class="label">Employee ID</p><p class="value">{{ employee.emp_id }}</p>
+                <p class="label">Phone</p><p class="value">{{ employee.phone }}</p>
+                <p class="label">Email</p><p class="value">{{ employee.email }}</p>
+            </div>
+
+            <div class="col-md-6">
+                <p class="label">DOB</p><p class="value">{{ employee.dob }}</p>
+                <p class="label">Gender</p><p class="value">{{ employee.gender }}</p>
+                <p class="label">Salary</p><p class="value">₹{{ employee.salary }}</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Timesheet Table -->
+    <div class="dash-box">
+        <h3 class="text-white mb-3">TimeSheet</h3>
+
+        <table class="table table-dark table-bordered">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Check In</th>
+                    <th>Check Out</th>
+                    <th>Hours</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for t in timesheet %}
+                <tr>
+                    <td>{{ t.date }}</td>
+                    <td>{{ t.check_in }}</td>
+                    <td>{{ t.check_out }}</td>
+                    <td>{{ t.hours }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{% endblock %}

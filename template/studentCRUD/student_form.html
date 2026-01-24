@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    {% if student %}Edit{% else %}Add New{% endif %} Student - SJ.Tech
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+
+            <h2 class="text-center mb-4" style="color:#ff2c91;">
+                {% if student %}Edit Student{% else %}Add New Student{% endif %}
+            </h2>
+
+            <div class="card bg-dark text-white shadow-lg" style="border: 2px solid #ff2c91; border-radius:15px;">
+                <div class="card-body p-4">
+
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row g-3">
+
+                            <!-- Name -->
+                            <div class="col-md-6">
+                                <label class="form-label">Full Name *</label>
+                                <input type="text" name="name" class="form-control bg-secondary text-white"
+                                       value="{{ student.name }}" required>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="col-md-6">
+                                <label class="form-label">Phone *</label>
+                                <input type="tel" name="phone"
+                                       pattern="[0-9]{10}"
+                                       maxlength="10"
+                                       class="form-control bg-secondary text-white"
+                                       placeholder="10-digit number"
+                                       value="{{ student.phone }}" required>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="col-md-6">
+                                <label class="form-label">Email *</label>
+                                <input type="email" name="email" class="form-control bg-secondary text-white"
+                                       value="{{ student.email }}" required>
+                            </div>
+
+                            <!-- Course -->
+                            <div class="col-md-6">
+                                <label class="form-label">Course *</label>
+                                <input type="text" name="course" class="form-control bg-secondary text-white"
+                                       value="{{ student.course }}" required>
+                            </div>
+
+                            <!-- Fee Paid -->
+                            <div class="col-md-4">
+                                <label class="form-label">Fee Paid</label>
+                                <input type="number" step="0.01" name="fee_paid"
+                                       class="form-control bg-secondary text-white"
+                                       value="{{ student.fee_paid|default:'' }}">
+                            </div>
+
+                            <!-- Status -->
+                            <div class="col-md-4">
+                                <label class="form-label">Status</label>
+                                <select name="status" class="form-select bg-secondary text-white">
+                                    <option value="active" {% if student.status == 'active' %}selected{% endif %}>Active</option>
+                                    <option value="inactive" {% if student.status == 'inactive' %}selected{% endif %}>Inactive</option>
+                                    <option value="completed" {% if student.status == 'completed' %}selected{% endif %}>Completed</option>
+                                    <option value="dropped" {% if student.status == 'dropped' %}selected{% endif %}>Dropped</option>
+                                </select>
+                            </div>
+
+                            <!-- Gender -->
+                            <div class="col-md-4">
+                                <label class="form-label">Gender</label>
+                                <select name="gender" class="form-select bg-secondary text-white">
+                                    <option value="male" {% if student.gender == 'male' %}selected{% endif %}>Male</option>
+                                    <option value="female" {% if student.gender == 'female' %}selected{% endif %}>Female</option>
+                                    <option value="other" {% if student.gender == 'other' %}selected{% endif %}>Other</option>
+                                </select>
+                            </div>
+
+                            <!-- Date of Birth -->
+                            <div class="col-md-6">
+                                <label class="form-label">Date of Birth *</label>
+                                <input type="date" name="dob" class="form-control bg-secondary text-white"
+                                       value="{{ student.dob|date:'Y-m-d' }}" required>
+                            </div>
+
+                            <!-- Aadhaar -->
+                            <div class="col-md-6">
+                                <label class="form-label">Aadhaar (Optional)</label>
+                                <input type="text" maxlength="12" name="aadhaar"
+                                       class="form-control bg-secondary text-white"
+                                       value="{{ student.aadhaar }}" placeholder="123456789012">
+                            </div>
+
+                            <!-- Address -->
+                            <div class="col-12">
+                                <label class="form-label">Address *</label>
+                                <textarea name="address" class="form-control bg-secondary text-white"
+                                          rows="3" required>{{ student.address }}</textarea>
+                            </div>
+
+                            <!-- Date of Joining -->
+                            <div class="col-md-6">
+                                <label class="form-label">Date of Joining *</label>
+                                <input type="date" name="date_of_joining"
+                                       class="form-control bg-secondary text-white"
+                                       value="{{ student.date_of_joining|date:'Y-m-d' }}" required>
+                            </div>
+
+                            <!-- Joint Students (Multiple Selection) -->
+                            <div class="col-md-6">
+                              <label class="form-label">Joint Students</label>
+
+                              <div id="joint-student-wrapper">
+                                  {% if student %}
+                                      {% for js in student.jointStudents %}
+                                          <div class="d-flex gap-2 mb-2 joint-field">
+                                              <input type="text" name="joint_students" value="{{ js }}" class="form-control bg-secondary text-white">
+                                              <button type="button" class="btn btn-danger remove-field">×</button>
+                                          </div>
+                                      {% endfor %}
+                                  {% endif %}
+                              </div>
+
+                              <button type="button" id="add-joint-btn" class="btn btn-success mt-2">+ Add Student</button>
+                          </div>
+
+                            <!-- Photo -->
+                            <div class="col-12">
+                                <label class="form-label">Photo</label>
+                                <input type="file" name="photo"
+                                       class="form-control bg-secondary text-white"
+                                       accept="image/*">
+
+                                {% if student.photo %}
+                                    <img src="{{ student.photo.url }}" class="img-thumbnail mt-2"
+                                         style="height:80px; border-radius:10px;">
+                                {% endif %}
+                            </div>
+
+                            <!-- Submit -->
+                            <div class="col-12 text-center mt-4">
+                                <button type="submit" class="btn btn-lg px-5"
+                                        style="background:#ff2c91; color:white;">
+                                    Save Student
+                                </button>
+                                <a href="{% url 'student_list' %}"
+                                   class="btn btn-outline-light btn-lg ms-3">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script>
+document.getElementById("add-joint-btn").addEventListener("click", function() {
+    let wrapper = document.getElementById("joint-student-wrapper");
+    let div = document.createElement("div");
+    div.classList.add("d-flex", "gap-2", "mb-2", "joint-field");
+    div.innerHTML = `
+        <input type="text" name="joint_students" class="form-control bg-secondary text-white">
+        <button type="button" class="btn btn-danger remove-field">×</button>
+    `;
+    wrapper.appendChild(div);
+});
+
+document.addEventListener("click", function(e) {
+    if (e.target.classList.contains("remove-field")) {
+        e.target.parentElement.remove();
+    }
+});
+</script>
+{% endblock %}                          

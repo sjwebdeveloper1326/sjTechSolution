@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    {% if emp %}Edit{% else %}Add New{% endif %} Employee - SJ.Tech
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+
+            <h2 class="text-center mb-4" style="color:#ff2c91;">
+                {% if emp %}Edit Employee{% else %}Add New Employee{% endif %}
+            </h2>
+
+            {% include "partials/employee_form.html" %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

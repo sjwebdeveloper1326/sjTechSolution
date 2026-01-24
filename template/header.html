@@ -1,0 +1,86 @@
+
+    <!-- Header -->
+    <header class="d2c_navbar sticky-top">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg px-0 py-0" id="d2c_main_nav">
+          <!-- Logo -->
+          <a class="navbar-brand" href="{% url 'home' %}">
+            <img
+              src="{% static 'assets/images/SJ_T_logo.png' %}"
+              class="w-100"
+              alt="Logo"
+            />
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+          >
+            <span><i class="fas fa-bars"></i></span>
+          </button>
+
+          <div
+            class="collapse navbar-collapse js-clone-nav justify-content-end"
+          >
+
+           <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'home' %}">home</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'dashboard' %}">dashboard</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'courses' %}">courses</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}">about</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'services_list' %}">service</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'testimonial' %}">testimonial</a>
+              </li>
+
+              <li class="nav-item">
+                <a href="#contact" class="btn d-block d-lg-none"
+                  >Get In touch</a
+                >
+              </li>
+            </ul>
+
+
+          </div>
+
+          <a href="#contact" class="btn d-none d-lg-block">Get In touch</a>
+        </nav>
+
+        <!-- Mobile Nav -->
+        <div
+          class="collapse navbar-collapse d2c_mobile_view"
+          id="navbarSupportedContent"
+        >
+          <div class="show_width container">
+            <div class="text-right">
+              <button
+                class="navbar-toggler d2c_cross_btn p-0"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+              >
+                <span><i class="fa fa-times"></i></span>
+              </button>
+            </div>
+            <div class="navbar px-0 d2c_mobile_view_body"></div>
+          </div>
+        </div>
+      </div>
+    </header>

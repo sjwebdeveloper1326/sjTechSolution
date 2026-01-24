@@ -1,0 +1,75 @@
+ 
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    testimonial - SJ.Tech
+{% endblock %}
+
+{% block content %}
+   <!-- testimonial section start -->
+    <section class="d2c_testimonial_wrapper" id="testimonial">
+      <div class="container">
+        <h3 class="d2c_sub_title text_start text-md-center position-relative">
+          Our <span>Testimonial</span>
+        </h3>
+        <h2 class="d2c_title text_start text-md-center position-relative">
+          here are some client feedback<span></span>
+        </h2>
+        <div class="row testimonial_slider">
+          <div class="col">
+            <div class="d2c_card_wrapper text-center">
+              <h5>
+                Tanahair is the friendliest and most efficient service I have
+                ever used. The whole thing takes time to introduce the product
+                and, as a result, put forward only the best opportunities that
+                really suit you.
+              </h5>
+              <img
+                src="{% static 'assets/images/testimonial_one.jpg' %}"
+                class="img-fluid mb-2"
+                alt="Testimonial One"
+              />
+              <h3 class="mb-2"><span>Darren Dunlap</span></h3>
+              <p class="mb-0">CEO & Founder at Flex.co</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="d2c_card_wrapper text-center">
+              <h5>
+                Tanahair is the friendliest and most efficient service I have
+                ever used. The whole thing takes time to introduce the product
+                and, as a result, put forward only the best opportunities that
+                really suit you.
+              </h5>
+              <img
+                src="{% static 'assets/images/testimonial_one.jpg' %}"
+                class="img-fluid mb-2"
+                alt="Testimonial One"
+              />
+              <h3 class="mb-2"><span>Darren Dunlap</span></h3>
+              <p class="mb-0">CEO & Founder at Flex.co</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="d2c_card_wrapper text-center">
+              <h5>
+                Tanahair is the friendliest and most efficient service I have
+                ever used. The whole thing takes time to introduce the product
+                and, as a result, put forward only the best opportunities that
+                really suit you.
+              </h5>
+              <img
+                src="{% static 'assets/images/testimonial_one.jpg' %}"
+                class="img-fluid mb-2"
+                alt="Testimonial One"
+              />
+              <h3 class="mb-2"><span>Darren Dunlap</span></h3>
+              <p class="mb-0">CEO & Founder at Flex.co</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- testimonial section end -->
+{% endblock %}

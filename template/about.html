@@ -1,0 +1,37 @@
+ 
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    About - SJ.Tech
+{% endblock %}
+
+{% block content %}
+ <!-- about section start -->
+        <section class="d2c_about_wrapper" id="about">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                        <div class="d2c_img_container position-relative me-0 me-lg-5">
+                            <div class="d2c_img_wrapper">
+                                <img src="{% static 'assets/images/about_one.jpg' %}" class="img-fluid w-100 rounded-3" alt="About Upper Image">
+                            </div>
+                            <div class="d2c_img_wrapper">
+                                <img src="{% static 'assets/images/about_two.jpg' %}" class="img-fluid w-100 rounded-3" alt="About Down Image">
+                            </div>
+                            <img src="{% static 'assets/images/about_shade.png' %}" alt="About Background Image">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h3 class="d2c_sub_title position-relative">About <span>SJ.Tech Solution</span></h3>
+                        <h2 class="d2c_title position-relative">Empowering YourTech <span>Exploration</span></h2>
+                        <p class="mb-3">At SJ.Tech Solution, we're passionate about all things tech. Our platform is designed to provide you with insightful articles, expert opinions, and resources to fuel your curiosity and drive your tech ambitions forward. Explore
+                            the latest advancements in technology with SJ.Tech Solution. Our responsive Bootstrap landing page is designed to keep you updated on cutting-edge trends and solutions that empower your tech journey from the SJ.Tech Solution.</p>
+                        <p class="d2c_last_paragraph">Learn more about SJ.Tech Solution and our mission. Get to know our passionate team of tech enthusiasts and innovators who are dedicated to bringing you the best insights and information from the tech industry.</p>
+                        <a href="#contact" class="btn">Stay Connect</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- about section end -->
+{% endblock %}

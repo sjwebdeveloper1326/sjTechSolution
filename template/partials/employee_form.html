@@ -1,0 +1,139 @@
+<div class="card bg-dark text-white shadow-lg" style="border: 2px solid #ff2c91; border-radius:15px;">
+                <div class="card-body p-4">
+
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row g-3">
+
+                            <!-- Name -->
+                            <div class="col-md-6">
+                                <label class="form-label">Full Name *</label>
+                                <input type="text" name="name" class="form-control bg-secondary text-white"
+                                       value="{{ emp.name }}" required>
+                            </div>
+
+                            <!-- Phone with mobile validation -->
+                            <div class="col-md-6">
+                                <label class="form-label">Phone *</label>
+                                <input type="tel" name="phone"
+                                       pattern="[0-9]{10}"
+                                       maxlength="10"
+                                       class="form-control bg-secondary text-white"
+                                       placeholder="10-digit number"
+                                       value="{{ emp.phone }}" required>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="col-md-6">
+                                <label class="form-label">Email *</label>
+                                <input type="email" name="email" class="form-control bg-secondary text-white"
+                                       value="{{ emp.email }}" required>
+                            </div>
+
+                            <!-- Designation -->
+                            <div class="col-md-6">
+                                <label class="form-label">Designation *</label>
+                                <input type="text" name="designation"
+                                       class="form-control bg-secondary text-white"
+                                       value="{{ emp.designation }}" required>
+                            </div>
+
+                            <!-- Salary OPTIONAL -->
+                            <div class="col-md-4">
+                                <label class="form-label">Salary (Optional)</label>
+                                <input type="number" step="0.01" name="salary"
+                                       class="form-control bg-secondary text-white"
+                                       value="{{ emp.salary }}">
+                            </div>
+
+                            <!-- Status -->
+                            <div class="col-md-4">
+                                <label class="form-label">Status</label>
+                                <select name="status" class="form-select bg-secondary text-white">
+                                    <option value="active" {% if emp.status == 'active' %}selected{% endif %}>Active</option>
+                                    <option value="inactive" {% if emp.status == 'inactive' %}selected{% endif %}>Inactive</option>
+                                    <option value="terminated" {% if emp.status == 'terminated' %}selected{% endif %}>Terminated</option>
+                                </select>
+                            </div>
+
+                            <!-- Gender -->
+                            <div class="col-md-4">
+                                <label class="form-label">Gender</label>
+                                <select name="gender" class="form-select bg-secondary text-white">
+                                    <option value="male" {% if emp.gender == 'male' %}selected{% endif %}>Male</option>
+                                    <option value="female" {% if emp.gender == 'female' %}selected{% endif %}>Female</option>
+                                    <option value="other" {% if emp.gender == 'other' %}selected{% endif %}>Other</option>
+                                </select>
+                            </div>
+
+                            <!-- Date of Birth -->
+                            <div class="col-md-6">
+                                <label class="form-label">Date of Birth *</label>
+                                <input type="date" name="dob" class="form-control bg-secondary text-white"
+                                       value="{{ emp.dob|date:'Y-m-d' }}" required>
+                            </div>
+
+                            <!-- Aadhaar -->
+                            <div class="col-md-6">
+                                <label class="form-label">Aadhaar (Optional)</label>
+                                <input type="text" maxlength="12" name="aadhaar"
+                                       class="form-control bg-secondary text-white"
+                                       value="{{ emp.aadhaar }}" placeholder="123456789012">
+                            </div>
+
+                            <!-- Address -->
+                            <div class="col-12">
+                                <label class="form-label">Address *</label>
+                                <textarea name="address" class="form-control bg-secondary text-white"
+                                          rows="3" required>{{ emp.address }}</textarea>
+                            </div>
+
+                            <!-- Date of Joining -->
+                            <div class="col-md-6">
+                                <label class="form-label">Date of Joining *</label>
+                                <input type="date" name="date_of_joining"
+                                       class="form-control bg-secondary text-white"
+                                       value="{{ emp.date_of_joining|date:'Y-m-d' }}" required>
+                            </div>
+
+                            <!-- Roles (Multiple Selection) -->
+                            <div class="col-md-6">
+                                <label class="form-label">Roles (Multiple)</label>
+                                <select name="roles[]" class="form-select bg-secondary text-white" multiple>
+                                    <option value="hr">HR</option>
+                                    <option value="receptionist">Receptionist</option>
+                                    <option value="makeup_artist">Makeup Artist</option>
+                                    <option value="hair_stylist">Hair Stylist</option>
+                                    <option value="manager">Manager</option>
+                                    <option value="accountant">Accountant</option>
+                                </select>
+                                <small class="text-info">You can select 1 or more roles</small>
+                            </div>
+
+                            <!-- Photo -->
+                            <div class="col-12">
+                                <label class="form-label">Photo</label>
+                                <input type="file" name="photo"
+                                       class="form-control bg-secondary text-white"
+                                       accept="image/*">
+
+                                {% if emp.photo %}
+                                    <img src="{{ emp.photo.url }}" class="img-thumbnail mt-2"
+                                         style="height:80px; border-radius:10px;">
+                                {% endif %}
+                            </div>
+
+                            <!-- Submit -->
+                            <div class="col-12 text-center mt-4">
+                                <button type="submit" class="btn btn-lg px-5"
+                                        style="background:#ff2c91; color:white;">
+                                    Save Employee
+                                </button>
+                                <a href="{% url 'employee_list' %}"
+                                   class="btn btn-outline-light btn-lg ms-3">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
