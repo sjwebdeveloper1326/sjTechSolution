@@ -53,6 +53,21 @@ def logout_view(request):
     logout(request)
     return redirect('home')
 
+from django.urls import reverse_lazy
+
+class CustomPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
+    template_name = 'auth/password_reset_confirm.html'
+    success_url = reverse_lazy('password_reset_complete')
+
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            "✅ Your password has been updated successfully."
+        )
+        return super().form_valid(form)
+
+
+
 # password reset email send hone ke baad SUCCESS MESSAGE ke liye
 class CustomPasswordResetView(auth_views.PasswordResetView):
     template_name = 'auth/password_reset.html'

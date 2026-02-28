@@ -15,12 +15,18 @@ urlpatterns = [
       ),
 #  forgot password start...
 
-    path('reset/<uidb64>/<token>/',
-         auth_views.PasswordResetConfirmView.as_view(
-             template_name='auth/password_reset_confirm.html',
-             success_url='/reset/done/'
-         ),
-         name='password_reset_confirm'),
+    # path('reset/<uidb64>/<token>/',
+    #      auth_views.PasswordResetConfirmView.as_view(
+    #          template_name='auth/password_reset_confirm.html',
+    #          success_url='/reset/done/'
+    #      ),
+    #      name='password_reset_confirm'),
+    path(
+    'reset/<uidb64>/<token>/',
+    views.CustomPasswordResetConfirmView.as_view(),
+    name='password_reset_confirm'
+),
+
 
     path(
     'reset/done/',
