@@ -1,5 +1,5 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <!-- default meta title -->
@@ -188,13 +188,22 @@
                 </a>
               </li>
 
-              {% if profile_id %}
+              {% if student %}
               <li>
                 <a
                   class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
                   href="{% url 'dashboard_student' profile_id %}"
                 >
                   <i class="bi bi-person-circle me-2"></i>My Profile
+                </a>
+              </li>
+              {% endif %} {% if employee and employee.emp_uuid %}
+              <li>
+                <a
+                  class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
+                  href="{% url 'dashboard_employee' employee.emp_uuid %}"
+                >
+                  <i class="bi bi-person-circle me-2"></i> My Profile
                 </a>
               </li>
               {% endif %}
@@ -249,9 +258,8 @@
     >
       {% block content %}
       <!-- Yahan child templates (jaise index.html) ka content aayega -->
-      {% endblock %}
-       {% include "includesUI/_messages.html" %}
-        <!-- {% include
+      {% endblock %} {% include "includesUI/_messages.html" %}
+      <!-- {% include
       "includesUI/_deleteModal.html" %} -->
     </main>
     <!-- footer section start -->

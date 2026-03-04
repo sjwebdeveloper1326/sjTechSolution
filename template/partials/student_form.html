@@ -1,35 +1,352 @@
-<h3 class="mb-3" style="color:#ff2c91;">Student Details</h3>
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<style>
+  .form-control,
+  .form-select,
+  textarea.form-control {
+    background-color: #343a40 !important;
+    color: #ffffff !important;
+    border: 1px solid #6c757d !important;
+    border-radius: 0.375rem;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+  }
 
-<div class="row g-3">
+  .form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    padding-right: 2.25rem !important;
+  }
 
-    <div class="col-md-6">
-        <label class="form-label">Full Name *</label>
-        <input type="text" name="student_name" class="form-control bg-secondary text-white" required>
-    </div>
+  textarea.form-control {
+    height: auto;
+    min-height: 100px;
+  }
 
-    <div class="col-md-6">
-        <label class="form-label">Phone *</label>
-        <input type="text" name="student_phone" class="form-control bg-secondary text-white" maxlength="10" required>
-    </div>
+  .form-control:disabled,
+  .form-select:disabled {
+    background-color: #495057 !important;
+    color: #adb5bd !important;
+    border-color: #6c757d80 !important;
+    opacity: 1 !important;
+    cursor: not-allowed;
+  }
 
-    <div class="col-md-6">
-        <label class="form-label">Email *</label>
-        <input type="email" name="student_email" class="form-control bg-secondary text-white" required>
-    </div>
+  .form-control:required,
+  .form-select:required {
+    border-left: 3px solid #ff2c91 !important;
+  }
 
-    <div class="col-md-6">
-        <label class="form-label">Course *</label>
-        <input type="text" name="course" class="form-control bg-secondary text-white" required>
-    </div>
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: brightness(0) invert(1) !important;
+  }
 
-    <div class="col-md-6">
-        <label class="form-label">Date of Birth *</label>
-        <input type="date" name="student_dob" class="form-control bg-secondary text-white" required>
-    </div>
+  input[type="date"] {
+    color-scheme: dark;
+  }
 
-    <div class="col-md-6">
-        <label class="form-label">Photo</label>
-        <input type="file" name="student_photo" class="form-control bg-secondary text-white" accept="image/*">
-    </div>
+.choices__inner {
+  background-color: #343a40 !important;
+  border: 1px solid #6c757d !important;
+  color: #fff !important;
+  min-height: 38px;
+}
 
+.choices__list--multiple .choices__item {
+  background-color: #ff2c91 !important;
+  border: 1px solid #e02580 !important;
+  color: white !important;
+}
+
+.choices__dropdown {
+  background-color: #343a40 !important;
+  border: 1px solid #6c757d !important;
+  color: #ffffff !important;
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted,
+.choices__list--dropdown .choices__item.is-selected {
+  background-color: #495057 !important;
+  color: #ffffff !important;
+}
+
+/* Choices.js - better dark mode + alignment */
+.choices {
+  width: 100% !important;
+}
+
+.choices__inner {
+  background-color: #343a40 !important;
+  border: 1px solid #6c757d !important;
+  color: #ffffff !important;
+  min-height: 42px;               /* better height match with other fields */
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.choices__list--multiple {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin: 0;
+}
+
+.choices__list--multiple .choices__item {
+  background-color: #ff2c91 !important;
+  border: 1px solid #e02580 !important;
+  border-radius: 0.375rem;
+  color: white !important;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.9rem;
+}
+
+.choices__list--multiple .choices__button {
+  color: white !important;
+  border-left: 1px solid rgba(255,255,255,0.3) !important;
+  padding: 0 0.5rem;
+}
+
+.choices__dropdown {
+  background-color: #2c3137 !important;   /* slightly darker for contrast */
+  border: 1px solid #6c757d !important;
+  border-radius: 0.375rem;
+  margin-top: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  color: #ffffff !important;
+  z-index: 1050;
+}
+
+.choices__list--dropdown {
+  margin: 0;
+}
+
+.choices__list--dropdown .choices__item {
+  padding: 0.5rem 0.75rem;
+  color: #ffffff !important;
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted,
+.choices__list--dropdown .choices__item.is-selected {
+  background-color: #495057 !important;
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted {
+  background-color: #5a6268 !important;
+}
+
+/* Placeholder when empty */
+.choices__inner.choices__inner--empty::before {
+  content: "Select courses...";
+  color: #adb5bd !important;
+  font-style: italic;
+}
+
+.choices__list--dropdown, .choices__list[aria-expanded] {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    background-color: #000000;
+    border: 1px solid #ddd;
+    
+    top: 100%;
+    margin-top: -1px;
+    border-bottom-left-radius: 2.5px;
+    border-bottom-right-radius: 2.5px;
+    overflow: hidden;
+    word-break: break-all;
+}
+</style>
+{% endblock %}
+
+<div class="card bg-dark text-white shadow-lg" style="border: 2px solid #ff2c91; border-radius: 15px">
+  <div class="card-body p-4">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div class="row g-3">
+
+        <!-- Student ID (display only, not editable) -->
+        <div class="col-md-6">
+          <label class="form-label">Student ID</label>
+          <input type="text" class="form-control bg-secondary text-white" 
+                 value="{{ student.student_id|default:'Will be auto-generated' }}" disabled>
+        </div>
+
+        <!-- Full Name -->
+        <div class="col-md-6">
+          <label class="form-label">Full Name *</label>
+          <input type="text" name="name" class="form-control bg-secondary text-white"
+                 value="{{ student.name|default:'' }}" required
+                 {% if student %}disabled{% endif %}>
+          {% if student %}
+            <input type="hidden" name="name" value="{{ student.name }}">
+          {% endif %}
+        </div>
+
+        <!-- Phone -->
+        <div class="col-md-6">
+          <label class="form-label">Phone *</label>
+          <input type="tel" name="phone" pattern="[0-9]{10}" maxlength="10"
+                 class="form-control bg-secondary text-white" placeholder="10-digit number"
+                 value="{{ student.phone|default:'' }}" required>
+        </div>
+
+        <!-- Email -->
+        <div class="col-md-6">
+          <label class="form-label">Email *</label>
+          <input type="email" name="email" class="form-control bg-secondary text-white"
+                 value="{{ student.email|default:'' }}" required
+                 {% if student %}disabled{% endif %}>
+          {% if student %}
+            <input type="hidden" name="email" value="{{ student.email }}">
+          {% endif %}
+        </div>
+
+        <!-- Gender -->
+        <div class="col-md-6">
+          <label class="form-label">Gender</label>
+          <select name="gender" class="form-select">
+            <option value="male" {% if student.gender == "male" %}selected{% endif %}>Male</option>
+            <option value="female" {% if student.gender == "female" %}selected{% endif %}>Female</option>
+            <option value="other" {% if student.gender == "other" %}selected{% endif %}>Other</option>
+          </select>
+        </div>
+
+        <!-- Status -->
+        <div class="col-md-6">
+          <label class="form-label">Status</label>
+          <select name="status" class="form-select">
+            <option value="active" {% if student.status == "active" %}selected{% endif %}>Active</option>
+            <option value="inactive" {% if student.status == "inactive" %}selected{% endif %}>Inactive</option>
+            <option value="suspended" {% if student.status == "suspended" %}selected{% endif %}>Suspended</option>
+          </select>
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="col-md-6">
+          <label class="form-label">Date of Birth *</label>
+          <input type="date" name="dob" class="form-control bg-secondary text-white"
+                 value="{{ student.dob|date:'Y-m-d'|default:'' }}" required>
+        </div>
+
+        <!-- Date of Joining -->
+        <div class="col-md-6">
+          <label class="form-label">Date of Joining</label>
+          <input type="date" name="date_of_joining" class="form-control bg-secondary text-white"
+                 value="{{ student.date_of_joining|date:'Y-m-d'|default:'' }}">
+        </div>
+
+        <!-- Aadhaar -->
+        <div class="col-md-6">
+          <label class="form-label">Aadhaar (Optional)</label>
+          <input type="text" name="aadhaar" pattern="[0-9]{12}" maxlength="12"
+                 class="form-control bg-secondary text-white" placeholder="123456789012"
+                 value="{{ student.aadhaar|default:'' }}">
+        </div>
+
+        <!-- Fee Paid -->
+        <div class="col-md-6">
+          <label class="form-label">Fee Paid (₹)</label>
+          <input type="number" name="feePaid" step="0.01" min="0"
+                 class="form-control bg-secondary text-white"
+                 value="{{ student.feePaid|default:'' }}" placeholder="0.00">
+        </div>
+
+        <!-- Courses (Multi Select) -->
+        <div class="col-md-12">
+  <label class="form-label">Courses Enrolled *</label>
+  <select name="course_ids" class="js-choices" multiple required>
+    {% for course in courses %}
+      <option value="{{ course.id }}"
+              {% if student and course.id|stringformat:"s" in student.course_ids %}selected{% endif %}>
+        {{ course.title }}
+      </option>
+    {% endfor %}
+  </select>
+  <small class="text-muted">You can select multiple courses (search is also available)</small>
 </div>
+
+        <!-- Referred / Joined By (Single Select) -->
+        <div class="col-md-6">
+          <label class="form-label">Referred / Joined By</label>
+          <select name="joint_by_uuid" class="form-select">
+            <option value="">-- None / Self --</option>
+            {% for emp in employees %}
+              <option value="{{ emp.emp_uuid }}"
+                      {% if student and student.jointBy == emp.emp_uuid|stringformat:"s" %}selected{% endif %}>
+                {{ emp.name }} ({{ emp.emp_id }})
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Address -->
+        <div class="col-12">
+          <label class="form-label">Address</label>
+          <textarea name="address" class="form-control bg-secondary text-white" rows="3"
+                    placeholder="Full address...">{{ student.address|default:'' }}</textarea>
+        </div>
+
+        <!-- Photo -->
+        <div class="col-12">
+          <label class="form-label">Photo</label>
+          <input type="file" name="photo" class="form-control bg-secondary text-white mb-3" accept="image/*">
+
+          {% if student.photo %}
+            <div class="text-center">
+              <img src="{{ student.photo.url }}" alt="Student photo"
+                   style="max-height: 180px; border-radius: 12px; border: 2px solid #6c757d;">
+              <p class="text-muted mt-2 small">Current photo</p>
+            </div>
+          {% else %}
+            <div class="text-center p-3 bg-secondary rounded">
+              <p class="text-muted mb-0">No photo uploaded</p>
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Submit -->
+        <div class="col-12 text-center mt-4">
+          <button type="submit" class="btn btn-lg px-5" style="background: #ff2c91; color: white;">
+            {% if student %}Update Student{% else %}Save Student{% endif %}
+          </button>
+          <a href="{% url 'student_list' %}" class="btn btn-outline-light btn-lg ms-3">
+            Cancel
+          </a>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>
+{% block extra_script %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const element = document.querySelector('.js-choices');
+  if (element) {
+    new Choices(element, {
+      removeItemButton: true,
+      searchEnabled: true,
+      searchPlaceholderValue: 'Search courses...',
+      noResultsText: 'Koi course nahi mila',
+      noChoicesText: 'Koi course available nahi',
+      itemSelectText: '',
+      allowHTML: true,
+      placeholderValue: 'Select courses...',
+      classNames: {
+        containerOuter: ['choices', 'choices--dark'],
+      }
+    });
+  }
+});
+</script>
+{% endblock %}

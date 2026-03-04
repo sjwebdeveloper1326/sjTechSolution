@@ -1,82 +1,96 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}Employee Directory - SJ.Tech{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block title %}Employee Directory
+- SJ.Tech{% endblock %} {% block content %}
 <div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold" style="color: #ff2c91">Employee Directory</h2>
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold" style="color:#ff2c91;">Employee Directory</h2>
+    <a
+      href="{% url 'employee_add' %}"
+      class="btn btn-lg"
+      style="background: #ff2c91; color: white"
+    >
+      + Add Employee
+    </a>
+  </div>
 
-        <a href="{% url 'employee_add' %}" class="btn btn-lg" style="background:#ff2c91; color:white;">
-            + Add Employee
-        </a>
-    </div>
+  <div class="table-responsive shadow-lg rounded">
+    <table class="table table-dark table-striped table-bordered align-middle">
+      <thead class="table-danger">
+        <tr>
+          <th>Photo</th>
+          <th>Name</th>
+          <th>Designation</th>
+          <th>Role</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>State</th>
+          <th>City</th>
+          <th>Salary</th>
+          <th>Join Date</th>
+          <th>Status</th>
+          <th style="width: 180px">Actions</th>
+        </tr>
+      </thead>
 
-    <div class="table-responsive shadow-lg rounded">
-        <table class="table table-dark table-striped table-bordered align-middle">
-            <thead class="table-danger">
-                <tr>
-                    <th>Photo</th>
-                    <th>Name</th>
-                    <th>Designation</th>
-                    <th>Role</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Address</th>
-                    <th>Salary</th>
-                    <th>Join Date</th>
-                    <th>Status</th>
-                    <th style="width:180px;">Actions</th>
-                </tr>
-            </thead>
+      <tbody>
+        {% for emp in employees %}
+        <tr>
+          <td>
+            {% if emp.photo %}
+            <img
+              src="{{ emp.photo.url }}"
+              class="img-thumbnail"
+              style="height: 60px; width: 60px; object-fit: cover"
+            />
+            {% else %}
+            <div
+              class="d-flex justify-content-center align-items-center bg-secondary text-white rounded"
+              style="height: 60px; width: 60px; font-size: 24px"
+            >
+              {{ emp.name.0 }}
+            </div>
+            {% endif %}
+          </td>
 
-            <tbody>
-                {% for emp in employees %}
-                <tr>
-                    <td>
-                        {% if emp.photo %}
-                            <img src="{{ emp.photo.url }}" class="img-thumbnail"
-                                 style="height:60px; width:60px; object-fit:cover;">
-                        {% else %}
-                            <div class="d-flex justify-content-center align-items-center bg-secondary text-white rounded"
-                                 style="height:60px; width:60px; font-size:24px;">
-                                {{ emp.name.0 }}
-                            </div>
-                        {% endif %}
-                    </td>
+          <td>{{ emp.name }}</td>
+          <td>{{ emp.designation }}</td>
+          <td>{{ emp.role }}</td>
+          <td>{{ emp.email }}</td>
+          <td>{{ emp.phone }}</td>
+          <td>{{ emp.address }}</td>
+          <td>{{ emp.state }}</td>
+          <td>{{ emp.city }}</td>
+          <td>₹{{ emp.salary }}</td>
+          <td>{{ emp.join_date }}</td>
 
-                    <td>{{ emp.name }}</td>
-                    <td>{{ emp.designation }}</td>
-                    <td>{{ emp.role }}</td>
-                    <td>{{ emp.email }}</td>
-                    <td>{{ emp.phone }}</td>
-                    <td>{{ emp.address }}</td>
-                    <td>₹{{ emp.salary }}</td>
-                    <td>{{ emp.join_date }}</td>
+          <td>
+            <span
+              class="badge bg-{% if emp.status == 'active' %}success{% else %}danger{% endif %}"
+            >
+              {{ emp.status|title }}
+            </span>
+          </td>
 
-                    <td>
-                        <span class="badge bg-{% if emp.status == 'active' %}success{% else %}danger{% endif %}">
-                            {{ emp.status|title }}
-                        </span>
-                    </td>
+          <td>
+         <td>
+  {% if emp.emp_uuid %}
+  <a href="{% url 'employee_edit' emp_uuid=emp.emp_uuid %}" class="btn btn-sm btn-outline-light">
+    Edit
+  </a>
+  {% endif %}
+</td>
+            
+          </td>
+        </tr>
 
-                    <td>
-                        <a href="{% url 'employee_edit' emp.id %}" 
-                           class="btn btn-sm btn-outline-light me-1">Edit</a>
-                           
-                    </td>
-                </tr>
-
-                {% empty %}
-                <tr>
-                    <td colspan="11" class="text-center py-4 fs-4">No employees found</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
+        {% empty %}
+        <tr>
+          <td colspan="11" class="text-center py-4 fs-4">No employees found</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock %}

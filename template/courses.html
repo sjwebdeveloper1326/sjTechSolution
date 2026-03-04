@@ -66,10 +66,7 @@
                                     {% endfor %}
                                 </ul>
 
-                                <!-- <a href="#contact" class="btn mt-4 w-100 text-white fw-bold"
-                                   style="background:#ff69b4; border-radius:50px; box-shadow:0 4px 15px rgba(255,105,180,0.4);">
-                                    Enroll Now
-                                </a> -->
+                        
                                 <a href="{% url 'enroll_page' %}?course={{ course.title|urlencode }}"
    class="btn mt-4 w-100 text-white fw-bold"
    style="background:#ff69b4; border-radius:50px; 

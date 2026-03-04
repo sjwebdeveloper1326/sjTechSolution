@@ -1,0 +1,56 @@
+<div class="dash-box">
+  <div class="d-flex justify-content-between mb-3">
+    <h3 class="text-white">TimeSheet</h3>
+
+    <a
+      href="{% url 'timesheet_add' emp_uuid=employee.emp_uuid %}"
+      class="btn btn-success btn-sm"
+    >
+      + Create
+    </a>
+  </div>
+
+  <table class="table table-dark table-bordered">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>In</th>
+        <th>Out</th>
+        <th>Hours</th>
+        <th>Description</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for t in employee.timesheets.all %}
+      <tr>
+        <td>{{ t.date }}</td>
+        <td>{{ t.check_in }}</td>
+        <td>{{ t.check_out }}</td>
+        <td>{{ t.hours }}</td>
+        <td>{{ t.description|default:"-" }}</td>
+        <td>
+          <a
+            href="{% url 'timesheet_edit' employee.emp_uuid t.uuid %}"
+            class="btn btn-warning btn-sm"
+            >Edit</a
+          >
+
+          <a
+            href="{% url 'timesheet_delete' employee.emp_uuid t.uuid %}"
+            class="btn btn-danger btn-sm"
+            onclick="return confirm('Delete this record?');"
+          >
+            Delete
+          </a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" class="text-center text-muted">No timesheet records</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

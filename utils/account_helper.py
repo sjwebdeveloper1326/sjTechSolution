@@ -26,7 +26,7 @@ def create_username(name: str, unique_code: str) -> str:
     last_part = unique_code
     # last_part = unique_code.split("-")[-1] if unique_code else ""
     # return f"{clean_name}{date_code}_{last_part}"
-    return f"{first_name}_{last_part}"
+    return f"{first_name}@{last_part}"
 
 
 def create_system_user(name: str, email: str, unique_code: str, password_length: int = 10):

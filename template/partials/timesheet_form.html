@@ -1,0 +1,186 @@
+{% extends "base.html" %} {% load static %} {% block title %}Timesheet form{% endblock %}
+{% block extra_css %}
+<style>
+  /* Base dark form controls - consistent with your previous employee form */
+  .form-control,
+  .form-select,
+  textarea.form-control {
+    background-color: #343a40 !important;
+    color: #ffffff !important;
+    border: 1px solid #6c757d !important;
+    border-radius: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    height: calc(1.5em + 0.75rem + 2px); /* consistent height */
+  }
+
+  /* Icons white in dark mode (calendar & clock) */
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="time"]::-webkit-calendar-picker-indicator,
+  input[type="date"]::-webkit-clear-button,
+  input[type="time"]::-webkit-clear-button {
+    filter: brightness(0) invert(1) !important;
+    opacity: 0.9 !important;
+  }
+
+  input[type="date"],
+  input[type="time"] {
+    color-scheme: dark; /* Helps Firefox + others */
+  }
+
+  /* Focus & hover states */
+  .form-control:focus {
+    border-color: #ff2c91 !important;
+    box-shadow: 0 0 0 0.25rem rgba(255, 44, 145, 0.25) !important;
+  }
+
+  /* Required fields left accent */
+  .form-control:required {
+    border-left: 3px solid #ff2c91 !important;
+  }
+
+  /* Textarea specific */
+  textarea.form-control {
+    min-height: 100px;
+  }
+
+  /* Buttons */
+  .btn-primary-custom {
+    background-color: #ff2c91;
+    border-color: #ff2c91;
+    color: white;
+  }
+  .btn-primary-custom:hover {
+    background-color: #e02580;
+    border-color: #e02580;
+    
+  }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container my-4">
+  <div class="card bg-dark text-white shadow-lg" style="border: 2px solid #ff2c91; border-radius: 12px;">
+    <div class="card-header bg-transparent border-bottom border-secondary">
+      <h4 class="mb-0">{{ action }} Timesheet - {{ employee.emp_id }}</h4>
+    </div>
+    
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+          <label class="form-label">Date *</label>
+          <input 
+            type="date" 
+            name="date" 
+            class="form-control"  
+            value="{{ timesheet.date|date:'Y-m-d' }}"
+            required
+          >
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Check In *</label>
+            <input 
+              type="time" 
+              name="check_in" 
+              class="form-control" 
+              value="{{ timesheet.check_in|time:'H:i' }}"
+              required
+            >
+          </div>
+          
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Check Out *</label>
+            <input 
+              type="time" 
+              name="check_out" 
+              class="form-control" 
+              value="{{ timesheet.check_out|time:'H:i' }}"
+              required
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Hours Worked *</label>
+          <input 
+            type="number" 
+            step="0.01" 
+            min="0" 
+            name="hours" 
+            class="form-control" 
+            value="{{ timesheet.hours|default:'' }}" 
+            required
+            placeholder="e.g. 8.5"
+          >
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <textarea 
+            name="description" 
+            class="form-control" 
+            rows="4"
+            placeholder="Enter any notes, tasks, or remarks..."
+          >{{ timesheet.description|default:'' }}</textarea>
+        </div>
+
+        <div class="d-flex gap-3 mt-4">
+          <button type="submit" class="btn btn-lg px-5 btn-primary-custom">
+            {{ action }}
+          </button>
+          
+          <a href="{% url 'dashboard_employee' employee.emp_uuid %}" 
+             class="btn btn-lg btn-outline-light px-5">
+            Back
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% block extra_script %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Use more unique names to avoid conflicts
+    const tsCheckIn   = document.querySelector('input[name="check_in"]');
+    const tsCheckOut  = document.querySelector('input[name="check_out"]');
+    const tsHours     = document.querySelector('input[name="hours"]');
+
+    if (!tsCheckIn || !tsCheckOut || !tsHours) {
+        return; // fields not found → skip
+    }
+
+    function calculateHours() {
+        if (!tsCheckIn.value || !tsCheckOut.value) {
+            tsHours.value = '';
+            return;
+        }
+
+        const inParts = tsCheckIn.value.split(':');
+        const outParts = tsCheckOut.value.split(':');
+
+        const inTime = new Date();
+        inTime.setHours(parseInt(inParts[0]), parseInt(inParts[1]), 0);
+
+        const outTime = new Date();
+        outTime.setHours(parseInt(outParts[0]), parseInt(outParts[1]), 0);
+
+        let diffMs = outTime - inTime;
+        if (diffMs < 0) diffMs += 24 * 60 * 60 * 1000; // overnight
+
+        const diffHours = diffMs / (1000 * 60 * 60);
+        tsHours.value = diffHours.toFixed(2);
+    }
+
+    tsCheckIn.addEventListener('change', calculateHours);
+    tsCheckOut.addEventListener('change', calculateHours);
+
+    // Run once on load (in case values are pre-filled on edit)
+    calculateHours();
+});
+</script>
+{% endblock %}
+{% endblock %}
