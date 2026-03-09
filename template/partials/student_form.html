@@ -167,32 +167,21 @@
 </style>
 {% endblock %}
 
+
 <div class="card bg-dark text-white shadow-lg" style="border: 2px solid #ff2c91; border-radius: 15px">
   <div class="card-body p-4">
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
-
       <div class="row g-3">
 
-        <!-- Student ID (display only, not editable) -->
-        <div class="col-md-6">
-          <label class="form-label">Student ID</label>
-          <input type="text" class="form-control bg-secondary text-white" 
-                 value="{{ student.student_id|default:'Will be auto-generated' }}" disabled>
-        </div>
-
-        <!-- Full Name -->
+        <!-- Full Name * (required) -->
         <div class="col-md-6">
           <label class="form-label">Full Name *</label>
           <input type="text" name="name" class="form-control bg-secondary text-white"
-                 value="{{ student.name|default:'' }}" required
-                 {% if student %}disabled{% endif %}>
-          {% if student %}
-            <input type="hidden" name="name" value="{{ student.name }}">
-          {% endif %}
+                 value="{{ student.name|default:'' }}" required>
         </div>
 
-        <!-- Phone -->
+        <!-- Phone * (required) -->
         <div class="col-md-6">
           <label class="form-label">Phone *</label>
           <input type="tel" name="phone" pattern="[0-9]{10}" maxlength="10"
@@ -200,17 +189,21 @@
                  value="{{ student.phone|default:'' }}" required>
         </div>
 
-        <!-- Email -->
+        <!-- Email * (required) -->
         <div class="col-md-6">
           <label class="form-label">Email *</label>
           <input type="email" name="email" class="form-control bg-secondary text-white"
-                 value="{{ student.email|default:'' }}" required
-                 {% if student %}disabled{% endif %}>
-          {% if student %}
-            <input type="hidden" name="email" value="{{ student.email }}">
-          {% endif %}
+                 value="{{ student.email|default:'' }}" required>
         </div>
 
+        <!-- Date of Joining * (required) -->
+        <div class="col-md-6">
+          <label class="form-label">Date of Joining *</label>
+          <input type="date" name="date_of_joining" class="form-control bg-secondary text-white"
+                 value="{{ student.date_of_joining|date:'Y-m-d'|default:'' }}" required>
+        </div>
+
+        <!-- Baaki fields optional — inko required hata dena -->
         <!-- Gender -->
         <div class="col-md-6">
           <label class="form-label">Gender</label>
@@ -231,21 +224,14 @@
           </select>
         </div>
 
-        <!-- Date of Birth -->
+        <!-- DOB (optional) -->
         <div class="col-md-6">
-          <label class="form-label">Date of Birth *</label>
+          <label class="form-label">Date of Birth</label>
           <input type="date" name="dob" class="form-control bg-secondary text-white"
-                 value="{{ student.dob|date:'Y-m-d'|default:'' }}" required>
+                 value="{{ student.dob|date:'Y-m-d'|default:'' }}">
         </div>
 
-        <!-- Date of Joining -->
-        <div class="col-md-6">
-          <label class="form-label">Date of Joining</label>
-          <input type="date" name="date_of_joining" class="form-control bg-secondary text-white"
-                 value="{{ student.date_of_joining|date:'Y-m-d'|default:'' }}">
-        </div>
-
-        <!-- Aadhaar -->
+        <!-- Aadhaar (optional) -->
         <div class="col-md-6">
           <label class="form-label">Aadhaar (Optional)</label>
           <input type="text" name="aadhaar" pattern="[0-9]{12}" maxlength="12"
@@ -253,7 +239,7 @@
                  value="{{ student.aadhaar|default:'' }}">
         </div>
 
-        <!-- Fee Paid -->
+        <!-- Fee Paid (optional) -->
         <div class="col-md-6">
           <label class="form-label">Fee Paid (₹)</label>
           <input type="number" name="feePaid" step="0.01" min="0"
@@ -261,21 +247,20 @@
                  value="{{ student.feePaid|default:'' }}" placeholder="0.00">
         </div>
 
-        <!-- Courses (Multi Select) -->
+        <!-- Courses (optional) -->
         <div class="col-md-12">
-  <label class="form-label">Courses Enrolled *</label>
-  <select name="course_ids" class="js-choices" multiple required>
-    {% for course in courses %}
-      <option value="{{ course.id }}"
-              {% if student and course.id|stringformat:"s" in student.course_ids %}selected{% endif %}>
-        {{ course.title }}
-      </option>
-    {% endfor %}
-  </select>
-  <small class="text-muted">You can select multiple courses (search is also available)</small>
-</div>
+          <label class="form-label">Courses Enrolled</label>
+          <select name="course_ids" class="js-choices" multiple>
+            {% for course in courses %}
+              <option value="{{ course.id }}"
+                      {% if student and course.id|stringformat:"s" in student.course_ids %}selected{% endif %}>
+                {{ course.title }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
 
-        <!-- Referred / Joined By (Single Select) -->
+        <!-- Referred / Joined By (optional) -->
         <div class="col-md-6">
           <label class="form-label">Referred / Joined By</label>
           <select name="joint_by_uuid" class="form-select">
@@ -289,27 +274,21 @@
           </select>
         </div>
 
-        <!-- Address -->
+        <!-- Address (optional) -->
         <div class="col-12">
           <label class="form-label">Address</label>
           <textarea name="address" class="form-control bg-secondary text-white" rows="3"
                     placeholder="Full address...">{{ student.address|default:'' }}</textarea>
         </div>
 
-        <!-- Photo -->
+        <!-- Photo (optional) -->
         <div class="col-12">
           <label class="form-label">Photo</label>
           <input type="file" name="photo" class="form-control bg-secondary text-white mb-3" accept="image/*">
-
           {% if student.photo %}
             <div class="text-center">
               <img src="{{ student.photo.url }}" alt="Student photo"
                    style="max-height: 180px; border-radius: 12px; border: 2px solid #6c757d;">
-              <p class="text-muted mt-2 small">Current photo</p>
-            </div>
-          {% else %}
-            <div class="text-center p-3 bg-secondary rounded">
-              <p class="text-muted mb-0">No photo uploaded</p>
             </div>
           {% endif %}
         </div>
@@ -323,22 +302,23 @@
             Cancel
           </a>
         </div>
-
       </div>
     </form>
   </div>
 </div>
+
 {% block extra_script %}
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const element = document.querySelector('.js-choices');
   if (element) {
-    new Choices(element, {
+    const choices = new Choices(element, {
       removeItemButton: true,
       searchEnabled: true,
       searchPlaceholderValue: 'Search courses...',
-      noResultsText: 'Koi course nahi mila',
-      noChoicesText: 'Koi course available nahi',
+      noResultsText: 'No courses found',
+      noChoicesText: 'No courses available',
       itemSelectText: '',
       allowHTML: true,
       placeholderValue: 'Select courses...',
@@ -346,6 +326,22 @@ document.addEventListener('DOMContentLoaded', function () {
         containerOuter: ['choices', 'choices--dark'],
       }
     });
+
+    const preSelectedJson = "{{ student.course_ids|default:'[]'|safe|escapejs }}";
+
+    let preSelectedCourses = [];
+    if (preSelectedJson && preSelectedJson !== '[]') {
+      try {
+        preSelectedCourses = JSON.parse(preSelectedJson);
+      } catch (e) {
+        console.error('Invalid course_ids from Django:', preSelectedJson, e);
+      }
+    }
+
+    if (Array.isArray(preSelectedCourses) && preSelectedCourses.length > 0) {
+      const stringValues = preSelectedCourses.map(val => String(val));
+      choices.setChoiceByValue(stringValues);
+    }
   }
 });
 </script>

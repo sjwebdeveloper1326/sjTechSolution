@@ -22,7 +22,7 @@ from employee_Client_student.views.employee_views import (
 # student
 from employee_Client_student.views.student_dashboard_view import student_dashboard
 from employee_Client_student.views.student_views import (
-    student_add, student_edit, student_list
+    student_add, student_delete, student_edit, student_list
 )
 from employee_Client_student.views.timesheet_views import timesheet_add, timesheet_delete, timesheet_edit, timesheet_list
 from . import views
@@ -85,7 +85,7 @@ path(
     name="dashboard_employee"
 ),
     #  path("employee/dashboard/<str:student_id>/", views.dashboard_employee, name="dashboard_employee"),
-    path('student/dashboard/<str:student_id>/', student_dashboard, name="dashboard_student"),
+    path('student/dashboard/<uuid:stu_uuid>/', student_dashboard, name="dashboard_student"),
 
     path('employees', employee_list, name='employee_list'),
     path('employees/add/', employee_add, name='employee_add'),
@@ -94,7 +94,8 @@ path(
     
     path('students', student_list, name='student_list'),
     path('students/add/', student_add, name='student_add'),
-    path('students/edit/<int:id>/', student_edit, name='student_edit'),
+    path('students/edit/<uuid:stu_uuid>/', student_edit, name='student_edit'),
+    path('students/delete/<uuid:stu_uuid>/', student_delete, name='student_delete'),
     # path('students/delete/<int:id>/', views.student_delete, name='student_delete'),
 
     path(

@@ -1,0 +1,409 @@
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<style>
+  .form-control,
+  .form-select,
+  textarea.form-control {
+    background-color: #343a40 !important;
+    color: #ffffff !important;
+    border: 1px solid #6c757d !important;
+    border-radius: 0.375rem;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+  }
+
+  .form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    padding-right: 2.25rem !important;
+  }
+
+  textarea.form-control {
+    height: auto;
+    min-height: 100px;
+  }
+
+  .form-control:disabled,
+  .form-select:disabled {
+    background-color: #495057 !important;
+    color: #adb5bd !important;
+    border-color: #6c757d80 !important;
+    opacity: 1 !important;
+    cursor: not-allowed;
+  }
+
+  .form-control:required,
+  .form-select:required {
+    border-left: 3px solid #ff2c91 !important;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: brightness(0) invert(1) !important;
+  }
+
+  input[type="date"] {
+    color-scheme: dark;
+  }
+
+.choices__inner {
+  background-color: #343a40 !important;
+  border: 1px solid #6c757d !important;
+  color: #fff !important;
+  min-height: 38px;
+}
+
+.choices__list--multiple .choices__item {
+  background-color: #ff2c91 !important;
+  border: 1px solid #e02580 !important;
+  color: white !important;
+}
+
+.choices__dropdown {
+  background-color: #343a40 !important;
+  border: 1px solid #6c757d !important;
+  color: #ffffff !important;
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted,
+.choices__list--dropdown .choices__item.is-selected {
+  background-color: #495057 !important;
+  color: #ffffff !important;
+}
+
+/* Choices.js - better dark mode + alignment */
+.choices {
+  width: 100% !important;
+}
+
+.choices__inner {
+  background-color: #343a40 !important;
+  border: 1px solid #6c757d !important;
+  color: #ffffff !important;
+  min-height: 42px;               /* better height match with other fields */
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.choices__list--multiple {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin: 0;
+}
+
+.choices__list--multiple .choices__item {
+  background-color: #ff2c91 !important;
+  border: 1px solid #e02580 !important;
+  border-radius: 0.375rem;
+  color: white !important;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.9rem;
+}
+
+.choices__list--multiple .choices__button {
+  color: white !important;
+  border-left: 1px solid rgba(255,255,255,0.3) !important;
+  padding: 0 0.5rem;
+}
+
+.choices__dropdown {
+  background-color: #2c3137 !important;   /* slightly darker for contrast */
+  border: 1px solid #6c757d !important;
+  border-radius: 0.375rem;
+  margin-top: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  color: #ffffff !important;
+  z-index: 1050;
+}
+
+.choices__list--dropdown {
+  margin: 0;
+}
+
+.choices__list--dropdown .choices__item {
+  padding: 0.5rem 0.75rem;
+  color: #ffffff !important;
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted,
+.choices__list--dropdown .choices__item.is-selected {
+  background-color: #495057 !important;
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted {
+  background-color: #5a6268 !important;
+}
+
+/* Placeholder when empty */
+.choices__inner.choices__inner--empty::before {
+  content: "Select courses...";
+  color: #adb5bd !important;
+  font-style: italic;
+}
+
+.choices__list--dropdown, .choices__list[aria-expanded] {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    background-color: #000000;
+    border: 1px solid #ddd;
+    
+    top: 100%;
+    margin-top: -1px;
+    border-bottom-left-radius: 2.5px;
+    border-bottom-right-radius: 2.5px;
+    overflow: hidden;
+    word-break: break-all;
+}
+</style>
+{% endblock %}
+
+
+<div class="card bg-dark text-white shadow-lg"
+style="border:2px solid #ff2c91;border-radius:15px">
+
+<div class="card-body p-4">
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="row g-3">
+
+<!-- Course ID -->
+<div class="col-md-6">
+<label class="form-label">Course ID</label>
+<input type="text"
+class="form-control bg-secondary text-white"
+value="{{course.course_id|default:'Auto Generate'}}"
+disabled>
+</div>
+
+<!-- Order -->
+<div class="col-md-6">
+<label class="form-label">Display Order</label>
+<input type="number" name="order"
+class="form-control bg-secondary text-white"
+value="{{course.order|default:'0'}}">
+</div>
+
+
+<!-- Title -->
+<div class="col-md-6">
+
+<label class="form-label">Course Title *</label>
+
+<input type="text"
+name="title"
+class="form-control bg-secondary text-white"
+value="{{course.title|default:''}}"
+required>
+
+</div>
+
+<!-- Price -->
+        <div class="col-md-6">
+          <label class="form-label">Regular Price (₹) *</label>
+          <input type="number" name="price" step="0.01" min="0" class="form-control bg-secondary text-white"
+                 value="{{course.price|default:'0.00'}}" required placeholder="e.g. 4999.00">
+        </div>
+
+        <!-- Discounted Price -->
+        <div class="col-md-6">
+          <label class="form-label">Discounted Price (₹)</label>
+          <input type="number" name="discounted_price" step="0.01" min="0" class="form-control bg-secondary text-white"
+                 value="{{course.discounted_price|default:''}}" placeholder="Leave empty if no discount">
+          <small class="text-muted">Only fill if there's a special/early bird price</small>
+        </div>
+
+<div class="col-md-6">
+    <label class="form-label">Duration Display</label>
+    <input type="text" name="duration_display" class="form-control bg-secondary text-white"
+           value="{{course.duration_display|default:''}}" 
+           placeholder="e.g. 4m - 6m, 3 Months, 8-12 Weeks">
+    <small class="text-muted">Human-friendly duration shown on cards/list (not used for calculations)</small>
+  </div>
+
+<!-- Subtitle -->
+<div class="col-md-6">
+
+<label class="form-label">Subtitle</label>
+
+<input type="text"
+name="subtitle"
+class="form-control bg-secondary text-white"
+value="{{course.subtitle|default:''}}">
+
+</div>
+
+
+<!-- Description -->
+<div class="col-12">
+
+<label class="form-label">Description *</label>
+
+<textarea
+name="description"
+class="form-control bg-secondary text-white"
+rows="4"
+required>{{course.description|default:''}}</textarea>
+
+</div>
+
+
+<!-- Teachers -->
+<!-- Teachers (Multi Select) -->
+<div class="col-md-12">
+  <label class="form-label">Teacher</label>
+  <select name="teacher_ids" class="js-choices" multiple>
+    {% for teacher in teachers %}
+      <option value="{{ teacher.emp_uuid }}" 
+        {% if course and teacher.emp_uuid|stringformat:"s" in course.teacher_ids %}selected{% endif %}>
+  {{ teacher.name }}
+</option>
+    {% endfor %}
+  </select>
+  <small class="text-muted">You can select multiple teachers (search is also available)</small>
+</div>
+
+
+
+<!-- Features -->
+<div class="col-12">
+
+<label class="form-label">Course Features</label>
+
+<textarea
+name="features"
+class="form-control bg-secondary text-white"
+rows="3"
+placeholder="Feature 1, Feature 2, Feature 3">{{course.features|join:', '}}</textarea>
+
+</div>
+
+
+<!-- New Course -->
+<div class="col-md-4">
+
+<label class="form-label">New Course</label>
+
+<br>
+
+<input type="checkbox"
+name="is_new"
+{% if course.is_new %}checked{% endif %}>
+
+</div>
+
+
+<!-- Email Sent -->
+<div class="col-md-4">
+
+<label class="form-label">Email Sent</label>
+
+<br>
+
+<input type="checkbox"
+name="email_sent"
+{% if course.email_sent %}checked{% endif %}>
+
+</div>
+
+
+<!-- Created -->
+<div class="col-md-6">
+
+<label class="form-label">Created At</label>
+
+<input type="text"
+class="form-control bg-secondary text-white"
+value="{{course.created_at}}"
+disabled>
+
+</div>
+
+
+<!-- Updated -->
+<div class="col-md-6">
+
+<label class="form-label">Updated At</label>
+
+<input type="text"
+class="form-control bg-secondary text-white"
+value="{{course.updated_at}}"
+disabled>
+
+</div>
+
+
+<!-- Buttons -->
+<div class="col-12 text-center mt-4">
+
+<button type="submit"
+class="btn btn-lg px-5"
+style="background:#ff2c91;color:white">
+
+{% if course %}Update Course{% else %}Save Course{% endif %}
+
+</button>
+
+<a href="{% url 'course_list' %}"
+class="btn btn-outline-light btn-lg ms-3">
+
+Cancel
+
+</a>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.js-choices').forEach(element => {
+    const choices = new Choices(element, {
+      removeItemButton: true,
+      searchEnabled: true,
+      searchPlaceholderValue: 'Search teachers...',
+      noResultsText: 'No teacher found',
+      noChoicesText: 'No teachers available',
+      itemSelectText: 'Press to select',
+      allowHTML: true,
+      placeholderValue: 'Select teachers...',
+      shouldSort: false,
+      classNames: {
+        containerOuter: ['choices', 'choices--dark'],
+      }
+    });
+
+    // Pre-select existing teacher_ids
+    const preSelectedJson = "{{ course.teacher_ids|default:'[]'|safe|escapejs }}";
+    let preSelected = [];
+    if (preSelectedJson && preSelectedJson !== '[]') {
+      try {
+        preSelected = JSON.parse(preSelectedJson);
+      } catch (e) {
+        console.error('Invalid teacher_ids JSON:', preSelectedJson, e);
+      }
+    }
+    if (Array.isArray(preSelected) && preSelected.length > 0) {
+      const stringValues = preSelected.map(val => String(val));
+      choices.setChoiceByValue(stringValues);
+    }
+  });
+});
+</script>

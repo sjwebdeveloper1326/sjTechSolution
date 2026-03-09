@@ -1,0 +1,103 @@
+<h4 class="text-white mb-4">Enrolled Courses</h4>
+
+{% if enrolled_courses %}
+<div class="row g-4">
+
+{% for course in enrolled_courses %}
+
+<div class="col-md-6 col-lg-4">
+
+<div class="course-card h-100">
+<div class="card-body">
+
+<h5 class="card-title">{{ course.title }}</h5>
+
+{% if course.duration_display %}
+<p class="text-muted small mb-1">
+⏱ {{ course.duration_display }}
+</p>
+{% endif %}
+
+{% if course.subtitle %}
+<h6 class="text-muted mb-3">{{ course.subtitle }}</h6>
+{% endif %}
+
+<p class="card-text">
+{{ course.description|truncatewords:30|default:"No description available" }}
+</p>
+
+
+{% if course.features %}
+<ul class="text-muted small mb-3 ps-3">
+
+{% for feature in course.features|slice:":3" %}
+<li>{{ feature }}</li>
+{% endfor %}
+
+{% if course.features|length > 3 %}
+<li>+ {{ course.features|length|add:"-3" }} more...</li>
+{% endif %}
+
+</ul>
+{% endif %}
+
+
+<!-- PRICE + PAY -->
+<div class="d-flex justify-content-between align-items-center mt-3">
+
+<div>
+
+{% if course.discounted_price and course.discounted_price < course.price %}
+
+<span class="text-muted small text-decoration-line-through me-2">
+₹{{ course.price|floatformat:0 }}
+</span>
+
+<span class="text-pink fw-bold">
+₹{{ course.discounted_price|floatformat:0 }}
+</span>
+
+{% else %}
+
+<span class="text-pink fw-bold">
+₹{{ course.price|floatformat:0 }}
+</span>
+
+{% endif %}
+
+</div>
+
+<a 
+href="{% url 'submit_payment' course.id %}"
+class="btn btn-sm px-4"
+style="background:#ff2c91; color:white; border-radius:30px;">
+Pay Now
+</a>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="empty-state text-center py-5">
+
+<i class="fas fa-book-open fa-3x mb-3 text-muted"></i>
+
+<h5 class="text-white">No Courses Enrolled Yet</h5>
+
+<p class="text-muted">
+Start your learning journey — enroll in exciting courses today!
+</p>
+
+</div>
+
+{% endif %}
+

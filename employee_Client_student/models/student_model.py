@@ -12,6 +12,11 @@ class Student(models.Model):
     stu_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     student_id = models.CharField(max_length=10, unique=True, blank=True)
     name = models.CharField(max_length=100)
+    role = models.CharField(
+        max_length=50,
+        default='student',
+        editable=False,           
+    )
     phone = models.CharField(max_length=15)
     email = models.EmailField(unique=True)
     photo = models.ImageField(upload_to='students/', blank=True, null=True)
@@ -19,7 +24,7 @@ class Student(models.Model):
     feePaid = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     status = models.CharField(max_length=20, default='active')
     gender = models.CharField(max_length=10, default='male')
-    dob = models.DateField("Date of Birth")
+    dob = models.DateField("Date of Birth",blank=True, null=True)
     aadhaar = models.CharField(max_length=12, blank=True, null=True)
     address = models.TextField()
     jointStudents = models.JSONField(default=list, blank=True)

@@ -1,5 +1,7 @@
 from django import forms
-from .models import Service
+
+from mainApp.models.service_model import Service
+# from .models import Service
 
 class ServiceForm(forms.ModelForm):
     class Meta:

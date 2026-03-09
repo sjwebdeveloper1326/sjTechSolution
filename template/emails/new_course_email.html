@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>New Course Available</title>
+
+<style>
+body {
+  background: #0c0c18;
+  font-family: Arial, sans-serif;
+  color: #ffffff; /* Default white text */
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  max-width: 600px;
+  margin: 20px auto;
+  background: #131324;
+  border-radius: 12px;
+  border: 1px solid #252545;
+  overflow: hidden;
+}
+
+.header {
+  background: linear-gradient(90deg, #ff2b9f, #8a2be2);
+  padding: 25px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 28px;
+}
+
+.body {
+  padding: 30px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.body p {
+  color: #ffffff;
+  line-height: 1.6;
+  margin: 15px 0;
+}
+
+.card {
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid rgba(255, 43, 159, 0.4);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.card p {
+  color: #ffffff;
+  margin: 10px 0;
+}
+
+.card strong {
+  color: #ff2c91;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background: linear-gradient(90deg, #8a2be2, #ff2b9f);
+  color: #ffffff !important;
+  text-decoration: none;
+  border-radius: 30px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.footer {
+  padding: 15px;
+  text-align: center;
+  font-size: 13px;
+  background: #0d0d16;
+  color: #ffffff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+  <div class="header">
+    <h2>SJ.Tech Solution</h2>
+  </div>
+
+  <div class="body">
+
+    <h2>New Course Launched 🚀</h2>
+
+    <p>Hello {{name}},</p>
+
+    <p>A new course has been added on our platform.</p>
+
+    <div class="card">
+      <p><strong>Course:</strong> {{course_title}}</p>
+      <p>{{course_description}}</p>
+    </div>
+
+    <a class="btn" href="{{site_url}}">
+      View Course
+    </a>
+
+  </div>
+
+  <div class="footer">
+    © 2026 SJ.Tech Solution
+  </div>
+
+</div>
+
+</body>
+</html>

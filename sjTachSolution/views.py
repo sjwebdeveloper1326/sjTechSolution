@@ -1,7 +1,11 @@
 from pyexpat.errors import messages
 from django.shortcuts import render, redirect, get_object_or_404
 
-from mainApp.models import Course, Enrollment, Service
+from mainApp.models.course_model import Course
+from mainApp.models.enrollment_model import Enrollment
+from mainApp.models.service_model import Service
+
+# from mainApp.models import Course, Enrollment, Service
 
 def index_page(request):
     # services = Service.objects.all()

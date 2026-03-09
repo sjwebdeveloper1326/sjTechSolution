@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import Course, Enrollment, Service
+
+from mainApp.models.course_model import Course
+from mainApp.models.enrollment_model import Enrollment
+from mainApp.models.service_model import Service
+# from .models import Course, Enrollment, Service
 
 admin.site.register(Service)
 @admin.register(Course)

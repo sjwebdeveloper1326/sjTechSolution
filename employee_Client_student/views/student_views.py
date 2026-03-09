@@ -1,13 +1,11 @@
 from decimal import Decimal
-import uuid
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.utils import timezone
 
 from employee_Client_student.models.student_model import Student
 from employee_Client_student.models.employee_model import Employee
-from mainApp.models import Course   # assuming this exists
-# from employee_Client_student.models.course_model import Course       # assuming this exists
+from mainApp.models import Course
 
 
 def student_list(request):
@@ -16,40 +14,79 @@ def student_list(request):
         'students': students
     })
 
+from decimal import Decimal
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.utils import timezone
+from django.contrib.auth.models import User
+ # adjust import path as needed
 
 def student_add(request):
     if request.method == "POST":
         try:
+            name = request.POST.get('name', '').strip()
+            email = request.POST.get('email', '').strip()
+            phone = request.POST.get('phone', '').strip()
+
+            # ─── Email uniqueness checks ─────────────────────────────────────
+            if not email:
+                messages.error(request, "Email field is required!")
+                return render(request, 'studentCRUD/student_form.html', get_context())
+
+            if Student.objects.filter(email=email).exists():
+                messages.error(request, f"Email '{email}' already exists ! Please use another email.")
+                return render(request, 'studentCRUD/student_form.html', get_context())
+
+            if Employee.objects.filter(email=email).exists():
+                # messages.error(request, f"Email '{email}' is already used by an employee! Please use a different email.")
+                messages.error(request, f"Email '{email}'  already exists ! Please use another email.")
+                return render(request, 'studentCRUD/student_form.html', get_context())
+
+            if User.objects.filter(email=email).exists():
+                # messages.error(request, f"Email '{email}' is already registered in the system (user account)! Please choose another.")
+                messages.error(request, f"Email '{email}' already exists ! Please use another email.")
+                return render(request, 'studentCRUD/student_form.html', get_context())
+            # ────────────────────────────────────────────────────────────────
+
             fee_paid_str = request.POST.get('feePaid', '').strip()
             fee_paid_value = None if not fee_paid_str else Decimal(fee_paid_str)
+
+            dob_raw = request.POST.get('dob', '').strip()
+            dob = dob_raw if dob_raw else None
+
+            joining_raw = request.POST.get('date_of_joining', '').strip()
+            date_of_joining = joining_raw if joining_raw else timezone.now().date()
+
             student = Student(
-                name=request.POST.get('name', '').strip(),
-                phone=request.POST.get('phone', '').strip(),
-                email=request.POST.get('email', '').strip(),
+                name=name,
+                phone=phone,
+                email=email,
                 feePaid=fee_paid_value,
                 status=request.POST.get('status', 'active'),
                 gender=request.POST.get('gender', 'male'),
-                dob=request.POST.get('dob'),
+                dob=dob,
                 aadhaar=request.POST.get('aadhaar', '').strip(),
                 address=request.POST.get('address', '').strip(),
-                date_of_joining=request.POST.get('date_of_joining') or timezone.now().date(),
+                date_of_joining=date_of_joining,
+                role='student'
             )
 
-            # Handle multi-select courses
-            course_ids = request.POST.getlist('course_ids')
-            if course_ids:
-                student.course_ids = [int(cid) for cid in course_ids if cid.isdigit()]
+            # Courses - safe conversion
+            course_ids_raw = request.POST.getlist('course_ids')
+            valid_course_ids = []
+            for cid in course_ids_raw:
+                stripped = cid.strip()
+                if stripped.isdigit():
+                    valid_course_ids.append(int(stripped))
+            student.course_ids = valid_course_ids if valid_course_ids else None
 
-            # Handle single select jointBy (emp_uuid)
-            joint_by_uuid = request.POST.get('joint_by_uuid')
-            if joint_by_uuid:
-                student.jointBy = joint_by_uuid
+            joint_by_uuid = request.POST.get('joint_by_uuid', '').strip()
+            student.jointBy = joint_by_uuid if joint_by_uuid else None
 
-            # Handle photo
             if 'photo' in request.FILES:
                 student.photo = request.FILES['photo']
 
-            student.save()  # this will auto-generate student_id
+            student.save()
 
             messages.success(request, f"Student {student.name} ({student.student_id}) enrolled successfully!")
             return redirect('student_list')
@@ -57,67 +94,78 @@ def student_add(request):
         except Exception as e:
             messages.error(request, f"Error saving student: {str(e)}")
 
-    # GET request - prepare context
-    context = {
+    # GET or error case
+    return render(request, 'studentCRUD/student_form.html', get_context())
+
+
+def get_context():
+    """Helper to avoid code duplication"""
+    return {
         'action': 'Add',
         'courses': Course.objects.all().order_by('order', 'title'),
         'employees': Employee.objects.filter(status='active').order_by('name'),
-        'all_students': Student.objects.all().order_by('name'),  # if you need for jointStudents
+        'all_students': Student.objects.all().order_by('name'),
     }
-    return render(request, 'studentCRUD/student_form.html', context)
 
-
-def student_edit(request, id):
-    student = get_object_or_404(Student, id=id)
+def student_edit(request, stu_uuid):
+    student = get_object_or_404(Student, stu_uuid=stu_uuid)
 
     if request.method == "POST":
         try:
             fee_paid_str = request.POST.get('feePaid', '').strip()
             fee_paid_value = None if not fee_paid_str else Decimal(fee_paid_str)
+
+            dob_raw = request.POST.get('dob', '').strip()
+            student.dob = dob_raw if dob_raw else None
+
+            joining_raw = request.POST.get('date_of_joining', '').strip()
+            student.date_of_joining = joining_raw if joining_raw else timezone.now().date()
+
             student.name = request.POST.get('name', '').strip()
             student.phone = request.POST.get('phone', '').strip()
             student.email = request.POST.get('email', '').strip()
             student.feePaid = fee_paid_value
             student.status = request.POST.get('status', 'active')
             student.gender = request.POST.get('gender', 'male')
-            student.dob = request.POST.get('dob')
             student.aadhaar = request.POST.get('aadhaar', '').strip()
             student.address = request.POST.get('address', '').strip()
-            student.date_of_joining = request.POST.get('date_of_joining') or timezone.now().date()
 
-            # Courses multi-select
-            course_ids = request.POST.getlist('course_ids')
-            student.course_ids = [int(cid) for cid in course_ids if cid.isdigit()] if course_ids else None
+            # Courses - safe conversion
+            course_ids_raw = request.POST.getlist('course_ids')
+            valid_course_ids = []
+            for cid in course_ids_raw:
+                stripped = cid.strip()
+                if stripped.isdigit():
+                    valid_course_ids.append(int(stripped))
+            student.course_ids = valid_course_ids if valid_course_ids else None
 
-            # jointBy single select
-            joint_by_uuid = request.POST.get('joint_by_uuid')
+            joint_by_uuid = request.POST.get('joint_by_uuid', '').strip()
             student.jointBy = joint_by_uuid if joint_by_uuid else None
 
-            # Photo update (replace if new one uploaded)
             if 'photo' in request.FILES:
                 student.photo = request.FILES['photo']
 
             student.save()
 
-            messages.success(request, f"Student {student.name} ({student.student_id}) updated successfully!")
-            return redirect('student_list')
+            messages.success(request, f"Profile updated successfully!")
+            # Redirect to student dashboard instead of student_list
+            return redirect('dashboard_student', stu_uuid=student.stu_uuid)
 
         except Exception as e:
-            messages.error(request, f"Error updating student: {str(e)}")
+            messages.error(request, f"Error updating profile: {str(e)}")
 
-    # GET request
     context = {
         'action': 'Edit',
         'student': student,
         'courses': Course.objects.all().order_by('order', 'title'),
         'employees': Employee.objects.filter(status='active').order_by('name'),
-        'all_students': Student.objects.exclude(id=id).order_by('name'),
+        'all_students': Student.objects.exclude(stu_uuid=stu_uuid).order_by('name'),
     }
     return render(request, 'studentCRUD/student_form.html', context)
 
 
-def student_delete(request, id):
-    student = get_object_or_404(Student, id=id)
+def student_delete(request, stu_uuid):
+    student = get_object_or_404(Student, stu_uuid=stu_uuid)
     
     if request.method == "POST":
         student_name = student.name

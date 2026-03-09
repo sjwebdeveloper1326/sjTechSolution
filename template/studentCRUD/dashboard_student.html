@@ -5,85 +5,239 @@
 
 {% block extra_css %}
 <style>
-    body { background:#0c0f26; }
-    .dash-box {
-        background:#11152f; padding:30px; border-radius:20px;
-        box-shadow:0 0 15px rgba(255,20,147,0.3);
-    }
-    .profile-img {
-        width:120px; height:120px; border-radius:50%;
-        object-fit:cover; border:3px solid #ff5db1;
-    }
-    .label { color:#bbb; margin-bottom:2px; font-size:13px; }
-    .value { color:#fff; font-size:16px; font-weight:600; }
-    table { color:#fff; }
-    .table-dark th { background:#1a1d3a !important; }
+  body { background: #0c0f26; }
+  .dash-box {
+    background: #11152f;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(255, 20, 147, 0.3);
+  }
+  .profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ff5db1;
+  }
+  .label { color: #bbb; margin-bottom: 2px; font-size: 13px; }
+  .value { color: #fff; font-size: 16px; font-weight: 600; }
+  table { color: #fff; }
+  .table-dark th { background: #1a1d3a !important; }
+
+  /* Tab styling */
+  .nav-tabs .nav-link {
+    color: #bbb;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 12px 24px;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+  .nav-tabs .nav-link.active {
+    color: #ff2c91;
+    border-bottom: 3px solid #ff2c91;
+    background: transparent;
+  }
+  .nav-tabs .nav-link:hover {
+    color: #ff2c91;
+  }
+  .tab-content {
+    background: #11152f;
+    border-radius: 0 0 12px 12px;
+    padding: 30px;
+  }
+
+  /* Course Cards */
+  .course-card {
+    background: #1a1d3a;
+    border: 1px solid #ff2c91;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+  .course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 44, 145, 0.2);
+  }
+  .course-card .card-body {
+    padding: 20px;
+  }
+  .course-card .card-title {
+    color: #ff2c91;
+    font-weight: 600;
+  }
+  .course-card .card-text {
+    color: #ddd;
+    font-size: 0.95rem;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #888;
+  }
 </style>
 {% endblock %}
 
 {% block content %}
 
 <div class="container py-5">
+  <!-- Profile Section -->
+  <div class="dash-box mb-5">
+    <a href="{% url 'student_edit' stu_uuid=student.stu_uuid %}"
+       class="btn btn-sm btn-outline-light mb-3">
+      Edit Profile
+    </a>
 
-    <div class="dash-box mb-5">
-        <div class="text-center mb-4">
+    <!-- Profile Header -->
+    <div class="text-center mb-4">
+      {% if student.photo %}
+        <img src="{{ student.photo.url }}" class="profile-img" />
+      {% else %}
+        <img src="{% static 'default/user.png' %}" class="profile-img" />
+      {% endif %}
 
-            {% if student.photo %}
-            <img src="{{ student.photo.url }}" class="profile-img">
-            {% else %}
-            <img src="{% static 'default/user.png' %}" class="profile-img">
-            {% endif %}
-
-            <h2 class="text-white mt-3">{{ student.name }}</h2>
-            <p class="text-pink">{{ student.course }}</p>
-        </div>
-
-        <div class="row">
-
-            <div class="col-md-6">
-                <p class="label">Student ID</p><p class="value">{{ student.student_id }}</p>
-                <p class="label">Phone</p><p class="value">{{ student.phone }}</p>
-                <p class="label">Email</p><p class="value">{{ student.email }}</p>
-            </div>
-
-            <div class="col-md-6">
-                <p class="label">DOB</p><p class="value">{{ student.dob }}</p>
-                <p class="label">Gender</p><p class="value">{{ student.gender }}</p>
-                <p class="label">Fee Paid</p><p class="value">₹{{ student.feePaid }}</p>
-            </div>
-
-        </div>
+      <h2 class="text-white mt-3">{{ student.name }}</h2>
+      <p class="text-pink mb-1">Student</p>
+      <span class="badge bg-info text-dark text-uppercase">
+        {{ student.role|default:"Student" }}
+      </span>
     </div>
 
+    <!-- 3 COLUMN DETAILS -->
+    <div class="row g-4">
+      <!-- Column 1 -->
+      <div class="col-md-4">
+        <p class="label">Student ID</p>
+        <p class="value">{{ student.student_id }}</p>
 
-    <!-- Timesheet Table -->
-    <div class="dash-box">
-        <h3 class="text-white mb-3">TimeSheet</h3>
+        <p class="label">Phone</p>
+        <p class="value">{{ student.phone }}</p>
 
-        <table class="table table-dark table-bordered">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Check In</th>
-                    <th>Check Out</th>
-                    <th>Hours</th>
-                </tr>
-            </thead>
+        <p class="label">Email</p>
+        <p class="value">{{ student.email }}</p>
+      </div>
 
-            <tbody>
-                {% for t in timesheet %}
-                <tr>
-                    <td>{{ t.date }}</td>
-                    <td>{{ t.check_in }}</td>
-                    <td>{{ t.check_out }}</td>
-                    <td>{{ t.hours }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+      <!-- Column 2 -->
+      <div class="col-md-4">
+        <p class="label">Gender</p>
+        <p class="value">{{ student.gender|title|default:"—" }}</p>
 
+        <p class="label">Date of Birth</p>
+        <p class="value">
+          {{ student.dob|date:"F d, Y"|default:"—" }}
+        </p>
+
+        <p class="label">Aadhaar</p>
+        <p class="value">
+          {{ student.aadhaar|default:"—" }}
+        </p>
+      </div>
+
+      <!-- Column 3 -->
+      <div class="col-md-4">
+        <p class="label">Fee Paid</p>
+        <p class="value">
+          ₹{{ student.feePaid|default:"0.00" }}
+        </p>
+
+        <p class="label">Date of Joining</p>
+        <p class="value">
+          {{ student.date_of_joining|date:"F d, Y" }}
+        </p>
+
+        <p class="label">Address</p>
+        <p class="value">
+          {{ student.address|default:"—" }}
+        </p>
+
+        <p class="label">City / State</p>
+        <p class="value">
+          {{ student.city|default:"—" }}, {{ student.state|default:"—" }}
+        </p>
+      </div>
     </div>
+  </div>
 
+  <!-- Tabs Section -->
+  <div class="dash-box">
+    <!-- Tab Navigation -->
+    <ul class="nav nav-tabs mb-4" id="studentTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="timesheet-tab" data-bs-toggle="tab"
+                data-bs-target="#timesheet" type="button" role="tab" aria-controls="timesheet"
+                aria-selected="true">
+          Timesheet
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="courses-tab" data-bs-toggle="tab"
+                data-bs-target="#courses" type="button" role="tab" aria-controls="courses"
+                aria-selected="false">
+          Courses
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="teacher-tab" data-bs-toggle="tab"
+                data-bs-target="#teacher" type="button" role="tab" aria-controls="teacher"
+                aria-selected="false">
+          Teacher
+        </button>
+      </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content" id="studentTabsContent">
+      <!-- Timesheet Tab -->
+      <div class="tab-pane fade show active" id="timesheet" role="tabpanel" aria-labelledby="timesheet-tab">
+        {% if timesheets %}
+          {% include "includesUI/_timesheet.html" with stu_uuid=student.stu_uuid timesheets=timesheets %}
+        {% else %}
+          <p class="text-white text-center py-5">No timesheet records available yet.</p>
+        {% endif %}
+      </div>
+
+      <!-- Courses Tab - Real Data -->
+     <!-- Courses Tab -->
+<div class="tab-pane fade" id="courses" role="tabpanel" aria-labelledby="courses-tab">
+  {% include "includesUI/_student_courses.html" %}
+</div>
+
+      <!-- Teacher Tab (Placeholder - Update later with real referrer/jointBy data) -->
+      <!-- Teacher Tab -->
+<div class="tab-pane fade" id="teacher" role="tabpanel" aria-labelledby="teacher-tab">
+  <h4 class="text-white mb-4">Your Teacher / Referrer</h4>
+
+  {% if teacher %}
+    <div class="card bg-dark text-white border border-secondary">
+      <div class="card-body">
+        <div class="d-flex align-items-center mb-3">
+          {% if teacher.photo %}
+            <img src="{{ teacher.photo.url }}" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
+          {% else %}
+            <img src="{% static 'default/user.png' %}" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
+          {% endif %}
+          <div>
+            <h5 class="mb-0">{{ teacher.name }}</h5>
+            <small class="text-pink">{{ teacher.emp_id }} • {{ teacher.designation|default:"Instructor" }}</small>
+          </div>
+        </div>
+        <p class="mb-2"><strong>Email:</strong> {{ teacher.email }}</p>
+        <p class="mb-2"><strong>Phone:</strong> {{ teacher.phone }}</p>
+        <p><strong>Role:</strong> {{ teacher.role|title|default:"Teacher" }}</p>
+      </div>
+    </div>
+  {% else %}
+    <div class="empty-state text-center py-5">
+      <i class="fas fa-user-tie fa-3x mb-3 text-muted"></i>
+      <h5 class="text-white">No Teacher Assigned Yet</h5>
+      <p class="text-muted">
+        You'll be assigned a dedicated teacher soon.
+      </p>
+    </div>
+  {% endif %}
+</div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

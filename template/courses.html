@@ -1,166 +1,333 @@
-
 {% extends "base.html" %}
 {% load static %}
 
 {% block title %}
-    Cources - SJ.Tech
+Courses - SJ.Tech
 {% endblock %}
 
 {% block content %}
 
 <div data-bs-spy="scroll" data-bs-target="#d2c_main_nav" class="position-relative">
-    <!-- Courses Hero -->
-    <section class="d2c_hero_wrapper" style="background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 100px 0;">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h1>Grow Your Skills with <span style="color:#ff69b4;">SJ.Tech Courses</span></h1>
-                    <p class="lead">Master modern tech with hands-on, project-based online courses. From beginners to advanced — we have a path for you.</p>
-                    <a href="#courses-list" class="btn" style="background:#ff69b4; color:white;">Explore Courses</a>
-                </div>
-                <div class="col-lg-6 text-center">
-                    <img src="{% static 'assets/images/home-hero-vector-unscreen.gif' %}" alt="Online Learning" class="img-fluid" style="max-height: 300px;">
-                </div>
-            </div>
-        </div>
-    </section>
 
-<!-- {% load static %} -->
-<section class="py-5 bg-light" id="courses-list">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h3 class="title position-relative">  <span>Our Courses</span></h3>
-            <h2 class="title"><span>New Batch 2025 </span><span style="color:#ff69b4;">Starting Soon!</span></h2>
-        </div>
+<!-- Hero Section -->
+<section class="d2c_hero_wrapper"
+style="background: linear-gradient(135deg, #1a1a2e, #16213e); color:white; padding:100px 0;">
 
-        <!-- Fixed & Super Clean Slider -->
-        <div id="coursesCarousel" class="carousel slide" data-bs-ride="false">
-            <div class="carousel-inner">
+<div class="container">
+<div class="row align-items-center">
 
-                {% for course in courses %}
-                    {% if forloop.counter0|divisibleby:3 %}
-                        {% if not forloop.first %}</div></div>{% endif %}  <!-- Close previous slide -->
-                        <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}">
-                            <div class="row g-4 justify-content-center">
-                    {% endif %}
+<div class="col-lg-6">
 
-                    <!-- Course Card -->
-                    <div class="col-11 col-sm-8 col-md-6 col-lg-4">
-                        <div class="d2c_card_wrapper h-100 position-relative overflow-hidden shadow-sm" 
-                             style="border-radius:15px; background:white; transition:0.3s;">
-                            
-                            {% if course.is_new %}
-                                <span class="position-absolute top-0 end-0 bg-warning text-dark px-3 py-1 rounded-start fw-bold" 
-                                      style="font-size:0.8rem; z-index:2;">NEW</span>
-                            {% endif %}
+<h1>
+Grow Your Skills with
+<span style="color:#ff69b4;">SJ.Tech Courses</span>
+</h1>
 
-                            <div class="p-4 pb-5">
-                                <h4 class="{% if 'Python' in course.title %}text-primary{% else %}text-dark{% endif %} fw-bold">
-                                    {{ course.title }}
-                                </h4>
-                                <p class="text-muted small">{{ course.subtitle }}</p>
-                                
-                                <ul class="small text-success list-unstyled">
-                                    {% for feature in course.features %}
-                                        <li class="mb-1">• {{ feature }}</li>
-                                    {% endfor %}
-                                </ul>
+<p class="lead">
+Master modern tech with hands-on, project-based online courses.
+</p>
 
-                        
-                                <a href="{% url 'enroll_page' %}?course={{ course.title|urlencode }}"
-   class="btn mt-4 w-100 text-white fw-bold"
-   style="background:#ff69b4; border-radius:50px; 
-          box-shadow:0 4px 15px rgba(255,105,180,0.4);
-          transition: all 0.3s;">
-   Enroll Now
+<a href="#courses-list"
+class="btn"
+style="background:#ff69b4;color:white;border-radius:50px;padding:12px 32px;">
+Explore Courses
 </a>
-                            </div>
-                        </div>
-                    </div>
 
-                    {% if forloop.last %}
-                        </div></div>  <!-- Close last row & slide -->
-                    {% endif %}
-                {% empty %}
-                    <div class="text-center py-5">
-                        <h4>No courses available yet!</h4>
-                    </div>
-                {% endfor %}
+</div>
 
-                {% if courses|length > 3 and courses|length|divisibleby:3 == False %}
-                    </div></div>  <!-- Force close if last slide incomplete -->
-                {% endif %}
+<div class="col-lg-6 text-center">
+<img src="{% static 'assets/images/home-hero-vector-unscreen.gif' %}"
+class="img-fluid"
+style="max-height:320px;">
+</div>
 
-            </div>
-
-            <!-- Left & Right Arrows – Ab 100% dikhega -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#coursesCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" style="background-color:#ff69b4; width:50px; height:50px; border-radius:50%;"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#coursesCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" style="background-color:#ff69b4; width:50px; height:50px; border-radius:50%;"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-
-            <!-- Dots (only if more than 3 courses) -->
-            {% if courses.count > 3 %}
-            <div class="carousel-indicators mt-4">
-                {% for i in courses|length|make_list %}
-                    {% if forloop.counter0|divisibleby:3 %}
-                    <button type="button" data-bs-target="#coursesCarousel" data-bs-slide-to="{{ forloop.counter0|divisibleby:3|add:-1 }}"
-                            {% if forloop.counter0 == 0 %}class="active"{% endif %}></button>
-                    {% endif %}
-                {% endfor %}
-            </div>
-            {% endif %}
-        </div>
-
-        <!-- CTA -->
-        <div class="text-center mt-5">
-            <div class="d2c_card_wrapper p-5 text-white" style="background: linear-gradient(45deg, #ff69b4, #ff8c00); border-radius:20px;">
-                <h3>New Batch Starts: <strong>January 2025</strong></h3>
-                <p>Limited seats | Early bird discount 20% OFF</p>
-                <a href="#contact" class="btn btn-light btn-lg fw-bold">Register Now</a>
-            </div>
-        </div>
-    </div>
+</div>
+</div>
 </section>
 
- {% block extra_css %}
-<!-- Final CSS – Arrows + Hover Effect -->
-<style>
-.carousel-control-prev, .carousel-control-next {
-    opacity: 1 ;
-    width: 45px ;
-    height: 40px ;
-    top: 65%;
-    font-size: 15px;
-    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
-}
 
-@media (max-width: 768px) {
-    .carousel-control-prev { left: 5px; }
-    .carousel-control-next { right: 5px; }
-    .carousel-control-prev, .carousel-control-next {
-        width: 45px !important;
-        height: 45px !important;
-    }
-}
-</style>
-{% endblock %}
+<!-- Courses List -->
+<section class="py-5 bg-light" id="courses-list">
+
+<div class="container">
+
+<div class="text-center mb-5">
+
+<h3 class="title position-relative">
+<span>Our Courses</span>
+</h3>
+
+<h2 class="title mb-3">
+<span>New Batch 2025</span>
+<span style="color:#ff69b4;">Starting Soon!</span>
+</h2>
+
+<p class="text-muted">
+Hands-on training • Real projects • Job-ready skills
+</p>
+
 </div>
-{% block extra_script %}
 
+
+
+<!-- Carousel -->
+<div id="coursesCarousel"
+class="carousel slide position-relative px-lg-5"
+data-bs-ride="false">
+
+<div class="carousel-inner">
+
+{% for course in courses %}
+
+{% if forloop.counter0|divisibleby:3 %}
+{% if not forloop.first %}</div></div>{% endif %}
+
+<div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}">
+<div class="row g-4 justify-content-center">
+
+{% endif %}
+
+
+
+<!-- Course Card -->
+<div class="col-11 col-sm-8 col-md-6 col-lg-4">
+
+<div class="course-card h-100 position-relative overflow-hidden shadow">
+
+{% if course.is_new %}
+<span class="position-absolute top-0 end-0 bg-warning text-dark px-3 py-1 rounded-start fw-bold small">
+NEW
+</span>
+{% endif %}
+
+<div class="p-4 pb-5 d-flex flex-column h-100">
+
+<h4 class="fw-bold mb-2">
+{{ course.title }}
+</h4>
+
+
+{% if course.duration_display %}
+<p class="text-muted small mb-2">
+⏱ {{ course.duration_display }}
+</p>
+{% endif %}
+
+
+{% if course.subtitle %}
+<p class="text-muted small mb-3">
+{{ course.subtitle }}
+</p>
+{% endif %}
+
+
+
+<ul class="small text-success list-unstyled mb-4 flex-grow-1">
+
+{% for feature in course.features %}
+<li class="mb-2">• {{ feature }}</li>
+{% endfor %}
+
+</ul>
+
+
+
+<!-- Price -->
+<div class="mt-auto">
+
+<div class="d-flex align-items-center justify-content-between">
+
+<div>
+
+{% if course.discounted_price and course.discounted_price < course.price %}
+
+<span class="text-muted small text-decoration-line-through me-2">
+₹{{ course.price|floatformat:0 }}
+</span>
+
+<span class="fw-bold fs-5 text-pink">
+₹{{ course.discounted_price|floatformat:0 }}
+</span>
+
+{% else %}
+
+<span class="fw-bold fs-5 text-pink">
+₹{{ course.price|floatformat:0 }}
+</span>
+
+{% endif %}
+
+<span class="text-muted small ms-1">/ course</span>
+
+</div>
+
+
+{% if course.discounted_price and course.discounted_price < course.price %}
+<span class="badge bg-success small">
+Save {{ course.discount_percentage|default:"20" }}%
+</span>
+{% endif %}
+
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+
+
+{% if forloop.last %}
+</div></div>
+{% endif %}
+
+{% empty %}
+
+<div class="text-center py-5">
+
+<h4 class="text-muted">
+No courses available yet!
+</h4>
+
+<p>
+Check back soon — exciting new batches coming!
+</p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+
+
+<!-- Arrows -->
+<button class="carousel-control-prev custom-arrow"
+type="button"
+data-bs-target="#coursesCarousel"
+data-bs-slide="prev">
+
+<span class="carousel-control-prev-icon"></span>
+
+</button>
+
+
+<button class="carousel-control-next custom-arrow"
+type="button"
+data-bs-target="#coursesCarousel"
+data-bs-slide="next">
+
+<span class="carousel-control-next-icon"></span>
+
+</button>
+
+
+
+</div>
+
+
+
+<!-- CTA -->
+<div class="text-center mt-5">
+
+<div class="p-5 text-white rounded-4 shadow-lg"
+style="background: linear-gradient(45deg,#ff69b4,#ff8c00);max-width:700px;margin:auto;">
+
+<h3 class="mb-3">
+New Batch Starts: <strong>January 2025</strong>
+</h3>
+
+<p class="lead mb-4">
+Limited seats | Early bird discount 20% OFF
+</p>
+
+<a href="#contact"
+class="btn btn-light btn-lg fw-bold px-5 py-3"
+style="border-radius:50px;">
+Register Now
+</a>
+
+</div>
+
+</div>
+
+
+</div>
+</section>
+
+</div>
+
+{% endblock %}
+
+
+
+{% block extra_css %}
+
+<style>
+
+.course-card{
+border-radius:16px;
+background:white;
+border:1px solid #eee;
+transition:0.3s;
+}
+
+.course-card:hover{
+transform:translateY(-8px);
+box-shadow:0 15px 35px rgba(255,105,180,0.25);
+border-color:#ff69b4;
+}
+
+.text-pink{
+color:#ff69b4;
+}
+
+.custom-arrow{
+background:#ff69b4;
+width:55px;
+height:55px;
+border-radius:50%;
+top:45%;
+opacity:1 !important;
+}
+
+.carousel-control-prev{
+left:-25px;
+}
+
+.carousel-control-next{
+right:-25px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon{
+filter:invert(1);
+}
+
+@media(max-width:768px){
+
+.carousel-control-prev{
+left:5px;
+}
+
+.carousel-control-next{
+right:5px;
+}
+
+}
+
+</style>
+
+{% block extra_script %}
 <script>
-// Auto-select course jab URL mein ?course= aa jaye
+// Auto-select course on enroll page if coming from ?course=
 document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const courseFromUrl = urlParams.get('course');
     if (courseFromUrl) {
         const select = document.querySelector('select[name="course"]');
         if (select) {
-            // Exact match ya partial match
             for (let option of select.options) {
                 if (option.value.includes(courseFromUrl) || courseFromUrl.includes(option.value)) {
                     option.selected = true;
@@ -168,14 +335,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
-        // Optional: URL clean kar do taaki refresh pe dobara na dikhe
         history.replaceState(null, null, window.location.pathname);
     }
 });
 </script>
 {% endblock %}
-{% endblock %}
 
+{% endblock %}
 <!-- <div class="col-md-6 mb-4">
                 <div class="d2c_card_wrapper">
                   <div class="d2c_icon_wrapper">
