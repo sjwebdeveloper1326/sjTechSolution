@@ -218,9 +218,11 @@
        <div class="col-md-6">
   <label class="form-label">Role *</label>
   <select name="role" class="form-select bg-secondary text-white" {% if emp %}disabled{% endif %}>
-    <option value="client" {% if emp.role == "client" %}selected{% endif %}>Client</option>
     <option value="employee" {% if emp.role == "employee" %}selected{% endif %}>Employee</option>
     <option value="teacher" {% if emp.role == "teacher" %}selected{% endif %}>Teacher</option>
+    <option value="account-manager" {% if emp.role == "account-manager" %}selected{% endif %}>Account Manager</option>
+    <option value="manager" {% if emp.role == "manager" %}selected{% endif %}>Manager</option>
+    <option value="client" {% if emp.role == "client" %}selected{% endif %}>Client</option>
   </select>
   {% if emp %}
   <input type="hidden" name="role" value="{{ emp.role }}">

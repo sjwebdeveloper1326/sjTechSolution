@@ -39,11 +39,6 @@ urlpatterns = [
     ),
     name='password_reset'
       ),
-#     path(
-#     'password-reset/',
-#     views.CustomPasswordResetView.as_view(),
-#     name='password_reset'
-# ),
 
 path(
     'password-reset/done/',
@@ -53,13 +48,6 @@ path(
     name='password_reset_done'
 ),
 #  forgot password start...
-
-    # path('reset/<uidb64>/<token>/',
-    #      auth_views.PasswordResetConfirmView.as_view(
-    #          template_name='auth/password_reset_confirm.html',
-    #          success_url='/reset/done/'
-    #      ),
-    #      name='password_reset_confirm'),
     path(
     'reset/<uidb64>/<token>/',
     CustomPasswordResetConfirmView.as_view(),
@@ -76,9 +64,7 @@ path(
 
    # Register page
     path('register/', register_view, name="register"),
-    #  path('profile/', views.profile_page, name='profile_page'),
-
-    #  path("employee/dashboard/<uuid:uuid>/", employee_dashboard, name="dashboard_employee"),
+    
      path(
     "employee/dashboard/<uuid:emp_uuid>/",
     employee_dashboard,

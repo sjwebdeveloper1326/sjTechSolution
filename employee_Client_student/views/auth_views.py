@@ -12,6 +12,7 @@ from django.contrib.auth import views as auth_views
 from employee_Client_student.models.employee_model import Employee
 from employee_Client_student.models.student_model import Student
 
+
 # def login_view(request):
 #     if request.method == "POST":
 #         username = request.POST.get("username", "").strip()
@@ -33,7 +34,7 @@ from employee_Client_student.models.student_model import Student
 #                 return render(request, "auth/login.html")
 
 #             login(request, user)
-#             return redirect("dashboard_student", stu_uuid=stu.stu_uuid)
+#             return redirect("dashboard_student", stu_uuid=stu.stu_uuid)  # ← YEH CHANGE KARO
 
 #         # EMPLOYEE / TEACHER / CLIENT LOGIN
 #         try:
@@ -45,8 +46,8 @@ from employee_Client_student.models.student_model import Student
 
 #         login(request, user)
 
-#         # 🔐 ROLE BASED REDIRECT
-#         if emp.role in ["employee", "teacher"]:
+#         # ROLE BASED REDIRECT
+#         if emp.role in ["employee", "teacher", "account-manager", "manager"]:
 #             return redirect("dashboard_employee", emp_uuid=emp.emp_uuid)
 
 #         elif emp.role == "client":
@@ -60,8 +61,23 @@ from employee_Client_student.models.student_model import Student
 
 def login_view(request):
     if request.method == "POST":
-        username = request.POST.get("username", "").strip()
+
+        username_or_email = request.POST.get("username", "").strip()
         password = request.POST.get("password", "").strip()
+
+        from django.contrib.auth.models import User
+
+        try:
+            # check if email used
+            if "@" in username_or_email:
+                user_obj = User.objects.get(email=username_or_email)
+                username = user_obj.username
+            else:
+                username = username_or_email
+
+        except User.DoesNotExist:
+            messages.error(request, "Invalid Username or Email")
+            return render(request, "auth/login.html")
 
         user = authenticate(request, username=username, password=password)
 
@@ -79,9 +95,9 @@ def login_view(request):
                 return render(request, "auth/login.html")
 
             login(request, user)
-            return redirect("dashboard_student", stu_uuid=stu.stu_uuid)  # ← YEH CHANGE KARO
+            return redirect("dashboard_student", stu_uuid=stu.stu_uuid)
 
-        # EMPLOYEE / TEACHER / CLIENT LOGIN
+        # EMPLOYEE / MANAGER LOGIN
         try:
             emp_id = username.split("@")[-1]
             emp = Employee.objects.get(emp_id=emp_id)
@@ -91,8 +107,7 @@ def login_view(request):
 
         login(request, user)
 
-        # ROLE BASED REDIRECT
-        if emp.role in ["employee", "teacher"]:
+        if emp.role in ["employee", "teacher", "account-manager", "manager"]:
             return redirect("dashboard_employee", emp_uuid=emp.emp_uuid)
 
         elif emp.role == "client":

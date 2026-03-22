@@ -1,11 +1,16 @@
 from django.contrib import admin
 
+from mainApp.models.contact_model import Contact, Newsletter
 from mainApp.models.course_model import Course
 from mainApp.models.enrollment_model import Enrollment
+from mainApp.models.payment_model import Payment
 from mainApp.models.service_model import Service
 # from .models import Course, Enrollment, Service
 
+admin.site.register(Payment)
 admin.site.register(Service)
+admin.site.register(Newsletter)
+admin.site.register(Contact)
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     list_display = ('title', 'is_new', 'order', 'created_at')

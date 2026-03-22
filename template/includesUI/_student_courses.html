@@ -44,7 +44,6 @@
 
 <!-- PRICE + PAY -->
 <div class="d-flex justify-content-between align-items-center mt-3">
-
 <div>
 
 {% if course.discounted_price and course.discounted_price < course.price %}
@@ -53,8 +52,12 @@
 ₹{{ course.price|floatformat:0 }}
 </span>
 
-<span class="text-pink fw-bold">
+<span class="text-pink fw-bold me-2">
 ₹{{ course.discounted_price|floatformat:0 }}
+</span>
+
+<span class="badge bg-success small">
+Save {{ course.discount_percentage }}%
 </span>
 
 {% else %}

@@ -33,8 +33,12 @@ class Employee(models.Model):
         if creating and not self.emp_id:
             if self.role == "teacher":
                 prefix = "SJT"
+            elif self.role == "account-manager":
+                prefix = "SJAM"
             elif self.role == "client":
                 prefix = "SJC"
+            elif self.role == "manager":
+                prefix = "SJM"
             else:
                 prefix = "SJE"
 

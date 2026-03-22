@@ -58,7 +58,7 @@ style="max-height:320px;">
 </h3>
 
 <h2 class="title mb-3">
-<span>New Batch 2025</span>
+<span>New Batch 2026</span>
 <span style="color:#ff69b4;">Starting Soon!</span>
 </h2>
 
@@ -162,9 +162,9 @@ NEW
 </div>
 
 
-{% if course.discounted_price and course.discounted_price < course.price %}
+{% if course.discount_percentage %}
 <span class="badge bg-success small">
-Save {{ course.discount_percentage|default:"20" }}%
+Save {{ course.discount_percentage }}%
 </span>
 {% endif %}
 
@@ -235,7 +235,7 @@ data-bs-slide="next">
 style="background: linear-gradient(45deg,#ff69b4,#ff8c00);max-width:700px;margin:auto;">
 
 <h3 class="mb-3">
-New Batch Starts: <strong>January 2025</strong>
+New Batch Starts: <strong>January 2026</strong>
 </h3>
 
 <p class="lead mb-4">
@@ -315,6 +315,27 @@ left:5px;
 right:5px;
 }
 
+}
+
+.course-card{
+border-radius:16px;
+background:white;
+border:1px solid #eee;
+transition:0.3s;
+position:relative;
+z-index:1;
+}
+
+.course-card:hover{
+transform:translateY(-8px);
+box-shadow:0 15px 35px rgba(255,105,180,0.25);
+border-color:#ff69b4;
+z-index:50;
+}
+
+.carousel-inner,
+.carousel-item{
+overflow:visible;
 }
 
 </style>

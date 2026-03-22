@@ -21,19 +21,21 @@ from django.conf.urls.static import static
 # from sjTachSolution.sjTachSolution import views
 from . import views
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('superAdmin/', admin.site.urls),
     path('', views.index_page,name='home'),
     path('about/', views.about,name='about'),
     path('testimonial/', views.testimonial,name='testimonial'),
     path('courses/', views.courses,name='courses'),
     path('services_list/', views.services,name='services_list'),
     path('controller/', views.controller,name='controller'),
+    path('contact/', views.contact,name='contact'),
     path('enroll/', views.enroll_page, name='enroll_page'),
- # Add this line 👇
+ # Add this line 
     path('pages/', include('mainApp.urls')),
     path('', include('employee_Client_student.urls')),
 ]
-
+# Custom 404 error handler
+handler404 = "sjTachSolution.views.custom_404"
 # Media files ke liye (photo upload)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

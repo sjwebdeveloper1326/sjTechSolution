@@ -60,12 +60,13 @@
                         </span>
                     </td>
                     <td>
+                        
                         <a href="{% url 'student_edit' stu_uuid=s.stu_uuid %}"
                            class="btn btn-sm btn-outline-light me-1">Edit</a>
                         
                         <form action="{% url 'student_delete' stu_uuid=s.stu_uuid %}" method="post" style="display:inline;">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-sm btn-outline-danger"
+                            <button type="submit" class="mt-2 btn btn-sm btn-outline-danger"
                                     onclick="return confirm('Delete student {{ s.name }}? This cannot be undone.')">
                                 Delete
                             </button>

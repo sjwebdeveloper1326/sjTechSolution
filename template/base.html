@@ -114,22 +114,6 @@
 
               <li class="nav-item">
                 <a
-                  class="nav-link {% if request.path == '/controller/' %}active{% endif %}"
-                  href="{% url 'controller' %}"
-                  >controller</a
-                >
-              </li>
-
-              <li class="nav-item">
-                <a
-                  class="nav-link {% if request.path == '/courses/' %}active{% endif %}"
-                  href="{% url 'courses' %}"
-                  >courses</a
-                >
-              </li>
-
-              <li class="nav-item">
-                <a
                   class="nav-link {% if request.path == '/about/' %}active{% endif %}"
                   href="{% url 'about' %}"
                   >about</a
@@ -144,11 +128,27 @@
                 >
               </li>
 
+               <li class="nav-item">
+                <a
+                  class="nav-link {% if request.path == '/courses/' %}active{% endif %}"
+                  href="{% url 'courses' %}"
+                  >courses</a
+                >
+              </li>
+
               <li class="nav-item">
                 <a
                   class="nav-link {% if request.path == '/testimonial/' %}active{% endif %}"
                   href="{% url 'testimonial' %}"
                   >testimonial</a
+                >
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link {% if request.path == '/contact/' %}active{% endif %}"
+                  href="{% url 'contact' %}"
+                  >contact</a
                 >
               </li>
 
@@ -179,14 +179,16 @@
                 min-width: 220px;
               "
             >
-              <li>
-                <a
-                  class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
-                  href="{% url 'controller' %}"
-                >
-                  <i class="bi bi-gear me-2"></i>Controller
-                </a>
-              </li>
+             {% if employee.role == "admin" or employee.role == "manager" or employee.role == "account-manager" %}
+<li>
+  <a
+    class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
+    href="{% url 'controller' %}"
+  >
+    <i class="bi bi-gear me-2"></i>Controller
+  </a>
+</li>
+{% endif %}
 
               {% if student %}
               <li>
@@ -307,7 +309,7 @@
           <div class="col-md-6 col-lg mb-5 mb-lg-0">
             <h3><span>Quick Link</span></h3>
             <ul class="list-group">
-              <li class="py-1 py-md-2"><a href="#service">Service</a></li>
+              <li class="py-1 py-md-2"><a href="{% url 'services_list' %}">Service</a></li>
               <li class="py-1 py-md-2"><a href="#team">Team</a></li>
               <li class="py-1 py-md-2"><a href="#portfolio">Portfolio</a></li>
               <li class="py-1 py-md-2"><a href="#blog">Our Blog</a></li>
@@ -317,7 +319,7 @@
           <div class="col-md-6 col-lg mb-5 mb-md-0">
             <h3><span>Company</span></h3>
             <ul class="list-group">
-              <li class="py-1 py-md-2"><a href="#about">About us</a></li>
+              <li class="py-1 py-md-2"><a href="{% url 'about' %}">About us</a></li>
               <li class="py-1 py-md-2">
                 <a href="https://www.designtocodes.com/terms/" target="_blank"
                   >Terms</a
@@ -334,32 +336,32 @@
           <div class="col-md-6 col-lg-4">
             <h3><span>Company</span></h3>
             <ul class="d2c_company_info list-group">
+              <!-- <li class="py-1 py-md-2">
+                <a href="tel:+919888991877"
+                  ><i class="fas fa-phone-alt"></i> 9888991877</a
+                >
+              </li> -->
               <li class="py-1 py-md-2">
-                <a href="tel:+971 5546 963"
-                  ><i class="fas fa-phone-alt"></i> 971 5546 963</a
+                <a href="mailto:sj.techsolution20@gmail.com"
+                  ><i class="fas fa-envelope"></i> sj.techsolution20@gmail.com</a
                 >
               </li>
-              <li class="py-1 py-md-2">
-                <a href="mailto:example@gmail.com"
-                  ><i class="fas fa-envelope"></i> example@gmail.com</a
-                >
-              </li>
-              <li class="py-1 py-md-2">
+              <!-- <li class="py-1 py-md-2">
                 <a
-                  href="https://www.google.com/maps/@40.0677545,-76.0434136,8z?entry=ttu"
+                  href=""
                   target="_blank"
                 >
                   <i class="fas fa-map-marker-alt"></i> Royal 2464 Mesa, New
                   Jersey
                 </a>
-              </li>
+              </li> -->
             </ul>
           </div>
         </div>
 
         <div class="d2c_copy_wrapper">
           <h4 class="text-center">
-            © 2023 <a href="#" target="_blank">SJ.Tech Solution</a>. All Right
+            © 2026 <a href="#" target="_blank">SJ.Tech Solution</a>. All Right
             Reserved
           </h4>
         </div>

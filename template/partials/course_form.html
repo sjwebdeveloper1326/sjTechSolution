@@ -311,10 +311,10 @@ name="is_new"
 <label class="form-label">Email Sent</label>
 
 <br>
-
 <input type="checkbox"
 name="email_sent"
-{% if course.email_sent %}checked{% endif %}>
+{% if course.email_sent %}checked{% endif %}
+{% if course %}disabled{% endif %}>
 
 </div>
 
@@ -372,6 +372,8 @@ Cancel
 </div>
 </div>
 
+{% block extra_script %}
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.js-choices').forEach(element => {
@@ -407,3 +409,4 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
+{% endblock %}

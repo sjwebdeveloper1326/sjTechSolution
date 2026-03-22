@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Page Not Found - SJ.Tech
+{% endblock %}
+
+{% block content %}
+
+<div class="d2c_hero_bg">
+
+<section class="d2c_hero_wrapper">
+  <div class="container">
+    <div class="row align-items-center">
+
+      <div class="col-lg-6 pe-5 order-last order-lg-first">
+
+        <h1>
+          404 <br>
+          <span>Page Not Found</span>
+        </h1>
+
+        <p>
+          Oops! The page you are looking for does not exist or may have been moved.
+          Please check the URL or go back to the homepage.
+        </p>
+
+        <a href="{% url 'home' %}" class="btn">
+          Back To Home
+        </a>
+
+      </div>
+
+      <div class="col-lg-6 order-first order-lg-first mb-4 mb-lg-0">
+
+        <div class="d2c_vector_img_wrapper">
+          <div class="d2c_shade_bg">
+            <img
+              src="{% static 'assets/images/home-hero-vector-unscreen.gif' %}"
+              class="img-fluid"
+              alt="404 Image"
+            >
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</div>
+
+{% endblock %}

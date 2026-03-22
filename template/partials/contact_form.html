@@ -1,0 +1,126 @@
+
+  <!-- newsletter section start -->
+  <section class="d2c_newsletter_wrapper">
+    <div class="container">
+      <div class="d2c_card_wrapper">
+        <h2 class="d2c_sub_title text_start text-md-center position-relative">
+          Be the first to know when <span>we launch</span>
+        </h2>
+        <p class="text_start text-md-center">
+          Stay in the loop with everything you need to know.
+        </p>
+        <div class="row">
+          <div
+            class="col-12 col-lg-8 col-xl-6 offset-0 offset-lg-2 offset-xl-3"
+          >
+            <form class="row needs-validation" method="POST" action="{% url 'contact' %}" novalidate>
+                {% csrf_token %}
+              <div class="col-md-8">
+                <div class="input-group">
+                  <input
+                    type="email"
+                    name="newsletter_email"
+                    class="form-control"
+                    placeholder="Enter your email address"
+                    aria-describedby="newsletter_btn"
+                    autocomplete="on"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <button class="btn" type="submit" id="newsletter_btn">
+                  get in touch
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- newsletter section end -->
+
+  <!-- contact section start -->
+  <section class="d2c_contact_wrapper" id="contact">
+    <div class="container">
+      <h3 class="d2c_sub_title position-relative">Contact <span>us</span></h3>
+      <h2>Have any <span>questions or inquiries?</span></h2>
+      <form class="row needs-validation" method="POST" action="{% url 'contact' %}" novalidate>
+        {% csrf_token %}
+        <div class="col-md-6">
+          <label for="validationCustomFirstName"  class="form-label"
+            >First <span>Name</span></label
+          >
+          <input
+            type="text"
+            name="first_name"
+            class="form-control"
+            id="validationCustomFirstName"
+            autocomplete="off"
+            required
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="validationCustomLastName" class="form-label"
+            >Last <span>Name</span></label
+          >
+          <input
+            type="text"
+            name="last_name"
+            class="form-control"
+            id="validationCustomLastName"
+            autocomplete="off"
+            required
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="validationCustomEmail" class="form-label"
+            >Email <span>Address</span></label
+          >
+          <div class="input-group has-validation">
+            <input
+              type="email"
+              name="email"
+              class="form-control"
+              id="validationCustomEmail"
+              autocomplete="on"
+              required
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="validationCustomPhone" class="form-label"
+            >Phone <span>Number</span></label
+          >
+          <div class="input-group has-validation">
+            <input
+              type="tel"
+              name="phone"
+              class="form-control"
+              id="validationCustomPhone"
+              autocomplete="off"
+              required
+            />
+          </div>
+        </div>
+        <div class="col-md-12">
+          <label for="validationCustomMessage" class="form-label"
+            >Messages</label
+          >
+          <textarea
+            class="form-control"
+            name="message"
+            rows="5"
+            id="validationCustomMessage"
+            required
+          ></textarea>
+        </div>
+        <div class="col-12">
+          <button class="btn" type="submit">Send Message</button>
+        </div>
+      </form>
+    </div>
+  </section>
+  <!-- contact section end -->
+

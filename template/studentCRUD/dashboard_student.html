@@ -93,11 +93,10 @@
       {% if student.photo %}
         <img src="{{ student.photo.url }}" class="profile-img" />
       {% else %}
-        <img src="{% static 'default/user.png' %}" class="profile-img" />
+        <img src="{% static 'assets/images/default/dummy_img.png' %}" class="profile-img" />
       {% endif %}
 
       <h2 class="text-white mt-3">{{ student.name }}</h2>
-      <p class="text-pink mb-1">Student</p>
       <span class="badge bg-info text-dark text-uppercase">
         {{ student.role|default:"Student" }}
       </span>
@@ -163,13 +162,6 @@
     <!-- Tab Navigation -->
     <ul class="nav nav-tabs mb-4" id="studentTabs" role="tablist">
       <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="timesheet-tab" data-bs-toggle="tab"
-                data-bs-target="#timesheet" type="button" role="tab" aria-controls="timesheet"
-                aria-selected="true">
-          Timesheet
-        </button>
-      </li>
-      <li class="nav-item" role="presentation">
         <button class="nav-link" id="courses-tab" data-bs-toggle="tab"
                 data-bs-target="#courses" type="button" role="tab" aria-controls="courses"
                 aria-selected="false">
@@ -187,15 +179,7 @@
 
     <!-- Tab Content -->
     <div class="tab-content" id="studentTabsContent">
-      <!-- Timesheet Tab -->
-      <div class="tab-pane fade show active" id="timesheet" role="tabpanel" aria-labelledby="timesheet-tab">
-        {% if timesheets %}
-          {% include "includesUI/_timesheet.html" with stu_uuid=student.stu_uuid timesheets=timesheets %}
-        {% else %}
-          <p class="text-white text-center py-5">No timesheet records available yet.</p>
-        {% endif %}
-      </div>
-
+  
       <!-- Courses Tab - Real Data -->
      <!-- Courses Tab -->
 <div class="tab-pane fade" id="courses" role="tabpanel" aria-labelledby="courses-tab">
@@ -214,7 +198,7 @@
           {% if teacher.photo %}
             <img src="{{ teacher.photo.url }}" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
           {% else %}
-            <img src="{% static 'default/user.png' %}" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
+            <img src="{% static 'assets/images/default/dummy_img.png' %}" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
           {% endif %}
           <div>
             <h5 class="mb-0">{{ teacher.name }}</h5>

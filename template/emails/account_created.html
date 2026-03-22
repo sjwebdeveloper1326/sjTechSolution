@@ -1,146 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SJ.Tech Solution - Account Created</title>
-
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-    background: #0c0c18;
-    font-family: Arial, sans-serif;
-    color: #ddd;
-  }
-
-  .wrapper {
-    max-width: 600px;
-    margin: 30px auto;
-    background: #131324;
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid #252545;
-  }
-
-  .header {
-    padding: 25px 20px;
-    background: linear-gradient(90deg, #ff2b9f, #8a2be2);
-    text-align: center;
-  }
-
-  .header h1 {
-    margin: 5px 0 0;
-    font-size: 26px;
-    color: #fff;
-    letter-spacing: 0.5px;
-  }
-
-  .body {
-    padding: 35px 30px;
-    text-align: center;
-  }
-
-  .welcome {
-    font-size: 20px;
-    margin-bottom: 10px;
-    font-weight: 500;
-    padding: 4px 3px;
-    border-radius: 8px;
-    background: linear-gradient(90deg, #ff2b9f, #8a2be2);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .message {
-    font-size: 15px;
-    line-height: 1.6;
-    color: #b8b8d9;
-  }
-
-  .card {
-    margin: 25px auto;
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 43, 159, 0.35);
-    background: rgba(255, 255, 255, 0.03);
-    max-width: 420px;
-  }
-
-  .card p {
-    margin: 8px 0;
-    font-size: 15px;
-    color: white;
-  }
-
-  .card strong {
-    color: #ff2b9f;
-  }
-
-  .btn {
-    display: inline-block;
-    margin-top: 25px;
-    background: linear-gradient(90deg, #8a2be2, #ff2b9f);
-    padding: 12px 35px;
-    color: #fff !important;
-    border-radius: 40px;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 600;
-  }
-
-  .footer {
-    background: #0d0d16;
-    padding: 20px 10px;
-    text-align: center;
-    font-size: 13px;
-    color: #777;
-    border-top: 1px solid #23233a;
-  }
-
-  .footer a {
-    color: #ff2b9f;
-    text-decoration: none;
-  }
-</style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account Created</title>
 </head>
-<body>
 
-<div class="wrapper">
+<body style="margin:0; padding:0; background:#0c0c18; font-family:Arial, sans-serif;">
 
-  <div class="header">
-    <img src="" alt="Logo" height="60">
-    <h1>SJ.Tech Solution</h1>
+<div style="max-width:600px; margin:20px auto; background:#131324; border-radius:12px; overflow:hidden; border:1px solid #252545;">
+
+  <!-- HEADER -->
+  <div style="padding:30px 20px; text-align:center; background:#1a1a2e;">
+    
+    <!-- LOGO FIX -->
+    <div style=" display:inline-block; padding:10px 18px; border-radius:10px; margin-bottom:10px;">
+      <img src="{{ logo_url }}" height="50">
+    </div>
+
+    <h1 style="color:#ffffff; margin:10px 0 0; font-size:24px;">
+      SJ.Tech Solution
+    </h1>
   </div>
 
-  <div class="body">
-    <h2 class="welcome">Welcome, {{ name }} 🎉</h2>
+  <!-- BODY -->
+  <div style="padding:30px 25px; text-align:center;">
 
-    <p class="message">
-      Your account has been successfully created at <strong>SJ.Tech Solution</strong>.<br>
+    <h2 style="color:#ff2b9f; font-size:20px; margin-bottom:10px;">
+      Welcome, {{ name }} 🎉
+    </h2>
+
+    <p style="color:#b8b8d9; font-size:14px; line-height:1.6;">
+      Your account has been successfully created at <b>SJ.Tech Solution</b>.<br>
       We are excited to have you onboard!
     </p>
 
-    <div class="card">
-      <p><strong>Username:</strong> {{ username }}</p>
-      <p><strong>Temporary Password:</strong> {{ password }}</p>
+    <!-- CARD -->
+    <div style="margin:25px auto; padding:20px; border-radius:10px; border:1px solid #ff2b9f; background:#0f0f1f;">
+      
+      <p style="margin:8px 0; color:#ffffff;">
+        <b style="color:#ff2b9f;">Username:</b> {{ username }}
+      </p>
+
+      <p style="margin:8px 0; color:#ffffff;">
+        <b style="color:#ff2b9f;">Password:</b> {{ password }}
+      </p>
+
     </div>
 
-    <p class="message">
-      For your security, please change your password after logging in.
+    <p style="color:#aaa; font-size:13px;">
+      Please change your password after login.
     </p>
 
-    <a href="{{ protocol }}://{{ domain }}{% url 'login' %}" class="btn">Login Now →</a>
+    <!-- BUTTON -->
+    <a href="{{ protocol }}://{{ domain }}{% url 'login' %}"
+       style="display:inline-block; margin-top:20px; background:#ff2b9f; color:#fff; padding:12px 30px; border-radius:25px; text-decoration:none; font-weight:bold;">
+       Login Now →
+    </a>
 
-    <p class="message" style="margin-top: 25px;">
-      Need help? Just reply to this email — we’re always here for you. 🚀
+    <p style="margin-top:25px; font-size:13px; color:#999;">
+      Need help? Just reply to this email 🚀
     </p>
+
   </div>
 
-  <div class="footer">
-    <p>&copy; 2025 SJ.Tech Solution • Smart Journey Starts Here</p>
-    <p><a href="#">Unsubscribe</a> • <a href="#">Privacy Policy</a></p>
+  <!-- FOOTER -->
+  <div style="background:#0d0d16; padding:15px; text-align:center; font-size:12px; color:#777;">
+    © 2026 SJ.Tech Solution <br>
+    <span style="color:#ff2b9f;">Smart Journey Starts Here</span>
   </div>
 
 </div>
