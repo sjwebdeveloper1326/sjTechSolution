@@ -29,7 +29,7 @@ def testimonial(request):
 
 # def index_page(request):
 #     # Sirf test ke liye message dikhana chahte ho toh yeh karo
-#     messages.success(request, "Welcome to SJ.Tech Solution!")
+#     messages.success(request, "Welcome to SG.Automix Tech!")
 #     messages.error(request, "Yeh error message hai")
 #     messages.info(request, "Server is running smoothly")
 

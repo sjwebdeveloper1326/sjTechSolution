@@ -5,7 +5,7 @@ from django.template.loader import render_to_string
 
 def send_account_email(to_email: str, name: str, username: str, password: str, extra_context: dict = None):
 
-    subject = "🎉 Your SJ.Tech Solution Account is Ready!"
+    subject = "🎉 Your SG.Automix Tech Account is Ready!"
     from_email = getattr(settings, "DEFAULT_FROM_EMAIL", settings.EMAIL_HOST_USER)
 
     context = {
@@ -14,7 +14,7 @@ def send_account_email(to_email: str, name: str, username: str, password: str, e
         'password': password,
         'protocol': 'https',
         'domain': 'sjtechsolution.pythonanywhere.com',
-        'logo_url': 'https://sjtechsolution.pythonanywhere.com/static/assets/images/SJ_T_logo.png',
+        'logo_url': 'https://sjtechsolution.pythonanywhere.com/static/assets/images/SGAutomixTech_Black_bg_SizeFix.gif',
         **(extra_context or {})
     }
 
