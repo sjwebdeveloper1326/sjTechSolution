@@ -1,0 +1,91 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Project create / edit
+{% endblock %}
+
+{% block content %}
+
+<section class="d2c_contact_wrapper">
+  <div class="container">
+
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+
+        <div class="d2c_card_wrapper p-4">
+
+          <h3 class="d2c_sub_title text-center">
+            Add <span>Project</span>
+          </h3>
+
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Title -->
+            <div class="mb-3">
+              <label>Project Title</label>
+              {{ form.title }}
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+              <label>Description</label>
+              {{ form.description }}
+            </div>
+
+            <!-- Image -->
+            <div class="mb-3">
+              <label>Project Image</label>
+              {{ form.image }}
+            </div>
+
+            <!-- Link -->
+            <div class="mb-3">
+              <label>Project Link</label>
+              {{ form.link }}
+            </div>
+
+            <button type="submit" class="btn w-100">
+              Save Project
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+ {% block extra_css %}
+<style>
+form label {
+    color: var(--primary_text_color);
+    margin-bottom: 5px;
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: var(--primary_radius);
+    border: 1px solid rgba(255,255,255,0.1);
+    background: #1a222c;
+    color: white;
+}
+
+form input:focus,
+form textarea:focus {
+    outline: none;
+    border-color: var(--primary_color);
+}
+</style>
+{% endblock %}
+
+{% endblock %}

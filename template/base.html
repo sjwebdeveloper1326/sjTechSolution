@@ -66,6 +66,55 @@
         background-color: rgba(255, 255, 255, 0.12) !important;
         color: white;
       }
+
+      /* Section background fix */
+      .d2c_portfolio_wrapper {
+        background: var(--secondary_color);
+        padding: 100px 0;
+      }
+
+      /* Text visibility fix */
+      .d2c_portfolio_wrapper p {
+        color: var(--secondary_text_shade);
+      }
+
+      .project-desc {
+        color: var(--secondary_text_shade);
+      }
+
+      /* Card Styling */
+      .project-card {
+        background: #1a222c;
+        border-radius: var(--primary_radius);
+        overflow: hidden;
+        transition: 0.4s;
+      }
+
+      /* Image fix */
+      .project-img img {
+        height: 250px;
+        object-fit: cover;
+        transition: 0.4s;
+      }
+
+      /* Content */
+      .project-content {
+        padding: 20px;
+      }
+
+      .project-content h4 {
+        color: var(--default_color);
+        margin-bottom: 10px;
+      }
+
+      .project-content p {
+        color: var(--secondary_text_shade);
+        font-size: 14px;
+      }
+
+      .project-card:hover img {
+        transform: scale(1.05);
+      }
     </style>
   </head>
 
@@ -128,11 +177,19 @@
                 >
               </li>
 
-               <li class="nav-item">
+              <li class="nav-item">
                 <a
                   class="nav-link {% if request.path == '/courses/' %}active{% endif %}"
                   href="{% url 'courses' %}"
                   >courses</a
+                >
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link {% if request.path == '/projects/' %}active{% endif %}"
+                  href="{% url 'projects' %}"
+                  >projects</a
                 >
               </li>
 
@@ -179,18 +236,16 @@
                 min-width: 220px;
               "
             >
-             {% if employee.role == "admin" or employee.role == "manager" or employee.role == "account-manager" %}
-<li>
-  <a
-    class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
-    href="{% url 'controller' %}"
-  >
-    <i class="bi bi-gear me-2"></i>Controller
-  </a>
-</li>
-{% endif %}
-
-              {% if student %}
+              {% if employee.is_admin_level %}
+              <li>
+                <a
+                  class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
+                  href="{% url 'controller' %}"
+                >
+                  <i class="bi bi-gear me-2"></i>Controller
+                </a>
+              </li>
+              {% endif %} {% if student %}
               <li>
                 <a
                   class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
@@ -280,21 +335,15 @@
             </p>
             <ul class="d2c_social_link list-group list-group-horizontal">
               <li>
-                <a href="https://www.facebook.com/Designtocodes" target="_blank"
-                  ><i class="fab fa-facebook-f"></i
-                ></a>
+                <a href="" target="_blank"><i class="fab fa-facebook-f"></i></a>
               </li>
               <li>
-                <a
-                  href="https://www.linkedin.com/company/designtocodes/"
-                  target="_blank"
+                <a href="" target="_blank"
                   ><i class="fab fa-linkedin-in"></i
                 ></a>
               </li>
               <li>
-                <a href="https://twitter.com/DesignToCodes" target="_blank"
-                  ><i class="fab fa-twitter"></i
-                ></a>
+                <a href="" target="_blank"><i class="fab fa-twitter"></i></a>
               </li>
               <li>
                 <a
@@ -306,34 +355,25 @@
             </ul>
           </div>
 
-          <div class="col-md-6 col-lg mb-5 mb-lg-0">
+          <div class="col-md-4 col-lg-3 mb-5 mb-lg-0">
             <h3><span>Quick Link</span></h3>
             <ul class="list-group">
-              <li class="py-1 py-md-2"><a href="{% url 'services_list' %}">Service</a></li>
-              <li class="py-1 py-md-2"><a href="#team">Team</a></li>
-              <li class="py-1 py-md-2"><a href="#portfolio">Portfolio</a></li>
-              <li class="py-1 py-md-2"><a href="#blog">Our Blog</a></li>
-            </ul>
-          </div>
-
-          <div class="col-md-6 col-lg mb-5 mb-md-0">
-            <h3><span>Company</span></h3>
-            <ul class="list-group">
-              <li class="py-1 py-md-2"><a href="{% url 'about' %}">About us</a></li>
               <li class="py-1 py-md-2">
-                <a href="https://www.designtocodes.com/terms/" target="_blank"
-                  >Terms</a
-                >
+                <a href="{% url 'services_list' %}">Service</a>
               </li>
               <li class="py-1 py-md-2">
-                <a href="https://www.designtocodes.com/terms/" target="_blank"
-                  >Privacy Policy</a
-                >
+                <a href="{% url 'projects' %}">Projects</a>
+              </li>
+              <li class="py-1 py-md-2">
+                <a href="{% url 'courses' %}">Courses</a>
+              </li>
+              <li class="py-1 py-md-2">
+                <a href="{% url 'about' %}">About us</a>
               </li>
             </ul>
           </div>
 
-          <div class="col-md-6 col-lg-4">
+          <div class="col-md-8 col-lg-5 mb-5 mb-lg-0">
             <h3><span>Company</span></h3>
             <ul class="d2c_company_info list-group">
               <!-- <li class="py-1 py-md-2">
@@ -343,7 +383,8 @@
               </li> -->
               <li class="py-1 py-md-2">
                 <a href="mailto:sj.techsolution20@gmail.com"
-                  ><i class="fas fa-envelope"></i> sj.techsolution20@gmail.com</a
+                  ><i class="fas fa-envelope"></i>
+                  sj.techsolution20@gmail.com</a
                 >
               </li>
               <!-- <li class="py-1 py-md-2">
@@ -351,8 +392,7 @@
                   href=""
                   target="_blank"
                 >
-                  <i class="fas fa-map-marker-alt"></i> Royal 2464 Mesa, New
-                  Jersey
+                  <i class="fas fa-map-marker-alt"></i> 123 Main Street, City, Country</a
                 </a>
               </li> -->
             </ul>
@@ -361,8 +401,8 @@
 
         <div class="d2c_copy_wrapper">
           <h4 class="text-center">
-            © 2026 <a href="#" target="_blank">SG.Automix Tech</a>. All Right
-            Reserved
+            © {% now "Y" %} <a href="#" target="_blank">SG.Automix Tech</a>. All
+            Right Reserved
           </h4>
         </div>
       </div>

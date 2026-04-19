@@ -74,6 +74,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'employee_Client_student.context_processors.profile_id',
+                'employee_Client_student.context_processors.global_date',
             ],
         },
     },

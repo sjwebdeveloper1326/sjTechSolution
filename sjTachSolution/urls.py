@@ -28,6 +28,7 @@ urlpatterns = [
     path('courses/', views.courses,name='courses'),
     path('services_list/', views.services,name='services_list'),
     path('controller/', views.controller,name='controller'),
+    path('projects/', views.projects,name='projects'),
     path('contact/', views.contact,name='contact'),
     path('enroll/', views.enroll_page, name='enroll_page'),
  # Add this line 

@@ -1,0 +1,69 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Project Page - SJ.Tech
+{% endblock %}
+
+
+{% block content %}
+<section class="d2c_portfolio_wrapper position-relative" id="projects">
+  <div class="container">
+
+    <!-- Heading -->
+    <div class="row">
+      <div class="col-lg-6 offset-lg-3 text-center">
+        <h3 class="d2c_sub_title position-relative">
+          Our <span>Projects</span>
+        </h3>
+        <h2 class="d2c_title position-relative">
+          Explore Our <span>Recent Work</span>
+        </h2>
+        <p class="project-desc">
+          Here are some of our latest and most successful projects.
+        </p>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+
+  {% for project in projects %}
+  <div class="col-md-6 col-lg-4 mb-4">
+    <div class="d2c_card_wrapper project-card">
+
+      <div class="project-img">
+        <img src="{{ project.image.url }}" class="img-fluid w-100" alt="">
+      </div>
+
+      <div class="project-content">
+        <h4>{{ project.title }}</h4>
+
+        <p>{{ project.description|truncatechars:80 }}</p>
+
+        {% if project.link %}
+        <a href="{{ project.link }}" target="_blank" class="btn">
+          View Project
+        </a>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+  {% empty %}
+  <p class="text-center text-white">No Projects Available</p>
+  {% endfor %}
+
+</div>
+  </div>
+</section>
+ {% block extra_css %}
+<!-- Blinking Animation -->
+<style>
+
+
+</style>
+
+{% endblock %}
+
+{% endblock %}

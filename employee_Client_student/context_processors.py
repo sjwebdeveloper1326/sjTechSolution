@@ -7,8 +7,60 @@
 
 # from employee.models import Employee, Student
 
-from employee_Client_student.models import Employee, Student
+# from employee_Client_student.models import Employee, Student
 
+
+# def profile_id(request):
+#     context = {
+#         "profile_id": None,
+#         "student": None,
+#         "employee": None,
+#     }
+
+#     if request.user.is_authenticated:
+#         username = request.user.username
+
+#         # STUDENT
+#         if "SJS" in username:
+#             try:
+#                 student_id = username.split("@")[-1]
+#                 student = Student.objects.get(student_id=student_id)
+#                 context.update({
+#                     "profile_id": student.student_id,
+#                     "student": student,
+#                 })
+#             except Student.DoesNotExist:
+#                 pass
+
+#         # EMPLOYEE
+#         elif "SJE" in username:
+#             try:
+#                 emp_id = username.split("@")[-1]
+#                 employee = Employee.objects.get(emp_id=emp_id)
+#                 context.update({
+#                     "profile_id": employee.emp_id,
+#                     "employee": employee,
+#                 })
+#             except Employee.DoesNotExist:
+#                 pass
+
+#         # TEACHER
+#         elif "SJT" in username:
+#             try:
+#                 emp_id = username.split("@")[-1]
+#                 employee = Employee.objects.get(emp_id=emp_id)
+#                 context.update({
+#                     "profile_id": employee.emp_id,
+#                     "employee": employee,
+#                 })
+#             except Employee.DoesNotExist:
+#                 pass
+
+#     return context
+
+
+from employee_Client_student.models import Employee, Student
+from datetime import datetime
 
 def profile_id(request):
     context = {
@@ -32,20 +84,8 @@ def profile_id(request):
             except Student.DoesNotExist:
                 pass
 
-        # EMPLOYEE
-        elif "SJE" in username:
-            try:
-                emp_id = username.split("@")[-1]
-                employee = Employee.objects.get(emp_id=emp_id)
-                context.update({
-                    "profile_id": employee.emp_id,
-                    "employee": employee,
-                })
-            except Employee.DoesNotExist:
-                pass
-
-        # TEACHER
-        elif "SJT" in username:
+        # ✅ ALL EMPLOYEES (FIXED)
+        elif any(prefix in username for prefix in ["SJE", "SJT", "SJM", "SJAM", "SJC"]):
             try:
                 emp_id = username.split("@")[-1]
                 employee = Employee.objects.get(emp_id=emp_id)
@@ -57,3 +97,11 @@ def profile_id(request):
                 pass
 
     return context
+
+
+
+def global_date(request):
+    return {
+        'current_year': datetime.now().year,
+        'current_month': datetime.now().strftime('%B')
+    }

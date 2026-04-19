@@ -8,11 +8,14 @@ from mainApp.models.enrollment_model import Enrollment
 from mainApp.models.service_model import Service
 from django.contrib.auth.decorators import login_required
 
+from mainApp.models.project_model import Project
+
 # from mainApp.models import Course, Enrollment, Service
 
 def index_page(request):
+    projects = Project.objects.all().order_by('-id')
     # services = Service.objects.all()
-    return render(request, 'index.html')
+    return render(request, 'index.html', {'projects': projects})
     # return render(request, 'index.html', {'services': services})
 
 def about(request):
@@ -20,6 +23,10 @@ def about(request):
 
 def testimonial(request):
     return render(request, 'testimonial.html')
+    
+def projects(request):
+    projects = Project.objects.all().order_by('-id')
+    return render(request, 'projects.html', {'projects': projects})
    
 
 # views.py
@@ -35,8 +42,8 @@ def testimonial(request):
 
 #     return render(request, 'index.html')
 
-def courses(request):
-    return render(request, 'courses.html',)
+# def courses(request):
+#     return render(request, 'courses.html',)
 
 def services(request):
     services = Service.objects.all()
@@ -53,16 +60,35 @@ def courses(request):
 # def controller(request):
 #     return render(request, 'controller.html',)
 @login_required(login_url='login')
+# def controller(request):
+
+#     try:
+#         username = request.user.username
+#         emp_id = username.split("@")[-1]
+#         emp = Employee.objects.get(emp_id=emp_id)
+
+#         if emp.role not in ["manager", "account-manager", "admin"]:
+#             messages.error(request, "You do not have permission to access this page.")
+#             return redirect("login")
+
+#     except Employee.DoesNotExist:
+#         messages.error(request, "Unauthorized access.")
+#         return redirect("login")
+
+#     return render(request, "controller.html")
+
+# @login_required(login_url='login')
 def controller(request):
 
     try:
-        username = request.user.username
-        emp_id = username.split("@")[-1]
+        emp_id = request.user.username.split("@")[-1]
         emp = Employee.objects.get(emp_id=emp_id)
 
-        if emp.role not in ["manager", "account-manager", "admin"]:
-            messages.error(request, "You do not have permission to access this page.")
-            return redirect("login")
+        allowed_roles = ["admin", "manager", "account-manager"]
+
+        if emp.role not in allowed_roles:
+            messages.error(request, "Permission denied.")
+            return redirect("home")
 
     except Employee.DoesNotExist:
         messages.error(request, "Unauthorized access.")
@@ -133,33 +159,33 @@ def contact(request):
     return render(request, "contact.html")
 
 
-def enroll_page(request):
-    courses = Course.objects.all()
+# def enroll_page(request):
+#     courses = Course.objects.all()
 
-    if request.method == "POST":
-        name = request.POST.get('name')
-        phone = request.POST.get('phone')
-        email = request.POST.get('email')
-        course = request.POST.get('course')
+#     if request.method == "POST":
+#         name = request.POST.get('name')
+#         phone = request.POST.get('phone')
+#         email = request.POST.get('email')
+#         course = request.POST.get('course')
 
-        # Simple duplicate check (optional)
-        if Enrollment.objects.filter(phone=phone, course=course).exists():
-            messages.warning(request, f"Arre {name}, tum already enroll ho chuke ho is course mein!")
-        else:
-            Enrollment.objects.create(
-                name=name,
-                phone=phone,
-                email=email,
-                course=course
-            )
-            messages.success(request, 
-                f"Badhai ho {name}! Tumhara enrollment successful ho gaya hai 🔥 "
-                "Hum jaldi hi WhatsApp pe batch details bhejenge!")
+#         # Simple duplicate check (optional)
+#         if Enrollment.objects.filter(phone=phone, course=course).exists():
+#             messages.warning(request, f"Arre {name}, tum already enroll ho chuke ho is course mein!")
+#         else:
+#             Enrollment.objects.create(
+#                 name=name,
+#                 phone=phone,
+#                 email=email,
+#                 course=course
+#             )
+#             messages.success(request, 
+#                 f"Badhai ho {name}! Tumhara enrollment successful ho gaya hai 🔥 "
+#                 "Hum jaldi hi WhatsApp pe batch details bhejenge!")
         
-        return redirect('enroll_page')  # Prevent duplicate on refresh
+#         return redirect('enroll_page')  # Prevent duplicate on refresh
 
-    context = {'courses': courses}
-    return render(request, 'enroll.html', context)
+#     context = {'courses': courses}
+#     return render(request, 'enroll.html', context)
 
 # views.py
 def enroll_page(request):
