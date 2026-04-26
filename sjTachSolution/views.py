@@ -9,6 +9,7 @@ from mainApp.models.service_model import Service
 from django.contrib.auth.decorators import login_required
 
 from mainApp.models.project_model import Project
+from mainApp.models.testimonial_model import Testimonial
 
 # from mainApp.models import Course, Enrollment, Service
 
@@ -22,7 +23,10 @@ def about(request):
     return render(request, 'about.html')
 
 def testimonial(request):
-    return render(request, 'testimonial.html')
+    testimonials = Testimonial.objects.all().order_by('-id')[:10]  #  latest 10
+    return render(request, 'testimonial.html', {
+        'testimonials': testimonials
+    })
     
 def projects(request):
     projects = Project.objects.all().order_by('-id')

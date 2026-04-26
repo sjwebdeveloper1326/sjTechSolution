@@ -11,3 +11,4 @@ from .course_model import Course
 from .payment_model import Payment
 from .enrollment_model import Enrollment
 from .service_model import Service
+from .testimonial_model import Testimonial

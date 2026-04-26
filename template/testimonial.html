@@ -1,75 +1,60 @@
- 
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} {% load static %} {% block title %} testimonial -
+SJ.Tech {% endblock %} {% block content %}
+<!-- testimonial section start -->
+<section class="d2c_testimonial_wrapper" id="testimonial">
+  <div class="container">
+    <h3 class="d2c_sub_title text_start text-md-center position-relative">
+      Our <span>Testimonial</span>
+    </h3>
+    <h2 class="d2c_title text_start text-md-center position-relative">
+      here are some client feedback<span></span>
+    </h2>
+    <!-- Add Button -->
+    <div class="text-end mb-3">
+      <a href="{% url 'add_testimonial' %}" class="btn">+ Add Testimonial</a>
+    </div>
+    <div class="row testimonial_slider">
+      {% for t in testimonials %}
+      <div class="col">
+        <div class="d2c_card_wrapper text-center">
+          <!-- SAME h5 (just dynamic text) -->
+          <h5>{{ t.message }}</h5>
 
-{% block title %}
-    testimonial - SJ.Tech
-{% endblock %}
+          <!-- SAME IMAGE POSITION -->
+          {% if t.image %}
+          <img
+            src="{{ t.image.url }}"
+            class="img-fluid mb-2"
+            alt="Testimonial"
+          />
+          {% else %}
+          <img
+            src="{% static 'assets/images/testimonial_one.jpg' %}"
+            class="img-fluid mb-2"
+            alt="Testimonial"
+          />
+          {% endif %}
 
-{% block content %}
-   <!-- testimonial section start -->
-    <section class="d2c_testimonial_wrapper" id="testimonial">
-      <div class="container">
-        <h3 class="d2c_sub_title text_start text-md-center position-relative">
-          Our <span>Testimonial</span>
-        </h3>
-        <h2 class="d2c_title text_start text-md-center position-relative">
-          here are some client feedback<span></span>
-        </h2>
-        <div class="row testimonial_slider">
-          <div class="col">
-            <div class="d2c_card_wrapper text-center">
-              <h5>
-                Tanahair is the friendliest and most efficient service I have
-                ever used. The whole thing takes time to introduce the product
-                and, as a result, put forward only the best opportunities that
-                really suit you.
-              </h5>
-              <img
-                src="{% static 'assets/images/testimonial_one.jpg' %}"
-                class="img-fluid mb-2"
-                alt="Testimonial One"
-              />
-              <h3 class="mb-2"><span>Darren Dunlap</span></h3>
-              <p class="mb-0">CEO & Founder at Flex.co</p>
-            </div>
-          </div>
-          <div class="col">
-            <div class="d2c_card_wrapper text-center">
-              <h5>
-                Tanahair is the friendliest and most efficient service I have
-                ever used. The whole thing takes time to introduce the product
-                and, as a result, put forward only the best opportunities that
-                really suit you.
-              </h5>
-              <img
-                src="{% static 'assets/images/testimonial_one.jpg' %}"
-                class="img-fluid mb-2"
-                alt="Testimonial One"
-              />
-              <h3 class="mb-2"><span>Darren Dunlap</span></h3>
-              <p class="mb-0">CEO & Founder at Flex.co</p>
-            </div>
-          </div>
-          <div class="col">
-            <div class="d2c_card_wrapper text-center">
-              <h5>
-                Tanahair is the friendliest and most efficient service I have
-                ever used. The whole thing takes time to introduce the product
-                and, as a result, put forward only the best opportunities that
-                really suit you.
-              </h5>
-              <img
-                src="{% static 'assets/images/testimonial_one.jpg' %}"
-                class="img-fluid mb-2"
-                alt="Testimonial One"
-              />
-              <h3 class="mb-2"><span>Darren Dunlap</span></h3>
-              <p class="mb-0">CEO & Founder at Flex.co</p>
-            </div>
+          <!-- SAME NAME -->
+          <h3 class="mb-2"><span>{{ t.name }}</span></h3>
+
+          <!-- SAME DESIGNATION -->
+          <p class="mb-0">{{ t.designation }}</p>
+          <!-- ⭐ Rating (ONLY NEW ADD) -->
+          <div class="mb-2">
+            {% for i in "12345" %} {% if forloop.counter <= t.rating %}
+            <span style="color: #ff6dba">★</span>
+            {% else %}
+            <span style="color: #ccc">★</span>
+            {% endif %} {% endfor %}
           </div>
         </div>
       </div>
-    </section>
-    <!-- testimonial section end -->
+      {% empty %}
+      <p class="text-center">No testimonials available</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- testimonial section end -->
 {% endblock %}
