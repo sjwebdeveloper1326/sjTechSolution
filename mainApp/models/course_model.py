@@ -249,12 +249,10 @@ class Course(models.Model):
         # Save first
         super().save(*args, **kwargs)
 
-        # Send email only when new course created
-        if creating and not self.email_sent:
+        # Send email only when checkbox is checked while creating course
+        if creating and self.email_sent:
             try:
                 send_new_course_email(self)
-                self.email_sent = True
-                super().save(update_fields=['email_sent'])
             except Exception as e:
                 print(f"Email sending failed: {e}")
 

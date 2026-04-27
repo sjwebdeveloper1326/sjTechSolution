@@ -109,7 +109,6 @@ def course_update(request, pk):
             course.description = request.POST.get("description", "").strip()
             course.order = int(request.POST.get("order", 0))
             course.is_new = request.POST.get("is_new") == "on"
-            course.email_sent = request.POST.get("email_sent") == "on"
 
             # ─── New fields ───────────────────────────────────────
             price_str = request.POST.get("price", "0")
