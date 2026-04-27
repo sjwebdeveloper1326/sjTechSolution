@@ -164,7 +164,7 @@
               <li class="nav-item">
                 <a
                   class="nav-link {% if request.path == '/about/' %}active{% endif %}"
-                  href="{% url 'about' %}"
+                  href="{% url 'about_slug' 'about-us' %}"
                   >about</a
                 >
               </li>
@@ -172,7 +172,7 @@
               <li class="nav-item">
                 <a
                   class="nav-link {% if request.path == '/services_list/' %}active{% endif %}"
-                  href="{% url 'services_list' %}"
+                  href="{% url 'services_list_slug' 'automation-services' %}"
                   >service</a
                 >
               </li>
@@ -180,7 +180,7 @@
               <li class="nav-item">
                 <a
                   class="nav-link {% if request.path == '/courses/' %}active{% endif %}"
-                  href="{% url 'courses' %}"
+                  href="{% url 'courses_slug' 'certified-courses' %}"
                   >courses</a
                 >
               </li>
@@ -188,7 +188,7 @@
               <li class="nav-item">
                 <a
                   class="nav-link {% if request.path == '/projects/' %}active{% endif %}"
-                  href="{% url 'projects' %}"
+                  href="{% url 'projects_slug' 'client-projects' %}"
                   >projects</a
                 >
               </li>
@@ -196,7 +196,7 @@
               <li class="nav-item">
                 <a
                   class="nav-link {% if request.path == '/testimonial/' %}active{% endif %}"
-                  href="{% url 'testimonial' %}"
+                  href="{% url 'testimonial_slug' 'client-testimonials' %}"
                   >testimonial</a
                 >
               </li>
@@ -204,7 +204,7 @@
               <li class="nav-item">
                 <a
                   class="nav-link {% if request.path == '/contact/' %}active{% endif %}"
-                  href="{% url 'contact' %}"
+                  href="{% url 'contact_slug' 'contact-us' %}"
                   >contact</a
                 >
               </li>
@@ -359,16 +359,16 @@
             <h3><span>Quick Link</span></h3>
             <ul class="list-group">
               <li class="py-1 py-md-2">
-                <a href="{% url 'services_list' %}">Service</a>
+                <a href="{% url 'services_list_slug' 'automation-services' %}">Service</a>
               </li>
               <li class="py-1 py-md-2">
-                <a href="{% url 'projects' %}">Projects</a>
+                <a href="{% url 'projects_slug' 'client-projects' %}">Projects</a>
               </li>
               <li class="py-1 py-md-2">
-                <a href="{% url 'courses' %}">Courses</a>
+                <a href="{% url 'courses_slug' 'certified-courses' %}">Courses</a>
               </li>
               <li class="py-1 py-md-2">
-                <a href="{% url 'about' %}">About us</a>
+                <a href="{% url 'about_slug' 'about-us' %}">About us</a>
               </li>
             </ul>
           </div>

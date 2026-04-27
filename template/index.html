@@ -78,7 +78,7 @@ SJ.Tech {% endblock %} {% block content %}
           students with practical projects and certification support, helping
           learners build job-ready technical skills.
         </p>
-        <a href="{% url 'contact' %}" class="btn">Stay Connect</a>
+        <a href="{% url 'contact_slug' 'contact-us' %}" class="btn">Stay Connect</a>
       </div>
     </div>
   </div>
@@ -183,7 +183,7 @@ SJ.Tech {% endblock %} {% block content %}
               </ul>
             </div>
           </div>
-          <a href="{% url 'services_list' %}" class="btn">More</a>
+          <a href="{% url 'services_list_slug' 'automation-services' %}" class="btn">More</a>
         </div>
         <div class="col-xl-6">
           <div class="row">

@@ -20,16 +20,16 @@ def index_page(request):
     return render(request, 'index.html', {'projects': projects, "testimonials": testimonials})
     # return render(request, 'index.html', {'services': services})
 
-def about(request):
+def about(request, slug=None):
     return render(request, 'about.html')
 
-def testimonial(request):
+def testimonial(request, slug=None):
     testimonials = Testimonial.objects.filter(isaccepted=True).order_by('-id')[:10]
     return render(request, 'testimonial.html', {
         'testimonials': testimonials
     })
     
-def projects(request):
+def projects(request, slug=None):
     projects = Project.objects.all().order_by('-id')
     return render(request, 'projects.html', {'projects': projects})
    
@@ -50,11 +50,11 @@ def projects(request):
 # def courses(request):
 #     return render(request, 'courses.html',)
 
-def services(request):
+def services(request, slug=None):
     services = Service.objects.all()
     return render(request, 'service.html', {'services': services})
 
-def courses(request):
+def courses(request, slug=None):
     courses = Course.objects.filter()  # Sab courses
     context = {
         'courses': courses
@@ -101,7 +101,7 @@ def controller(request):
 
     return render(request, "controller.html")
 
-def contact(request):
+def contact(request, slug=None):
 
     if request.method == "POST":
 
@@ -193,7 +193,7 @@ def contact(request):
 #     return render(request, 'enroll.html', context)
 
 # views.py
-def enroll_page(request):
+def enroll_page(request, slug=None):
     courses = Course.objects.all()
 
     if request.method == "POST":

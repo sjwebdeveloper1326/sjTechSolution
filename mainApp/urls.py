@@ -29,6 +29,7 @@ urlpatterns = [
     path("delete-project/<int:id>/", delete_project, name="delete_project"),
     path("testimonials/", testimonial_list, name="testimonial_list"),
     path("testimonials/add/", add_testimonial, name="add_testimonial"),
+    path("testimonials/add/<slug:slug>/", add_testimonial, name="add_testimonial_slug"),
     path("testimonials/edit/<int:id>/", edit_testimonial, name="edit_testimonial"),
     path("testimonials/delete/<int:id>/", delete_testimonial, name="delete_testimonial"),
     path("testimonials/accept/<int:id>/", accept_testimonial, name="testimonial_accept"),

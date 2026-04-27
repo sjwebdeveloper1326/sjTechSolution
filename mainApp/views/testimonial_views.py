@@ -66,7 +66,7 @@ def testimonial_list(request):
     return render(request, "testimonialCRUD/testimonial_list.html", {"testimonials": testimonials})
 
 
-def add_testimonial(request):
+def add_testimonial(request, slug=None):
     if request.method == "POST":
         form = TestimonialForm(request.POST, request.FILES)
         if form.is_valid():

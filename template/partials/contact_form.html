@@ -13,7 +13,7 @@
           <div
             class="col-12 col-lg-8 col-xl-6 offset-0 offset-lg-2 offset-xl-3"
           >
-            <form class="row needs-validation" method="POST" action="{% url 'contact' %}" novalidate>
+            <form class="row needs-validation" method="POST" action="{% url 'contact_slug' 'contact-us' %}" novalidate>
                 {% csrf_token %}
               <div class="col-md-8">
                 <div class="input-group">
@@ -46,7 +46,7 @@
     <div class="container">
       <h3 class="d2c_sub_title position-relative">Contact <span>us</span></h3>
       <h2>Have any <span>questions or inquiries?</span></h2>
-      <form class="row needs-validation" method="POST" action="{% url 'contact' %}" novalidate>
+      <form class="row needs-validation" method="POST" action="{% url 'contact_slug' 'contact-us' %}" novalidate>
         {% csrf_token %}
         <div class="col-md-6">
           <label for="validationCustomFirstName"  class="form-label"
