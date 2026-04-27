@@ -45,7 +45,7 @@
 
             <td>
               {% if project.link %}
-              <a href="{{ project.link }}" target="_blank" class="text-info"
+              <a href="{{ project.link }}" target="_blank" class="project-link"
                 >Visit</a
               >
               {% else %} - {% endif %}
@@ -54,12 +54,12 @@
             <td>
               <a
                 href="{% url 'edit_project' project.id %}"
-                class="btn btn-sm btn-warning"
+                class="btn btn-sm project-btn-edit"
                 >Edit</a
               >
               <a
                 href="{% url 'delete_project' project.id %}"
-                class="btn btn-sm btn-danger"
+                class="btn btn-sm project-btn-delete"
                 >Delete</a
               >
             </td>
@@ -129,15 +129,15 @@
   }
 
   .table thead {
-    background: #1a222c;
+    background: var(--surface_dark);
   }
 
   .table-hover tbody tr:hover {
-    background: rgba(255, 109, 186, 0.1);
+    background: var(--primary_bg_hover);
   }
 
   .table tfoot {
-    background: #1a222c;
+    background: var(--surface_dark);
   }
 
   .pagination {
@@ -152,13 +152,38 @@
 
   .page-item.active .page-link {
     background: var(--primary_color);
-    color: #fff;
+    color: var(--default_color);
     border-radius: 6px;
   }
 
   .page-link:hover {
-    background: rgba(255, 109, 186, 0.2);
-    color: #fff;
+    background: var(--primary_bg_hover_strong);
+    color: var(--default_color);
+  }
+
+  .project-link {
+    color: var(--primary_color);
+    transition: 0.3s all;
+  }
+
+  .project-link:hover {
+    color: var(--primary_text_color);
+  }
+
+  .project-btn-edit {
+    padding: 6px 14px;
+  }
+
+  .project-btn-delete {
+    padding: 6px 14px;
+    color: var(--primary_shade);
+    background: transparent;
+    border: 1px solid var(--primary_border_strong);
+  }
+
+  .project-btn-delete:hover {
+    color: var(--primary_color);
+    border-color: var(--primary_color);
   }
 </style>
 {% endblock %} {% endblock %}
