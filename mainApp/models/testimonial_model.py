@@ -7,6 +7,7 @@ class Testimonial(models.Model):
     email = models.EmailField(unique=True)
     image = models.ImageField(upload_to='testimonials/',blank=True, null=True)
     rating = models.IntegerField(default=5)
+    isaccepted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

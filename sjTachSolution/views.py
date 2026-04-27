@@ -15,15 +15,16 @@ from mainApp.models.testimonial_model import Testimonial
 
 def index_page(request):
     projects = Project.objects.all().order_by('-id')
+    testimonials = Testimonial.objects.filter(isaccepted=True).order_by("-id")[:10]
     # services = Service.objects.all()
-    return render(request, 'index.html', {'projects': projects})
+    return render(request, 'index.html', {'projects': projects, "testimonials": testimonials})
     # return render(request, 'index.html', {'services': services})
 
 def about(request):
     return render(request, 'about.html')
 
 def testimonial(request):
-    testimonials = Testimonial.objects.all().order_by('-id')[:10]  #  latest 10
+    testimonials = Testimonial.objects.filter(isaccepted=True).order_by('-id')[:10]
     return render(request, 'testimonial.html', {
         'testimonials': testimonials
     })

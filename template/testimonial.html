@@ -1,6 +1,5 @@
 {% extends "base.html" %} {% load static %} {% block title %} testimonial -
 SJ.Tech {% endblock %} {% block content %}
-<!-- testimonial section start -->
 <section class="d2c_testimonial_wrapper" id="testimonial">
   <div class="container">
     <h3 class="d2c_sub_title text_start text-md-center position-relative">
@@ -9,7 +8,6 @@ SJ.Tech {% endblock %} {% block content %}
     <h2 class="d2c_title text_start text-md-center position-relative">
       here are some client feedback<span></span>
     </h2>
-    <!-- Add Button -->
     <div class="text-end mb-3">
       <a href="{% url 'add_testimonial' %}" class="btn">+ Add Testimonial</a>
     </div>
@@ -17,10 +15,8 @@ SJ.Tech {% endblock %} {% block content %}
       {% for t in testimonials %}
       <div class="col">
         <div class="d2c_card_wrapper text-center">
-          <!-- SAME h5 (just dynamic text) -->
           <h5>{{ t.message }}</h5>
 
-          <!-- SAME IMAGE POSITION -->
           {% if t.image %}
           <img
             src="{{ t.image.url }}"
@@ -35,17 +31,13 @@ SJ.Tech {% endblock %} {% block content %}
           />
           {% endif %}
 
-          <!-- SAME NAME -->
           <h3 class="mb-2"><span>{{ t.name }}</span></h3>
-
-          <!-- SAME DESIGNATION -->
           <p class="mb-0">{{ t.designation }}</p>
-          <!-- ⭐ Rating (ONLY NEW ADD) -->
           <div class="mb-2">
             {% for i in "12345" %} {% if forloop.counter <= t.rating %}
-            <span style="color: #ff6dba">★</span>
+            <span class="rating-star-active">★</span>
             {% else %}
-            <span style="color: #ccc">★</span>
+            <span class="rating-star-inactive">★</span>
             {% endif %} {% endfor %}
           </div>
         </div>
@@ -56,5 +48,15 @@ SJ.Tech {% endblock %} {% block content %}
     </div>
   </div>
 </section>
-<!-- testimonial section end -->
+{% block extra_css %}
+<style>
+  .rating-star-active {
+    color: var(--primary_color);
+  }
+
+  .rating-star-inactive {
+    color: var(--primary_text_shade);
+  }
+</style>
+{% endblock %}
 {% endblock %}

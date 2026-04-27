@@ -10,14 +10,12 @@
       Manage <span>Testimonials</span>
     </h2>
 
-    <!-- Add Button -->
     <div class="text-end mb-3">
       <a href="{% url 'add_testimonial' %}" class="btn">+ Add Testimonial</a>
     </div>
 
     <div class="table-responsive">
       <table class="table table-dark table-hover align-middle">
-        <!-- Table Head -->
         <thead>
           <tr>
             <th>#</th>
@@ -26,99 +24,101 @@
             <th>Designation</th>
             <th>Message</th>
             <th>Rating</th>
+            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
 
-        <!-- Table Body -->
         <tbody>
           {% for t in testimonials %}
           <tr>
             <td>{{ forloop.counter }}</td>
 
             <td>
+              {% if t.image %}
               <img
                 src="{{ t.image.url }}"
                 width="60"
                 height="60"
                 style="object-fit: cover; border-radius: 50%"
               />
+              {% else %}
+              <span>-</span>
+              {% endif %}
             </td>
 
             <td>{{ t.name }}</td>
-
             <td>{{ t.designation }}</td>
-
             <td>{{ t.message|truncatechars:50 }}</td>
 
             <td>
               {% for i in "12345" %} {% if forloop.counter <= t.rating %}
-              <span style="color: #ff6dba">★</span>
+              <span class="rating-star-active">★</span>
               {% else %}
-              <span style="color: #555">★</span>
+              <span class="rating-star-inactive">★</span>
               {% endif %} {% endfor %}
             </td>
 
             <td>
+              {% if t.isaccepted %}
+              <span class="badge text-bg-success">Accepted</span>
+              {% else %}
+              <span class="badge text-bg-secondary">Pending</span>
+              {% endif %}
+            </td>
+
+            <td>
+              {% if not t.isaccepted %}
+              <a
+                href="{% url 'testimonial_accept' t.id %}"
+                class="btn btn-sm testimonial-btn-accept"
+                >Accept</a
+              >
+              {% endif %}
+
               <a
                 href="{% url 'edit_testimonial' t.id %}"
-                class="btn btn-sm btn-warning"
+                class="btn btn-sm testimonial-btn-edit"
                 >Edit</a
               >
 
               <a
                 href="{% url 'delete_testimonial' t.id %}"
-                class="btn btn-sm btn-danger"
+                class="btn btn-sm testimonial-btn-delete"
                 >Delete</a
               >
             </td>
           </tr>
-
           {% empty %}
           <tr>
-            <td colspan="6" class="text-center">No testimonials found</td>
+            <td colspan="8" class="text-center">No testimonials found</td>
           </tr>
           {% endfor %}
         </tbody>
 
-        <!-- ✅ Pagination -->
         <tfoot>
           <tr>
-            <td colspan="6">
-              <div
-                class="d-flex justify-content-between align-items-center flex-wrap"
-              >
-                <!-- Left -->
+            <td colspan="8">
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
                 <div class="text-muted small">
-                  Page {{ testimonials.number }} of {{
-                  testimonials.paginator.num_pages }}
+                  Page {{ testimonials.number }} of {{ testimonials.paginator.num_pages }}
                 </div>
 
-                <!-- Right -->
                 <nav>
                   <ul class="pagination mb-0">
                     {% if testimonials.has_previous %}
                     <li class="page-item">
-                      <a
-                        class="page-link"
-                        href="?page={{ testimonials.previous_page_number }}"
+                      <a class="page-link" href="?page={{ testimonials.previous_page_number }}"
                         >«</a
                       >
                     </li>
-                    {% endif %} {% for num in testimonials.paginator.page_range
-                    %}
-                    <li
-                      class="page-item {% if testimonials.number == num %}active{% endif %}"
-                    >
+                    {% endif %} {% for num in testimonials.paginator.page_range %}
+                    <li class="page-item {% if testimonials.number == num %}active{% endif %}">
                       <a class="page-link" href="?page={{ num }}">{{ num }}</a>
                     </li>
                     {% endfor %} {% if testimonials.has_next %}
                     <li class="page-item">
-                      <a
-                        class="page-link"
-                        href="?page={{ testimonials.next_page_number }}"
-                        >»</a
-                      >
+                      <a class="page-link" href="?page={{ testimonials.next_page_number }}">»</a>
                     </li>
                     {% endif %}
                   </ul>
@@ -140,15 +140,15 @@
   }
 
   .table thead {
-    background: #1a222c;
+    background: var(--surface_dark);
   }
 
   .table-hover tbody tr:hover {
-    background: rgba(255, 109, 186, 0.1);
+    background: var(--primary_bg_hover);
   }
 
   .table tfoot {
-    background: #1a222c;
+    background: var(--surface_dark);
   }
 
   .pagination {
@@ -163,13 +163,41 @@
 
   .page-item.active .page-link {
     background: var(--primary_color);
-    color: #fff;
+    color: var(--default_color);
     border-radius: 6px;
   }
 
   .page-link:hover {
-    background: rgba(255, 109, 186, 0.2);
-    color: #fff;
+    background: var(--primary_bg_hover_strong);
+    color: var(--default_color);
+  }
+
+  .rating-star-active {
+    color: var(--primary_color);
+  }
+
+  .rating-star-inactive {
+    color: var(--primary_text_shade);
+  }
+
+  .testimonial-btn-accept {
+    padding: 6px 14px;
+  }
+
+  .testimonial-btn-edit {
+    padding: 6px 14px;
+  }
+
+  .testimonial-btn-delete {
+    padding: 6px 14px;
+    color: var(--primary_shade);
+    background: transparent;
+    border: 1px solid var(--primary_border_strong);
+  }
+
+  .testimonial-btn-delete:hover {
+    color: var(--primary_color);
+    border-color: var(--primary_color);
   }
 </style>
 {% endblock %} {% endblock %}
