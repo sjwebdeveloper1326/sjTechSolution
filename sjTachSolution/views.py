@@ -1,6 +1,8 @@
-
+import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 from employee_Client_student.models.employee_model import Employee
 from mainApp.models.contact_model import Contact, Newsletter
 from mainApp.models.course_model import Course
@@ -10,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 
 from mainApp.models.project_model import Project
 from mainApp.models.testimonial_model import Testimonial
+from utils.ai_helper import generate_ai_reply
 
 # from mainApp.models import Course, Enrollment, Service
 
@@ -214,3 +217,25 @@ def enroll_page(request, slug=None):
 
 def custom_404(request, exception):
     return render(request, "404.html", status=404)
+
+
+@require_POST
+def ai_chat_api(request):
+    try:
+        payload = json.loads(request.body.decode("utf-8"))
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        return JsonResponse({"ok": False, "error": "Invalid request payload."}, status=400)
+
+    user_message = (payload.get("message") or "").strip()
+    if not user_message:
+        return JsonResponse({"ok": False, "error": "Message is required."}, status=400)
+
+    try:
+        reply = generate_ai_reply(user_message)
+    except Exception:
+        return JsonResponse(
+            {"ok": False, "error": "AI service is temporarily unavailable."},
+            status=503,
+        )
+
+    return JsonResponse({"ok": True, "reply": reply})

@@ -1,0 +1,43 @@
+<div class="ai-widget-container" id="aiWidget">
+  <button class="ai-main-circle" id="aiMainBtn" type="button" aria-label="Open AI assistant">
+    <i class="fas fa-robot"></i>
+  </button>
+
+  <div class="ai-menu" id="aiMenu">
+    <button class="ai-item ai-chat-btn" id="aiChatBtn" type="button" aria-label="Open AI chat">
+      <i class="fas fa-comments"></i>
+    </button>
+    <button class="ai-item ai-voice-btn" id="aiVoiceBtn" type="button" aria-label="Voice coming soon">
+      <i class="fas fa-microphone"></i>
+    </button>
+    <button class="ai-item ai-play-btn" id="aiPlayBtn" type="button" aria-label="Quick actions">
+      <i class="fas fa-bolt"></i>
+    </button>
+  </div>
+
+  <div class="ai-chat-panel" id="aiChatPanel" aria-live="polite">
+    <div class="ai-chat-head">
+      <span>SG.Automix AI</span>
+      <button type="button" id="aiCloseChat" aria-label="Close chat">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="ai-chat-body" id="aiChatBody">
+      <div class="ai-msg ai-msg-bot">
+        Hi! Ask me anything. I can answer about SG.Automix Tech and general questions too.
+      </div>
+    </div>
+    <form class="ai-chat-form" id="aiChatForm">
+      <input
+        type="text"
+        id="aiChatInput"
+        placeholder="Type your message..."
+        autocomplete="off"
+        required
+      />
+      <button type="submit" id="aiSendBtn" aria-label="Send message">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </form>
+  </div>
+</div>

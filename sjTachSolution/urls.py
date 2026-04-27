@@ -38,6 +38,7 @@ urlpatterns = [
     path('contact/<slug:slug>/', views.contact, name='contact_slug'),
     path('enroll/', views.enroll_page, name='enroll_page'),
     path('enroll/<slug:slug>/', views.enroll_page, name='enroll_page_slug'),
+    path('api/ai/chat/', views.ai_chat_api, name='ai_chat_api'),
  # Add this line 
     path('pages/', include('mainApp.urls')),
     path('', include('employee_Client_student.urls')),

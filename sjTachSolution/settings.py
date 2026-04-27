@@ -165,6 +165,8 @@ COMPANY_START_YEAR = int(os.getenv("COMPANY_START_YEAR", "2026"))
 BATCH_START_MONTH = os.getenv("BATCH_START_MONTH", "January")
 BATCH_START_DAY = int(os.getenv("BATCH_START_DAY", "6"))
 BATCH_START_YEAR = int(os.getenv("BATCH_START_YEAR", str(datetime.now().year)))
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
 # ---------------- EMAIL ----------------
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

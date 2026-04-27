@@ -50,6 +50,7 @@
     <!-- Main CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/ai-assistant.css' %}" />
 
     <!-- Extra css -->
     {% block extra_css %}{% endblock %}
@@ -414,6 +415,7 @@
       <a href="#"><i class="fas fa-chevron-up"></i></a>
     </div>
     <!--   Scroll Button End   -->
+    {% include "includesUI/_ai_assistant.html" %}
 
     {% block extra_script %}{% endblock %}
     <!-- JS CDN -->
@@ -430,5 +432,6 @@
 
     <!-- main js -->
     <script src="{% static 'assets/js/main.js' %}"></script>
+    <script src="{% static 'assets/js/ai-assistant.js' %}"></script>
   </body>
 </html>
