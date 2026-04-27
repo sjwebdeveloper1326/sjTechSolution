@@ -60,7 +60,7 @@
 
 
 from employee_Client_student.models import Employee, Student
-from datetime import datetime
+from utils.date_context import build_date_context
 
 def profile_id(request):
     context = {
@@ -101,7 +101,4 @@ def profile_id(request):
 
 
 def global_date(request):
-    return {
-        'current_year': datetime.now().year,
-        'current_month': datetime.now().strftime('%B')
-    }
+    return build_date_context()

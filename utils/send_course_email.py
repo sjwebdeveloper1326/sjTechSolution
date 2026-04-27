@@ -6,6 +6,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 
 from employee_Client_student.models import Student
+from utils.date_context import build_date_context
 
 logger = logging.getLogger(__name__)
 
@@ -26,6 +27,7 @@ def send_new_course_email(course):
                 "course_title": course.title,
                 "course_description": course.description,
                 "site_url": courses_url,
+                **build_date_context(),
             }
 
             html_content = render_to_string("emails/new_course_email.html", context)

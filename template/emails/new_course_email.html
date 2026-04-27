@@ -8,7 +8,7 @@
 body {
   background: #0c0c18;
   font-family: Arial, sans-serif;
-  color: #ffffff; /* Default white text */
+  color: #ffffff;
   margin: 0;
   padding: 0;
 }
@@ -98,8 +98,7 @@ body {
   </div>
 
   <div class="body">
-
-    <h2>New Course Launched 🚀</h2>
+    <h2>New Course Launched</h2>
 
     <p>Hello {{name}},</p>
 
@@ -113,11 +112,10 @@ body {
     <a class="btn" href="{{site_url}}">
       View Course
     </a>
-
   </div>
 
   <div class="footer">
-    © 2026 SG.Automix Tech
+    © {{ current_year }} SG.Automix Tech
   </div>
 
 </div>

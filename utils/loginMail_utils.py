@@ -2,6 +2,7 @@ from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.urls import reverse
+from utils.date_context import build_date_context
 
 
 def _get_base_url():
@@ -20,6 +21,7 @@ def send_account_email(to_email: str, name: str, username: str, password: str, e
         "password": password,
         "login_url": login_url,
         "logo_url": f"{base_url}/static/assets/images/SGAutomixTech_Black_bg_SizeFix.gif",
+        **build_date_context(),
         **(extra_context or {}),
     }
 

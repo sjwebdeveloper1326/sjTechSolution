@@ -15,6 +15,7 @@ from django.contrib.messages import constants as messages
 
 from pathlib import Path
 import os
+from datetime import datetime
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -160,6 +161,10 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")         # replace
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")     # replace with app password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SITE_BASE_URL = os.getenv("SITE_BASE_URL", "https://sjtechsolution.pythonanywhere.com")
+COMPANY_START_YEAR = int(os.getenv("COMPANY_START_YEAR", "2026"))
+BATCH_START_MONTH = os.getenv("BATCH_START_MONTH", "January")
+BATCH_START_DAY = int(os.getenv("BATCH_START_DAY", "6"))
+BATCH_START_YEAR = int(os.getenv("BATCH_START_YEAR", str(datetime.now().year)))
 
 # ---------------- EMAIL ----------------
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
