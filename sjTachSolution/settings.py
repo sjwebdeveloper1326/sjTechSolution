@@ -159,6 +159,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")         # replace
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")     # replace with app password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SITE_BASE_URL = os.getenv("SITE_BASE_URL", "https://sjtechsolution.pythonanywhere.com")
 
 # ---------------- EMAIL ----------------
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
