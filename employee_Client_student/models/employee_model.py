@@ -2,7 +2,7 @@
 # from django.utils import timezone
 # from django.contrib.auth.models import User
 # from utils.account_helper import create_system_user
-# from utils.loginMail_utils import send_account_email   
+# from utils.loginMail_utils import send_account_email
 # import uuid
 
 # class Employee(models.Model):
@@ -81,26 +81,38 @@
 from django.db import models
 from django.contrib.auth.models import User
 from utils.account_helper import create_system_user
-from utils.loginMail_utils import send_account_email   
+from utils.loginMail_utils import send_account_email
 import uuid
 
 
 class Employee(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    emp_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    ROLE_CHOICES = [
+        ("employee", "Employee"),
+        ("teacher", "Teacher"),
+        ("account-manager", "Account Manager"),
+        ("manager", "Manager"),
+        ("client", "Client"),
+    ]
+
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, null=True, blank=True)
+    emp_uuid = models.UUIDField(
+        default=uuid.uuid4, editable=False, unique=True)
     emp_id = models.CharField(max_length=10, unique=True, blank=True)
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=15)
     email = models.EmailField(unique=True)
     photo = models.ImageField(upload_to='employees/', blank=True, null=True)
     designation = models.CharField(max_length=100, blank=True)
-    salary = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    salary = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True)
     status = models.CharField(max_length=20, default='active', blank=True)
     gender = models.CharField(max_length=10, blank=True)
     dob = models.DateField(blank=True, null=True)
     aadhaar = models.CharField(max_length=12, blank=True, null=True)
     address = models.TextField(blank=True)
-    role = models.CharField(max_length=50, blank=True)
+    role = models.CharField(max_length=50, choices=ROLE_CHOICES,
+                            default="employee", blank=True)
     date_of_joining = models.DateField(blank=True, null=True)
     state = models.CharField(max_length=100, blank=True)
     city = models.CharField(max_length=100, blank=True)
@@ -122,7 +134,8 @@ class Employee(models.Model):
             else:
                 prefix = "SJE"
 
-            last = Employee.objects.filter(emp_id__startswith=prefix).order_by('-emp_id').first()
+            last = Employee.objects.filter(
+                emp_id__startswith=prefix).order_by('-emp_id').first()
 
             if last:
                 last_num = int(last.emp_id.split("-")[-1])
