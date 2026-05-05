@@ -8,17 +8,21 @@ from django.contrib.auth import logout
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
+from employee_Client_student.decorators import admin_level_required, is_admin_level_user
 from employee_Client_student.models.employee_model import Employee
 
 # from employee_Client_student.models import Employee
 
 # List all employees
+@admin_level_required
 def employee_list(request):
     employees = Employee.objects.all().order_by('-date_of_joining')
     return render(request, 'employeeCRUD/employee_list.html', {'employees': employees})
 
 # Add new employee
+@admin_level_required
 def employee_add(request):
     if request.method == "POST":
         try:
@@ -28,11 +32,11 @@ def employee_add(request):
             role = request.POST.get('role', 'employee')
 
             # ★★★ Duplicate email check ★★★
-            if Employee.objects.filter(email=email).exists():
+            if Employee.objects.filter(email__iexact=email).exists():
                 messages.error(request, f"Email '{email}' already exists! Ek hi email naal ek hi employee ban sakda hai.")
                 return render(request, 'employeeCRUD/employee_form.html')
 
-            if User.objects.filter(email=email).exists():
+            if User.objects.filter(email__iexact=email).exists():
                 messages.error(request, f"Email '{email}' already registered with another account!")
                 return render(request, 'employeeCRUD/employee_form.html')
 
@@ -70,15 +74,31 @@ def employee_add(request):
     return render(request, 'employeeCRUD/employee_form.html')
 
 
+@login_required(login_url='login')
 def employee_edit(request, emp_uuid):
     emp = get_object_or_404(Employee, emp_uuid=emp_uuid)
+    is_self_update = request.user.is_authenticated and emp.user_id == request.user.id
+
+    if not is_self_update and not is_admin_level_user(request.user):
+        messages.error(request, "Permission denied.")
+        return redirect("home")
 
     if request.method == "POST":
         try:
+            email = request.POST.get('email', '').strip()
+
+            if Employee.objects.filter(email__iexact=email).exclude(pk=emp.pk).exists():
+                messages.error(request, f"Email '{email}' already exists! Please use another email.")
+                return render(request, 'employeeCRUD/employee_form.html', {'emp': emp, 'is_self_update': is_self_update})
+
+            if User.objects.filter(email__iexact=email).exclude(pk=emp.user_id).exists():
+                messages.error(request, f"Email '{email}' already registered with another account!")
+                return render(request, 'employeeCRUD/employee_form.html', {'emp': emp, 'is_self_update': is_self_update})
+
             # Update fields
             emp.name = request.POST['name']
             emp.phone = request.POST['phone']
-            emp.email = request.POST['email']
+            emp.email = email
             emp.designation = request.POST.get('designation', '')
             emp.salary = request.POST.get('salary') or None
             emp.status = request.POST.get('status', 'active')
@@ -95,12 +115,14 @@ def employee_edit(request, emp_uuid):
                 emp.photo = request.FILES['photo']
 
             emp.save()
+            if emp.user:
+                emp.user.email = emp.email
+                emp.user.save(update_fields=["email"])
             messages.success(request, f"Employee {emp.name} updated successfully!")
 
             # ✅ Redirect properly using URL parameter name 'emp_uuid'
-            if request.user.is_authenticated:
-                if hasattr(request.user, 'employee') and request.user.employee.emp_uuid == emp.emp_uuid:
-                    return redirect('dashboard_employee', emp_uuid=emp.emp_uuid)
+            if is_self_update:
+                return redirect('dashboard_employee', emp_uuid=emp.emp_uuid)
 
             # Admin / HR redirect
             return redirect('employee_list')
@@ -108,9 +130,10 @@ def employee_edit(request, emp_uuid):
         except Exception as e:
             messages.error(request, f"Error: {e}")
 
-    return render(request, 'employeeCRUD/employee_form.html', {'emp': emp})
+    return render(request, 'employeeCRUD/employee_form.html', {'emp': emp, 'is_self_update': is_self_update})
 
 # Delete employee
+@admin_level_required
 def employee_delete(request, emp_uuid):
     emp = get_object_or_404(Employee, emp_uuid=emp_uuid)
     if request.method == "POST":

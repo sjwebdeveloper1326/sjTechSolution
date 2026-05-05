@@ -9,7 +9,10 @@ from mainApp.models import Course
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
+from employee_Client_student.decorators import admin_level_required, is_admin_level_user
+
 @login_required(login_url='login')
+@admin_level_required
 def student_list(request):
     students = Student.objects.all().order_by('-date_of_joining')
     return render(request, 'studentCRUD/student_list.html', {
@@ -18,6 +21,7 @@ def student_list(request):
 
  # adjust import path as needed
 @login_required(login_url='login')
+@admin_level_required
 def student_add(request):
     if request.method == "POST":
         try:
@@ -30,16 +34,16 @@ def student_add(request):
                 messages.error(request, "Email field is required!")
                 return render(request, 'studentCRUD/student_form.html', get_context())
 
-            if Student.objects.filter(email=email).exists():
+            if Student.objects.filter(email__iexact=email).exists():
                 messages.error(request, f"Email '{email}' already exists ! Please use another email.")
                 return render(request, 'studentCRUD/student_form.html', get_context())
 
-            if Employee.objects.filter(email=email).exists():
+            if Employee.objects.filter(email__iexact=email).exists():
                 # messages.error(request, f"Email '{email}' is already used by an employee! Please use a different email.")
                 messages.error(request, f"Email '{email}'  already exists ! Please use another email.")
                 return render(request, 'studentCRUD/student_form.html', get_context())
 
-            if User.objects.filter(email=email).exists():
+            if User.objects.filter(email__iexact=email).exists():
                 # messages.error(request, f"Email '{email}' is already registered in the system (user account)! Please choose another.")
                 messages.error(request, f"Email '{email}' already exists ! Please use another email.")
                 return render(request, 'studentCRUD/student_form.html', get_context())
@@ -107,6 +111,17 @@ def get_context():
         'all_students': Student.objects.all().order_by('name'),
     }
 
+
+def get_edit_context(student, stu_uuid, is_self_update=False):
+    return {
+        'action': 'Edit',
+        'student': student,
+        'courses': Course.objects.all().order_by('order', 'title'),
+        'employees': Employee.objects.filter(status='active').order_by('name'),
+        'all_students': Student.objects.exclude(stu_uuid=stu_uuid).order_by('name'),
+        'is_self_update': is_self_update,
+    }
+
 # def student_edit(request, stu_uuid):
 #     student = get_object_or_404(Student, stu_uuid=stu_uuid)
 
@@ -165,9 +180,28 @@ def get_context():
 @login_required(login_url='login')
 def student_edit(request, stu_uuid):
     student = get_object_or_404(Student, stu_uuid=stu_uuid)
+    is_self_update = request.user.is_authenticated and student.user_id == request.user.id
+
+    if not is_self_update and not is_admin_level_user(request.user):
+        messages.error(request, "Permission denied.")
+        return redirect("home")
 
     if request.method == "POST":
         try:
+            email = request.POST.get('email', '').strip()
+
+            if Student.objects.filter(email__iexact=email).exclude(pk=student.pk).exists():
+                messages.error(request, f"Email '{email}' already exists! Please use another email.")
+                return render(request, 'studentCRUD/student_form.html', get_edit_context(student, stu_uuid, is_self_update))
+
+            if Employee.objects.filter(email__iexact=email).exists():
+                messages.error(request, f"Email '{email}' already exists! Please use another email.")
+                return render(request, 'studentCRUD/student_form.html', get_edit_context(student, stu_uuid, is_self_update))
+
+            if User.objects.filter(email__iexact=email).exclude(pk=student.user_id).exists():
+                messages.error(request, f"Email '{email}' already exists! Please use another email.")
+                return render(request, 'studentCRUD/student_form.html', get_edit_context(student, stu_uuid, is_self_update))
+
             fee_paid_str = request.POST.get('feePaid', '').strip()
             fee_paid_value = None if not fee_paid_str else Decimal(fee_paid_str)
 
@@ -179,7 +213,7 @@ def student_edit(request, stu_uuid):
 
             student.name = request.POST.get('name', '').strip()
             student.phone = request.POST.get('phone', '').strip()
-            student.email = request.POST.get('email', '').strip()
+            student.email = email
             student.feePaid = fee_paid_value
             student.status = request.POST.get('status', 'active')
             student.gender = request.POST.get('gender', 'male')
@@ -206,22 +240,14 @@ def student_edit(request, stu_uuid):
                 student.photo = request.FILES['photo']
 
             student.save()
+            if student.user:
+                student.user.email = student.email
+                student.user.save(update_fields=["email"])
 
             messages.success(request, "Profile updated successfully!")
 
-            user = request.user
-
-            # STUDENT SELF UPDATE
-            if user.is_authenticated and "SJS" in user.username:
-                try:
-                    student_id = user.username.split("@")[-1]
-                    logged_student = Student.objects.get(student_id=student_id)
-
-                    if logged_student.stu_uuid == student.stu_uuid:
-                        return redirect("dashboard_student", stu_uuid=student.stu_uuid)
-
-                except Student.DoesNotExist:
-                    pass
+            if is_self_update:
+                return redirect("dashboard_student", stu_uuid=student.stu_uuid)
 
             # ADMIN / MANAGER / EMPLOYEE UPDATE
             return redirect("student_list")
@@ -229,18 +255,13 @@ def student_edit(request, stu_uuid):
         except Exception as e:
             messages.error(request, f"Error updating profile: {str(e)}")
 
-    context = {
-        'action': 'Edit',
-        'student': student,
-        'courses': Course.objects.all().order_by('order', 'title'),
-        'employees': Employee.objects.filter(status='active').order_by('name'),
-        'all_students': Student.objects.exclude(stu_uuid=stu_uuid).order_by('name'),
-    }
+    context = get_edit_context(student, stu_uuid, is_self_update)
 
     return render(request, 'studentCRUD/student_form.html', context)
 
 
 @login_required(login_url='login')
+@admin_level_required
 def student_delete(request, stu_uuid):
     try:
         student = get_object_or_404(Student, stu_uuid=stu_uuid)

@@ -10,6 +10,7 @@ from django.urls import reverse
 
 from mainApp.forms import TestimonialForm
 from mainApp.models import Testimonial
+from employee_Client_student.decorators import admin_level_required
 
 
 def _get_superadmin_emails():
@@ -55,10 +56,8 @@ def _send_testimonial_approval_email(request, testimonial):
     return True
 
 
+@admin_level_required
 def testimonial_list(request):
-    if not request.user.is_authenticated:
-        raise Http404()
-
     queryset = Testimonial.objects.all().order_by("-id")
     paginator = Paginator(queryset, 5)
     page_number = request.GET.get("page")
@@ -103,10 +102,8 @@ def add_testimonial(request, slug=None):
     return render(request, "testimonialCRUD/testimonial_form.html", {"form": form})
 
 
+@admin_level_required
 def edit_testimonial(request, id):
-    if not request.user.is_authenticated:
-        raise Http404()
-
     testimonial = get_object_or_404(Testimonial, id=id)
     if request.method == "POST":
         form = TestimonialForm(request.POST, request.FILES, instance=testimonial)
@@ -121,20 +118,16 @@ def edit_testimonial(request, id):
     return render(request, "testimonialCRUD/testimonial_form.html", {"form": form})
 
 
+@admin_level_required
 def delete_testimonial(request, id):
-    if not request.user.is_authenticated:
-        raise Http404()
-
     testimonial = get_object_or_404(Testimonial, id=id)
     testimonial.delete()
     messages.success(request, "Testimonial deleted successfully.")
     return redirect("testimonial_list")
 
 
+@admin_level_required
 def accept_testimonial(request, id):
-    if not request.user.is_authenticated:
-        raise Http404()
-
     testimonial = get_object_or_404(Testimonial, id=id)
     if testimonial.isaccepted:
         messages.info(request, "Testimonial is already accepted.")

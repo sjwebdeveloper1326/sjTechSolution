@@ -5,12 +5,11 @@ from django.contrib import messages
 from mainApp.forms import ProjectForm
 from mainApp.models.project_model import Project
 from django.core.paginator import Paginator
+from employee_Client_student.decorators import admin_level_required
 
 # READ (List)
+@admin_level_required
 def projects_list(request):
-    if not request.user.is_authenticated:
-        raise Http404()
-
     project_list = Project.objects.all().order_by('-id')
 
     paginator = Paginator(project_list, 5)  # 👈 5 per page
@@ -22,10 +21,8 @@ def projects_list(request):
     })
 
 # CREATE
+@admin_level_required
 def add_project(request):
-    if not request.user.is_authenticated:
-        raise Http404()
-
     if request.method == "POST":
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
@@ -41,10 +38,8 @@ def add_project(request):
 
 
 # UPDATE
+@admin_level_required
 def edit_project(request, id):
-    if not request.user.is_authenticated:
-        raise Http404()
-
     project = get_object_or_404(Project, id=id)
 
     if request.method == "POST":
@@ -62,10 +57,8 @@ def edit_project(request, id):
 
 
 # DELETE
+@admin_level_required
 def delete_project(request, id):
-    if not request.user.is_authenticated:
-        raise Http404()
-
     project = get_object_or_404(Project, id=id)
     project.delete()
     messages.success(request, "Project deleted successfully! 🗑️")

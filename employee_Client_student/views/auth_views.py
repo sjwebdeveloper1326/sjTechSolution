@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.models import User
 
 from employee_Client_student.models.employee_model import Employee
 from employee_Client_student.models.student_model import Student
@@ -65,17 +66,13 @@ def login_view(request):
         username_or_email = request.POST.get("username", "").strip()
         password = request.POST.get("password", "").strip()
 
-        from django.contrib.auth.models import User
-
-        try:
-            # check if email used
-            if "@" in username_or_email:
-                user_obj = User.objects.get(email=username_or_email)
+        username = username_or_email
+        if "@" in username_or_email:
+            user_obj = User.objects.filter(email__iexact=username_or_email).first()
+            if user_obj:
                 username = user_obj.username
-            else:
-                username = username_or_email
 
-        except User.DoesNotExist:
+        if not username:
             messages.error(request, "Invalid Username or Email")
             return render(request, "auth/login.html")
 

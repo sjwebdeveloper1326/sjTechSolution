@@ -274,11 +274,19 @@
           >
             Save Employee
           </button>
+          {% if is_self_update and emp %}
+          <a
+            href="{% url 'dashboard_employee' emp_uuid=emp.emp_uuid %}"
+            class="btn btn-outline-light btn-lg ms-3"
+            >Cancel</a
+          >
+          {% else %}
           <a
             href="{% url 'employee_list' %}"
             class="btn btn-outline-light btn-lg ms-3"
             >Cancel</a
           >
+          {% endif %}
         </div>
       </div>
     </form>

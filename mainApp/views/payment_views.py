@@ -51,6 +51,7 @@
 #     })
 
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from employee_Client_student.models.student_model import Student
@@ -58,6 +59,7 @@ from mainApp.models.course_model import Course
 from mainApp.models.payment_model import Payment
 
 
+@login_required(login_url="login")
 def submit_payment(request, course_id):
 
     course = Course.objects.get(id=course_id)

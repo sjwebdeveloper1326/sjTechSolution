@@ -312,9 +312,19 @@
           <button type="submit" class="btn btn-lg px-5" style="background: #ff2c91; color: white;">
             {% if student %}Update Student{% else %}Save Student{% endif %}
           </button>
-          <a href="{% url 'student_list' %}" class="btn btn-outline-light btn-lg ms-3">
-            Cancel
-          </a>
+          {% if is_self_update and student %}
+    <!-- Student -->
+    <a href="{% url 'dashboard_student' stu_uuid=student.stu_uuid %}" 
+       class="btn btn-outline-light btn-lg ms-3">
+        Cancel
+    </a>
+{% else %}
+    <!-- Admin / Employee -->
+    <a href="{% url 'student_list' %}" 
+       class="btn btn-outline-light btn-lg ms-3">
+        Cancel
+    </a>
+{% endif %}
         </div>
       </div>
     </form>

@@ -9,6 +9,7 @@ from mainApp.models.course_model import Course
 from mainApp.models.enrollment_model import Enrollment
 from mainApp.models.service_model import Service
 from django.contrib.auth.decorators import login_required
+from employee_Client_student.decorators import is_admin_level_user
 
 from mainApp.models.project_model import Project
 from mainApp.models.testimonial_model import Testimonial
@@ -88,19 +89,9 @@ def courses(request, slug=None):
 # @login_required(login_url='login')
 def controller(request):
 
-    try:
-        emp_id = request.user.username.split("@")[-1]
-        emp = Employee.objects.get(emp_id=emp_id)
-
-        allowed_roles = ["admin", "manager", "account-manager"]
-
-        if emp.role not in allowed_roles:
-            messages.error(request, "Permission denied.")
-            return redirect("home")
-
-    except Employee.DoesNotExist:
-        messages.error(request, "Unauthorized access.")
-        return redirect("login")
+    if not is_admin_level_user(request.user):
+        messages.error(request, "Permission denied.")
+        return redirect("home")
 
     return render(request, "controller.html")
 

@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from employee_Client_student.models import Student
 from employee_Client_student.models.employee_model import Employee
 
@@ -30,6 +31,7 @@ from django.shortcuts import render, get_object_or_404
 from mainApp.models import Course
 from employee_Client_student.models import Student, Employee
 
+@login_required(login_url='login')
 def student_dashboard(request, stu_uuid):
     student = get_object_or_404(
         Student,

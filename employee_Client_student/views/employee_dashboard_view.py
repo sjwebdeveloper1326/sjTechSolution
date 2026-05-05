@@ -8,6 +8,7 @@ from django.contrib.auth import logout
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from employee_Client_student.models import Employee, Student
 from mainApp.models.course_model import Course
 
@@ -58,6 +59,7 @@ from mainApp.models.course_model import Course
 #         "emp_uuid": employee.emp_uuid,
 #     }
 #     return render(request, "employeeCRUD/dashboard_employee.html", context)
+@login_required(login_url='login')
 def employee_dashboard(request, emp_uuid):
     employee = get_object_or_404(Employee, emp_uuid=emp_uuid, user=request.user)
     

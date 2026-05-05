@@ -5,8 +5,10 @@ from django.utils import timezone
 
 # from mainApp.models import Course
 from employee_Client_student.models import Employee
+from employee_Client_student.decorators import admin_level_required
 
 
+@admin_level_required
 def course_list(request):
     courses = Course.objects.all().order_by('order', 'created_at')
     
@@ -36,6 +38,7 @@ from mainApp.models import Course
 from employee_Client_student.models import Employee
 
 
+@admin_level_required
 def course_create(request):
     teachers = Employee.objects.filter(role="teacher").order_by("name")
 
@@ -98,6 +101,7 @@ def course_create(request):
     })
 
 
+@admin_level_required
 def course_update(request, pk):
     course = get_object_or_404(Course, pk=pk)
     teachers = Employee.objects.filter(role="teacher").order_by("name")
@@ -150,6 +154,7 @@ def course_update(request, pk):
         "action": "Update"
     })
 
+@admin_level_required
 def course_delete(request, pk):
     course = get_object_or_404(Course, pk=pk)
 
