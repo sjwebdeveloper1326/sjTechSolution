@@ -260,15 +260,29 @@
           </select>
         </div>
 
-        <!-- Referred / Joined By (optional) -->
+        <!-- Referred / Joined By Teacher (optional) -->
         <div class="col-md-6">
-          <label class="form-label">Referred / Joined By</label>
+          <label class="form-label">Referred / Joined By Teacher</label>
           <select name="joint_by_uuid" class="form-select">
             <option value="">-- None / Self --</option>
             {% for emp in employees %}
               <option value="{{ emp.emp_uuid }}"
                       {% if student and student.jointBy == emp.emp_uuid|stringformat:"s" %}selected{% endif %}>
                 {{ emp.name }} ({{ emp.emp_id }})
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Referred By Student (optional) -->
+        <div class="col-md-6">
+          <label class="form-label">Referred By Student</label>
+          <select name="referred_student_uuid" class="form-select">
+            <option value="">-- None --</option>
+            {% for ref_student in all_students %}
+              <option value="{{ ref_student.stu_uuid }}"
+                      {% if student and student.jointBy == ref_student.stu_uuid|stringformat:"s" %}selected{% endif %}>
+                {{ ref_student.name }} ({{ ref_student.student_id }})
               </option>
             {% endfor %}
           </select>
@@ -342,6 +356,17 @@ document.addEventListener('DOMContentLoaded', function () {
       const stringValues = preSelectedCourses.map(val => String(val));
       choices.setChoiceByValue(stringValues);
     }
+  }
+
+  const teacherReferrer = document.querySelector('[name="joint_by_uuid"]');
+  const studentReferrer = document.querySelector('[name="referred_student_uuid"]');
+  if (teacherReferrer && studentReferrer) {
+    teacherReferrer.addEventListener('change', function () {
+      if (this.value) studentReferrer.value = '';
+    });
+    studentReferrer.addEventListener('change', function () {
+      if (this.value) teacherReferrer.value = '';
+    });
   }
 });
 </script>

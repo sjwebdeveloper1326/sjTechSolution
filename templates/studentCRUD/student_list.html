@@ -23,6 +23,7 @@
                     <th>Group</th>
                     <th>Join Date</th>
                     <th>Status</th>
+                    <th>Certificate</th>
                     <th style="width:180px;">Actions</th>
                 </tr>
             </thead>
@@ -60,6 +61,26 @@
                         </span>
                     </td>
                     <td>
+                        {% if s.certificate_approved %}
+                            <span class="badge bg-success d-block mb-2">Approved</span>
+                            <a href="{% url 'certificate_download' stu_uuid=s.stu_uuid %}"
+                               class="btn btn-sm btn-outline-info">
+                                Download
+                            </a>
+                        {% else %}
+                            <span class="badge bg-warning text-dark d-block mb-2">Pending</span>
+                            {% if employee.is_admin_level or employee.role == "teacher" %}
+                                <form action="{% url 'certificate_approve' stu_uuid=s.stu_uuid %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                                    <button type="submit" class="btn btn-sm btn-outline-success">
+                                        Approve
+                                    </button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td>
                         
                         <a href="{% url 'student_edit' stu_uuid=s.stu_uuid %}"
                            class="btn btn-sm btn-outline-light me-1">Edit</a>
@@ -75,7 +96,7 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="11" class="text-center py-4 fs-4">No students found</td>
+                    <td colspan="12" class="text-center py-4 fs-4">No students found</td>
                 </tr>
                 {% endfor %}
             </tbody>

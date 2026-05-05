@@ -77,7 +77,10 @@ def student_add(request):
                     valid_course_ids.append(int(stripped))
             student.course_ids = valid_course_ids if valid_course_ids else None
 
-            joint_by_uuid = request.POST.get('joint_by_uuid', '').strip()
+            joint_by_uuid = (
+                request.POST.get('referred_student_uuid', '').strip()
+                or request.POST.get('joint_by_uuid', '').strip()
+            )
             student.jointBy = joint_by_uuid if joint_by_uuid else None
 
             if 'photo' in request.FILES:
@@ -193,7 +196,10 @@ def student_edit(request, stu_uuid):
 
             student.course_ids = valid_course_ids if valid_course_ids else None
 
-            joint_by_uuid = request.POST.get('joint_by_uuid', '').strip()
+            joint_by_uuid = (
+                request.POST.get('referred_student_uuid', '').strip()
+                or request.POST.get('joint_by_uuid', '').strip()
+            )
             student.jointBy = joint_by_uuid if joint_by_uuid else None
 
             if 'photo' in request.FILES:

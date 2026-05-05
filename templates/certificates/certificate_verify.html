@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Verify Certificate{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="mx-auto p-4 p-md-5 rounded shadow-lg" style="max-width: 760px; background:#11152f;">
+    <div class="text-center mb-4">
+      <img src="{% static 'assets/images/SJ_T_logo.png' %}" alt="SJ Tech Solution" style="width:110px;">
+      <h2 class="text-white mt-3 mb-2">Certificate Verified</h2>
+      <p class="text-muted mb-0">This certificate was issued by SJ Tech Solution.</p>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-dark table-bordered align-middle mb-4">
+        <tbody>
+          <tr>
+            <th style="width:220px;">Certificate ID</th>
+            <td>{{ certificate_id }}</td>
+          </tr>
+          <tr>
+            <th>Student</th>
+            <td>{{ student.name }}</td>
+          </tr>
+          <tr>
+            <th>Student ID</th>
+            <td>{{ student.student_id }}</td>
+          </tr>
+          <tr>
+            <th>Course</th>
+            <td>{{ course.title|default:"SJ Tech Solution Course" }}</td>
+          </tr>
+          <tr>
+            <th>Completed On</th>
+            <td>{{ approved_date|date:"F d, Y" }}</td>
+          </tr>
+          <tr>
+            <th>Performance</th>
+            <td>{{ student.certificate_performance|default:"Excellent" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-center">
+      <a href="{% url 'certificate_preview' stu_uuid=student.stu_uuid %}" class="btn btn-primary">
+        View Certificate
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

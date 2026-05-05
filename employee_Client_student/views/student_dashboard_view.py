@@ -40,13 +40,26 @@ def student_dashboard(request, stu_uuid):
     # Timesheets (assuming related_name='timesheets')
     timesheets = student.timesheets.all().order_by('-date') if hasattr(student, 'timesheets') else []
 
-    # Fetch teacher (if jointBy exists)
+    # Fetch referrer from jointBy. It may be an employee UUID or another student UUID.
     teacher = None
+    referred_student = None
     if student.jointBy:
         try:
-            teacher = Employee.objects.filter(emp_uuid=student.jointBy).first()
+            joint_by = student.jointBy[0] if isinstance(student.jointBy, list) else student.jointBy
+            teacher = Employee.objects.filter(emp_uuid=joint_by).first()
+            if not teacher:
+                referred_student = Student.objects.filter(stu_uuid=joint_by).first()
         except Exception:
             pass  # silent fail or log
+
+    student_referrals = []
+    student_uuid = str(student.stu_uuid)
+    for referral in Student.objects.exclude(pk=student.pk):
+        joint_by = referral.jointBy
+        if isinstance(joint_by, str) and joint_by == student_uuid:
+            student_referrals.append(referral)
+        elif isinstance(joint_by, list) and student_uuid in joint_by:
+            student_referrals.append(referral)
 
     # Fetch enrolled courses from course_ids (JSONField)
     enrolled_courses = []
@@ -68,6 +81,8 @@ def student_dashboard(request, stu_uuid):
         "student": student,
         "timesheets": timesheets,
         "teacher": teacher,
+        "referred_student": referred_student,
+        "student_referrals": student_referrals,
         "enrolled_courses": enrolled_courses,  # ← THIS WAS MISSING!
         "stu_uuid": student.stu_uuid,
         "profile_uuid": student.stu_uuid,

@@ -1,0 +1,653 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Certificate - {{ student.name }}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      @page {
+        size: A4 landscape;
+        margin: 0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: #eef1f6;
+        color: #0b1f45;
+        font-family: Georgia, "Times New Roman", serif;
+      }
+
+      .screen-actions {
+        padding: 16px;
+        text-align: center;
+        font-family: Arial, sans-serif;
+      }
+
+      .screen-actions a,
+      .screen-actions button {
+        display: inline-block;
+        margin: 0 6px;
+        padding: 10px 18px;
+        border: 0;
+        border-radius: 4px;
+        background: #0b2a5f;
+        color: #fff;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .certificate {
+        position: relative;
+        width: 297mm;
+        height: 210mm;
+        margin: 0 auto 24px;
+        overflow: hidden;
+        background: #fff;
+        border: 3px solid #c88921;
+        outline: 4px solid #f8f5ee;
+        box-shadow: 0 18px 55px rgba(13, 30, 64, 0.18);
+      }
+
+
+      {% comment %} .corner-navy {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        z-index: 1;
+      }
+
+      .corner-navy.top {
+        top: 0;
+        left: 0;
+        border-width: 0 0 58mm 58mm;
+        border-color: transparent transparent transparent #08285c;
+      }
+
+      .corner-navy.bottom {
+        right: 0;
+        bottom: 0;
+        border-width: 58mm 58mm 0 0;
+        border-color: transparent #08285c transparent transparent;
+      }
+
+      .corner-gold {
+        position: absolute;
+        z-index: 2;
+        width: 70mm;
+        height: 11mm;
+        background: linear-gradient(90deg, #c4861e, #f4d27b, #b87918);
+        transform-origin: left center;
+      }
+
+      .corner-gold.top {
+        top: 29mm;
+        left: -12mm;
+        transform: rotate(-36deg);
+      }
+
+      .corner-gold.bottom {
+        right: -12mm;
+        bottom: 29mm;
+        transform: rotate(-36deg);
+      } {% endcomment %}
+       .corner-navy {
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* TOP LEFT */
+.corner-navy.top {
+  top: 0;
+  left: 0;
+  width: 62mm;
+  height: 52mm;
+  background: #08285c;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.corner-navy.top::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 42%,
+    #d8a33e 43%,
+    #f4d27b 48%,
+    #b87918 52%,
+    transparent 53%
+  );
+}
+
+/* BOTTOM RIGHT */
+.corner-navy.bottom {
+  right: 0;
+  bottom: 0;
+  width: 62mm;
+  height: 52mm;
+  background: #08285c;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+.corner-navy.bottom::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    315deg,
+    transparent 42%,
+    #d8a33e 43%,
+    #f4d27b 48%,
+    #b87918 52%,
+    transparent 53%
+  );
+}
+
+/* Remove old gold strips */
+.corner-gold {
+  display: none;
+}
+
+      .meta {
+        position: absolute;
+        top: 14mm;
+        right: 15mm;
+        z-index: 3;
+        text-align: right;
+        font-family: Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1.45;
+        color: #17213d;
+      }
+
+      .brand {
+        position: relative;
+        z-index: 4;
+        text-align: center;
+        padding-top: 12mm;
+      }
+
+      .brand img {
+        width: 50mm;
+        height: auto;
+        display: block;
+        margin: 0 auto 2mm;
+      }
+
+      .brand h1 {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        font-size: 24px;
+        letter-spacing: 1px;
+        color: #102d62;
+        font-weight: 800;
+      }
+
+      .tagline {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin-top: 3px;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        color: #152748;
+      }
+
+      .tagline:before,
+      .tagline:after {
+        content: "";
+        width: 34px;
+        height: 1px;
+        background: #c88921;
+      }
+
+      .content {
+        position: relative;
+        z-index: 4;
+        text-align: center;
+        padding: 7mm 44mm 0;
+      }
+
+      .title {
+        margin: 0;
+        font-size: 52px;
+        line-height: 0.95;
+        letter-spacing: 7px;
+        color: #08285c;
+        text-shadow: 0 2px 0 rgba(8, 40, 92, 0.08);
+      }
+
+      .subtitle {
+        margin: 7px 0 10px;
+        font-size: 25px;
+        letter-spacing: 9px;
+        color: #c88921;
+        font-weight: 700;
+      }
+
+      .ornament {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 8mm;
+        color: #c88921;
+      }
+
+      .ornament:before,
+      .ornament:after {
+        content: "";
+        width: 58mm;
+        height: 1px;
+        background: #d6a44b;
+      }
+
+      .intro {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        font-size: 17px;
+        color: #18203a;
+      }
+
+      .student-name {
+        display: inline-block;
+        min-width: 130mm;
+        margin: 6mm 0 3mm;
+        padding: 0 12mm 2mm;
+        border-bottom: 1px solid #d09b42;
+        font-size: 39px;
+        line-height: 1;
+        color: #08285c;
+        font-style: italic;
+        font-weight: 500;
+      }
+
+      .course-line {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        color: #17213d;
+      }
+
+      .course-name {
+        display: block;
+        margin-top: 5px;
+        font-size: 21px;
+        font-weight: 800;
+        color: #0b2a5f;
+      }
+
+      .note {
+        max-width: 132mm;
+        margin: 5mm auto 0;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.38;
+        color: #17213d;
+      }
+
+      .qr-block {
+        position: absolute;
+        top: 80mm;
+        right: 25mm;
+        z-index: 4;
+        width: 39mm;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        color: #0b2a5f;
+        font-size: 10px;
+        font-weight: 700;
+      }
+
+      .qr-box {
+        width: 35mm;
+        height: 35mm;
+        margin: 0 auto 4mm;
+        border: 2px solid #c88921;
+        border-radius: 4px;
+        padding: 2mm;
+        background: #fff;
+      }
+      .seal-img {
+        z-index: 4;
+        position: absolute;
+        top: 65mm;
+        left: 15mm;
+        width: 65mm;
+        height: auto;
+        object-fit: contain;
+        image-rendering: crisp-edges;
+        background: transparent;
+        filter: brightness(1.1) contrast(1.2);
+      }
+
+      .qr-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .details {
+        position: absolute;
+        left: 76mm;
+        right: 76mm;
+        bottom: 34mm;
+        z-index: 4;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12mm;
+        font-family: Arial, sans-serif;
+        color: #14264b;
+      }
+
+      .detail {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        min-width: 0;
+      }
+
+      .detail-icon {
+        width: 13mm;
+        height: 13mm;
+        border-radius: 50%;
+        background: #08285c;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        flex: 0 0 auto;
+      }
+
+      .detail-icon svg {
+        width: 26px;
+        height: 26px;
+        stroke: #ffffff;
+        stroke-width: 2;
+        fill: none;
+      }
+
+      .detail strong {
+        display: block;
+        font-size: 10px;
+        text-transform: uppercase;
+      }
+
+      .detail span {
+        display: block;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .signature {
+        position: absolute;
+        z-index: 4;
+        left: 126mm;
+        bottom: 8mm;
+        width: 45mm;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        color: #152748;
+      }
+
+      .signature-image {
+        height: 16mm;
+        display: flex;
+        align-items: end;
+        justify-content: center;
+        font-family: Georgia, serif;
+        font-size: 20px;
+        font-style: italic;
+        color: #08285c;
+      }
+
+      .signature-image img {
+        max-width: 42mm;
+        max-height: 16mm;
+        object-fit: contain;
+      }
+
+      .signature-line {
+        height: 1px;
+        background: #c88921;
+        margin: 0 0 2mm;
+      }
+
+      .signature strong {
+        display: block;
+        font-size: 13px;
+        color: #0b2a5f;
+      }
+
+      .signature span {
+        display: block;
+        font-size: 11px;
+        line-height: 1.35;
+      }
+
+      .stamp {
+        position: absolute;
+        right: 1mm;
+        bottom: 6mm;
+        z-index: 4;
+        width: 50mm;
+        height: 50mm;
+        /* border: 2px dashed rgba(200, 137, 33, .65); */
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial, sans-serif;
+        font-size: 9px;
+        font-weight: 800;
+        color: #c88921;
+        text-align: center;
+        text-transform: uppercase;
+        transform: rotate(-4deg);
+      }
+
+      .stamp img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+      .detail-icon i {
+        font-size: 20px;
+      }
+
+      .site {
+        position: absolute;
+        left: 16mm;
+        bottom: 12mm;
+        z-index: 4;
+        font-family: Arial, sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        color: #0b2a5f;
+      }
+
+      @media print {
+        body {
+          background: #fff;
+        }
+        .screen-actions {
+          display: none;
+        }
+        .certificate {
+          margin: 0;
+          box-shadow: none;
+        }
+      }
+      @media print {
+        .certificate {
+          width: 297mm;
+          height: 210mm;
+          overflow: hidden;
+          page-break-inside: avoid;
+        }
+
+        img {
+          max-width: 100% !important;
+          page-break-inside: avoid;
+        }
+
+        .corner-navy,
+        .corner-gold,
+        .seal-img,
+        .stamp,
+        .qr-block {
+          display: block !important;
+          visibility: visible !important;
+        }
+      }
+
+      @media print {
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+
+        body {
+          background: #fff;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen-actions">
+      <a href="{% url 'certificate_download' stu_uuid=student.stu_uuid %}"
+        >Download PDF</a
+      >
+      <button onclick="window.print()">Print</button>
+    </div>
+
+    <section class="certificate">
+      <div class="corner-navy top"></div>
+      <div class="corner-navy bottom"></div>
+      <div class="corner-gold top"></div>
+      <div class="corner-gold bottom"></div>
+
+      <div class="meta">
+        <div>Certificate ID: {{ certificate_id }}</div>
+        <div>Date: {{ approved_date|date:"F d, Y" }}</div>
+      </div>
+
+      <div class="brand">
+        <img
+          src="{% static 'assets/images/SGAutomixTech-removebg-certificat.png' %}"
+          alt="SG.Automix Tech"
+        />
+        <h1>SG.Automix Tech</h1>
+        <div class="tagline">Learn Today, Lead Tomorrow</div>
+      </div>
+
+      <div class="content">
+        <h2 class="title">CERTIFICATE</h2>
+        <div class="subtitle">OF COMPLETION</div>
+        <div class="ornament">*</div>
+        <p class="intro">This is to certify that</p>
+        <div class="student-name">{{ student.name }}</div>
+        <p class="course-line">
+          has successfully completed the
+          <span class="course-name"
+            >{{ course.title|default:"SG.Automix Tech Course" }}</span
+          >
+          offered by SG.Automix Tech.
+        </p>
+        <p class="note">
+          This certificate acknowledges the recipient's dedication, hard work,
+          and successful completion of all course requirements.
+        </p>
+      </div>
+
+      <img src="{% static 'assets/images/badg_SG.png' %}" class="seal-img" />
+      <div class="qr-block">
+        <div class="qr-box">
+          <img src="{{ qr_data_uri }}" alt="Verify QR" />
+        </div>
+        <div>Verify Certificate</div>
+        <small>Scan the QR code or visit<br />{{ company_site }}/verify</small>
+      </div>
+
+      <div class="details">
+        <div class="detail">
+          <div class="detail-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+              <path
+                d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"
+              />
+            </svg>
+          </div>
+          <div>
+            <strong>Course Duration</strong>
+            <span>{{ course.duration_display|default:"-" }}</span>
+          </div>
+        </div>
+
+        <div class="detail">
+          <div class="detail-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M22 10 12 5 2 10l10 5 10-5z" />
+              <path d="M6 12v5c3 2 9 2 12 0v-5" />
+              <path d="M22 10v6" />
+            </svg>
+          </div>
+          <div>
+            <strong>Completed On</strong>
+            <span>{{ approved_date|date:"M d, Y" }}</span>
+          </div>
+        </div>
+
+        <div class="detail">
+          <div class="detail-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M3 3v18h18" />
+              <path d="m6 16 4-4 3 3 6-7" />
+            </svg>
+          </div>
+          <div>
+            <strong>Performance</strong>
+            <span
+              >{{ student.certificate_performance|default:"Excellent" }}</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="signature">
+        <div class="signature-image">
+          {% if signature_image %}
+          <img src="{{ signature_image }}" alt="Signature" />
+          {% else %} Shivam Gupta {% endif %}
+        </div>
+        <div class="signature-line"></div>
+        <strong>Shivam Gupta</strong>
+        <span>Founder &amp; CEO<br />SG.Automix Tech</span>
+      </div>
+
+      <div class="stamp">
+        <img
+          src="{% static 'assets/images/stamp_dark1-removebg-preview.png' %}"
+          alt="SG.Automix Tech"
+        />
+        {% comment %} {% if stamp_image %}
+        <img src="{{ stamp_image }}" alt="Company Stamp" />
+        {% else %} Company<br />Stamp {% endif %} {% endcomment %}
+      </div>
+
+      <div class="site">www.{{ company_site }}</div>
+    </section>
+  </body>
+</html>

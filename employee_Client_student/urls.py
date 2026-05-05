@@ -24,6 +24,12 @@ from employee_Client_student.views.student_dashboard_view import student_dashboa
 from employee_Client_student.views.student_views import (
     student_add, student_delete, student_edit, student_list
 )
+from employee_Client_student.views.certificate_views import (
+    certificate_approve,
+    certificate_download,
+    certificate_preview,
+    certificate_verify,
+)
 from employee_Client_student.views.timesheet_views import timesheet_add, timesheet_delete, timesheet_edit, timesheet_list
 from . import views
 from django.contrib.auth import views as auth_views
@@ -82,6 +88,10 @@ path(
     path('students/add/', student_add, name='student_add'),
     path('students/edit/<uuid:stu_uuid>/', student_edit, name='student_edit'),
     path('students/delete/<uuid:stu_uuid>/', student_delete, name='student_delete'),
+    path('students/certificate/<uuid:stu_uuid>/approve/', certificate_approve, name='certificate_approve'),
+    path('students/certificate/<uuid:stu_uuid>/preview/', certificate_preview, name='certificate_preview'),
+    path('students/certificate/<uuid:stu_uuid>/download/', certificate_download, name='certificate_download'),
+    path('certificate/verify/<uuid:stu_uuid>/', certificate_verify, name='certificate_verify'),
     # path('students/delete/<int:id>/', views.student_delete, name='student_delete'),
 
     path(

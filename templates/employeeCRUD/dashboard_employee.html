@@ -152,6 +152,7 @@
             <th>Email</th>
             <th>Joined On</th>
             <th>Status</th>
+            <th>Certificate</th>
           </tr>
         </thead>
         <tbody>
@@ -178,10 +179,27 @@
                 <span class="badge bg-warning">{{ student.status|title|default:"—" }}</span>
               {% endif %}
             </td>
+            <td>
+              {% if student.certificate_approved %}
+                <span class="badge bg-success d-block mb-2">Approved</span>
+                <a href="{% url 'certificate_download' stu_uuid=student.stu_uuid %}"
+                   class="btn btn-sm btn-outline-info">
+                  Download
+                </a>
+              {% else %}
+                <form action="{% url 'certificate_approve' stu_uuid=student.stu_uuid %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                  <button type="submit" class="btn btn-sm btn-outline-success">
+                    Approve
+                  </button>
+                </form>
+              {% endif %}
+            </td>
           </tr>
           {% empty %}
           <tr>
-            <td colspan="5" class="text-center py-5">
+            <td colspan="7" class="text-center py-5">
               <div class="empty-state">
                 <i class="fas fa-users fa-3x mb-3 text-muted"></i>
                 <h5>No students found in your courses</h5>

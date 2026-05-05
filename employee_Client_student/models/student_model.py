@@ -30,7 +30,26 @@ class Student(models.Model):
     jointStudents = models.JSONField(default=list, blank=True)
     jointBy = models.JSONField( null=True,blank=True)
     date_of_joining = models.DateField(default=timezone.now)
+    certificate_approved = models.BooleanField(default=False)
+    certificate_approved_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='approved_student_certificates'
+    )
+    certificate_approved_at = models.DateTimeField(null=True, blank=True)
+    certificate_performance = models.CharField(max_length=50, default='Excellent')
     created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def certificate_id(self):
+        year = (
+            self.certificate_approved_at.year
+            if self.certificate_approved_at
+            else timezone.now().year
+        )
+        return f"SJTS{year}/WEB/{self.id:04d}"
 
     def save(self, *args, **kwargs):
         creating = self.pk is None
