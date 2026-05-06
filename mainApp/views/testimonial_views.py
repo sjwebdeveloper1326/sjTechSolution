@@ -11,6 +11,7 @@ from django.urls import reverse
 from mainApp.forms import TestimonialForm
 from mainApp.models import Testimonial
 from employee_Client_student.decorators import admin_level_required
+from utils.site_urls import absolute_url
 
 
 def _get_superadmin_emails():
@@ -31,8 +32,9 @@ def _send_testimonial_approval_email(request, testimonial):
         return False
 
     token = signing.dumps({"testimonial_id": testimonial.id}, salt="testimonial-approval")
-    approve_link = request.build_absolute_uri(
-        reverse("testimonial_accept_from_email", kwargs={"token": token})
+    approve_link = absolute_url(
+        reverse("testimonial_accept_from_email", kwargs={"token": token}),
+        request,
     )
 
     subject = f"New testimonial approval request: {testimonial.name}"

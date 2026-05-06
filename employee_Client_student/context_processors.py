@@ -61,6 +61,7 @@
 
 from employee_Client_student.models import Employee, Student
 from utils.date_context import build_date_context
+from utils.site_urls import absolute_url, request_base_url
 
 def profile_id(request):
     context = {
@@ -102,3 +103,10 @@ def profile_id(request):
 
 def global_date(request):
     return build_date_context()
+
+
+def site_urls(request):
+    return {
+        "site_base_url": request_base_url(request),
+        "current_absolute_url": absolute_url(request.get_full_path(), request),
+    }

@@ -3,17 +3,14 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.urls import reverse
 from utils.date_context import build_date_context
-
-
-def _get_base_url():
-    return getattr(settings, "SITE_BASE_URL", "https://sjtechsolution.pythonanywhere.com").rstrip("/")
+from utils.site_urls import absolute_url, production_base_url
 
 
 def send_account_email(to_email: str, name: str, username: str, password: str, extra_context: dict = None):
     subject = "Your SG.Automix Tech Account is Ready!"
     from_email = getattr(settings, "DEFAULT_FROM_EMAIL", settings.EMAIL_HOST_USER)
-    base_url = _get_base_url()
-    login_url = f"{base_url}{reverse('login')}"
+    base_url = production_base_url()
+    login_url = absolute_url(reverse('login'))
 
     context = {
         "name": name,

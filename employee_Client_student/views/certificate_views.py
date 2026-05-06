@@ -15,6 +15,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 from employee_Client_student.models import Employee, Student
 from mainApp.models import Course
+from utils.site_urls import absolute_url, request_base_url
 
 
 def _employee_for_user(user):
@@ -191,8 +192,9 @@ def _pillow_certificate_pdf(context):
 
 def _certificate_context(request, student):
     course = _certificate_course(student)
-    verify_url = request.build_absolute_uri(
-        reverse('certificate_verify', kwargs={'stu_uuid': student.stu_uuid})
+    verify_url = absolute_url(
+        reverse('certificate_verify', kwargs={'stu_uuid': student.stu_uuid}),
+        request,
     )
     approved_date = student.certificate_approved_at or timezone.now()
 
@@ -203,7 +205,7 @@ def _certificate_context(request, student):
         'approved_date': approved_date,
         'verify_url': verify_url,
         'qr_data_uri': _qr_data_uri(verify_url),
-        'company_site': getattr(settings, 'SITE_BASE_URL', '').replace('https://', '').replace('http://', ''),
+        'company_site': request_base_url(request).replace('https://', '').replace('http://', '').rstrip('/'),
         'signature_image': getattr(settings, 'CERTIFICATE_SIGNATURE_IMAGE', ''),
         'stamp_image': getattr(settings, 'CERTIFICATE_STAMP_IMAGE', '/static/assets/images/stamp_transprent.png'),
     }

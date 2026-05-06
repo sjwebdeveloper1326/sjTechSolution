@@ -35,7 +35,10 @@ SECRET_KEY = 'django-insecure-d76&suud^c+b-1n2-4vf_wk+b@$5()h-#)t9or!vi!=7^-u#$k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv(
+    "ALLOWED_HOSTS",
+    "localhost,127.0.0.1,sgautomixtech.info,www.sgautomixtech.info",
+).split(",")
 
 
 # Application definition
@@ -76,6 +79,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'employee_Client_student.context_processors.profile_id',
                 'employee_Client_student.context_processors.global_date',
+                'employee_Client_student.context_processors.site_urls',
             ],
         },
     },
@@ -160,7 +164,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")         # replace
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")     # replace with app password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-SITE_BASE_URL = os.getenv("SITE_BASE_URL", "https://sjtechsolution.pythonanywhere.com")
+SITE_BASE_URL = os.getenv("SITE_BASE_URL", "https://sgautomixtech.info/")
 CERTIFICATE_SIGNATURE_IMAGE = os.getenv("CERTIFICATE_SIGNATURE_IMAGE", "")
 CERTIFICATE_STAMP_IMAGE = os.getenv("CERTIFICATE_STAMP_IMAGE", "/static/assets/images/stamp_transprent.png")
 COMPANY_START_YEAR = int(os.getenv("COMPANY_START_YEAR", "2026"))

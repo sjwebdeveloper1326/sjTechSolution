@@ -7,18 +7,13 @@ from django.urls import reverse
 
 from employee_Client_student.models import Student
 from utils.date_context import build_date_context
+from utils.site_urls import absolute_url
 
 logger = logging.getLogger(__name__)
 
-
-def _get_base_url():
-    return getattr(settings, "SITE_BASE_URL", "https://sjtechsolution.pythonanywhere.com").rstrip("/")
-
-
 def send_new_course_email(course):
     students = Student.objects.exclude(email="")
-    base_url = _get_base_url()
-    courses_url = f"{base_url}{reverse('courses')}"
+    courses_url = absolute_url(reverse('courses'))
 
     for student in students:
         try:

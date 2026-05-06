@@ -5,13 +5,16 @@
     <!-- default meta title -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="{% block meta_description %}SG.Automix Tech provides automation services, software solutions, practical technology courses, project support, and business workflow improvements.{% endblock %}" />
-    <meta name="keywords" content="{% block meta_keywords %}SG Automix Tech, SJ Tech, automation services, software development, technology courses, industrial automation, web development, certified courses{% endblock %}" />
+    <meta name="description" content="{% block meta_description %}SG.Automix Tech helps automate your business, reduce manual work, and build reliable software solutions, practical technology courses, project support, and workflow improvements.{% endblock %}" />
+    <meta name="keywords" content="{% block meta_keywords %}SG Automix Tech, SJ Tech, business automation, reduce manual work, automation services, software development, technology courses, industrial automation, web development, certified courses{% endblock %}" />
     <meta name="robots" content="{% block meta_robots %}index, follow{% endblock %}" />
     <meta property="og:title" content="{% block og_title %}SG.Automix Tech{% endblock %}" />
-    <meta property="og:description" content="{% block og_description %}SG.Automix Tech provides automation services, software solutions, practical technology courses, project support, and business workflow improvements.{% endblock %}" />
+    <meta property="og:description" content="{% block og_description %}SG.Automix Tech helps automate your business, reduce manual work, and build reliable software solutions for real workflows.{% endblock %}" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="SG.Automix Tech" />
+    <meta property="og:url" content="{{ current_absolute_url }}" />
+    <meta property="og:image" content="{{ site_base_url }}{% static 'assets/images/SGAutomixTech_Black_bg_SizeFix.gif' %}" />
+    <link rel="canonical" href="{{ current_absolute_url }}" />
 
     <title>{% block title %}SG.Automix Tech{% endblock %}</title>
 
