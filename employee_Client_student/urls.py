@@ -15,6 +15,7 @@ from employee_Client_student.views.password_reset_views import (
 
 # employee
 from employee_Client_student.views.employee_dashboard_view import employee_dashboard
+from employee_Client_student.views.client_dashboard_view import client_dashboard
 from employee_Client_student.views.employee_views import (
     employee_add, employee_edit, employee_delete, employee_list
 )
@@ -75,6 +76,11 @@ path(
     "employee/dashboard/<uuid:emp_uuid>/",
     employee_dashboard,
     name="dashboard_employee"
+),
+    path(
+    "client/dashboard/<uuid:emp_uuid>/",
+    client_dashboard,
+    name="dashboard_client"
 ),
     #  path("employee/dashboard/<str:student_id>/", views.dashboard_employee, name="dashboard_employee"),
     path('student/dashboard/<uuid:stu_uuid>/', student_dashboard, name="dashboard_student"),

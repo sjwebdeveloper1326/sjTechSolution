@@ -11,6 +11,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from employee_Client_student.models import Employee, Student
 from mainApp.models.course_model import Course
+from mainApp.models.project_model import Project
+from mainApp.views.project_views import hydrate_project_assignments
 
 
 # def employee_dashboard(request, emp_uuid):
@@ -112,11 +114,19 @@ def employee_dashboard(request, emp_uuid):
     
     print(f"\nTotal referrals (jointBy match) = {len(referrals)}")
     
+    assigned_projects = []
+    for project in Project.objects.all().order_by('-created_at'):
+        if str_uuid in (project.assigned_employee_ids or []):
+            assigned_projects.append(project)
+
+    hydrate_project_assignments(assigned_projects)
+
     context = {
         "employee": employee,
         "timesheets": timesheets,
         "my_students": my_students,
         "referrals": referrals,  # ← ab yeh referrals tab mein jayega
+        "assigned_projects": assigned_projects,
         "profile_uuid": employee.emp_uuid,
         "profile_id": employee.emp_id,
         "user_type": "employee",

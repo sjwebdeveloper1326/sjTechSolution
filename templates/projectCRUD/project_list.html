@@ -20,6 +20,8 @@
             <th>#</th>
             <th>Image</th>
             <th>Title</th>
+            <th>Client</th>
+            <th>Handlers</th>
             <th>Description</th>
             <th>Link</th>
             <th>Actions</th>
@@ -41,6 +43,25 @@
             </td>
 
             <td>{{ project.title }}</td>
+            <td>
+              {% if project.client %}
+                {{ project.client.name }}<br>
+                <small class="text-muted">{{ project.client.emp_id }}</small>
+              {% else %}
+                <span class="text-muted">-</span>
+              {% endif %}
+            </td>
+            <td>
+              {% for employee in project.assigned_employees %}
+                <span class="project-chip">{{ employee.name }}</span>
+              {% endfor %}
+              {% for student in project.assigned_students %}
+                <span class="project-chip student-chip">{{ student.name }}</span>
+              {% endfor %}
+              {% if not project.assigned_employees and not project.assigned_students %}
+                <span class="text-muted">-</span>
+              {% endif %}
+            </td>
             <td>{{ project.description|truncatechars:50 }}</td>
 
             <td>
@@ -66,7 +87,7 @@
           </tr>
           {% empty %}
           <tr>
-            <td colspan="6" class="text-center">No projects found</td>
+            <td colspan="8" class="text-center">No projects found</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -74,7 +95,7 @@
         <!-- ✅ Pagination INSIDE TABLE -->
         <tfoot>
           <tr>
-            <td colspan="6">
+            <td colspan="8">
               <div
                 class="d-flex justify-content-between align-items-center flex-wrap"
               >
@@ -168,6 +189,21 @@
 
   .project-link:hover {
     color: var(--primary_text_color);
+  }
+
+  .project-chip {
+    display: inline-block;
+    padding: 3px 8px;
+    margin: 2px;
+    border-radius: 999px;
+    background: rgba(255, 109, 186, 0.16);
+    color: var(--primary_color);
+    font-size: 12px;
+  }
+
+  .student-chip {
+    background: rgba(13, 202, 240, 0.14);
+    color: #7ee5ff;
   }
 
   .project-btn-edit {

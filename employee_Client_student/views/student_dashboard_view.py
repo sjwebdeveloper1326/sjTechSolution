@@ -29,6 +29,8 @@ from employee_Client_student.models.employee_model import Employee
 #     )
 from django.shortcuts import render, get_object_or_404
 from mainApp.models import Course
+from mainApp.models.project_model import Project
+from mainApp.views.project_views import hydrate_project_assignments
 from employee_Client_student.models import Student, Employee
 
 @login_required(login_url='login')
@@ -63,6 +65,13 @@ def student_dashboard(request, stu_uuid):
         elif isinstance(joint_by, list) and student_uuid in joint_by:
             student_referrals.append(referral)
 
+    assigned_projects = []
+    for project in Project.objects.all().order_by('-created_at'):
+        if student_uuid in (project.assigned_student_ids or []):
+            assigned_projects.append(project)
+
+    hydrate_project_assignments(assigned_projects)
+
     # Fetch enrolled courses from course_ids (JSONField)
     enrolled_courses = []
     if student.course_ids:
@@ -85,6 +94,7 @@ def student_dashboard(request, stu_uuid):
         "teacher": teacher,
         "referred_student": referred_student,
         "student_referrals": student_referrals,
+        "assigned_projects": assigned_projects,
         "enrolled_courses": enrolled_courses,  # ← THIS WAS MISSING!
         "stu_uuid": student.stu_uuid,
         "profile_uuid": student.stu_uuid,

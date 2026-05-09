@@ -57,48 +57,7 @@
       }
 
 
-      {% comment %} .corner-navy {
-        position: absolute;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        z-index: 1;
-      }
 
-      .corner-navy.top {
-        top: 0;
-        left: 0;
-        border-width: 0 0 58mm 58mm;
-        border-color: transparent transparent transparent #08285c;
-      }
-
-      .corner-navy.bottom {
-        right: 0;
-        bottom: 0;
-        border-width: 58mm 58mm 0 0;
-        border-color: transparent #08285c transparent transparent;
-      }
-
-      .corner-gold {
-        position: absolute;
-        z-index: 2;
-        width: 70mm;
-        height: 11mm;
-        background: linear-gradient(90deg, #c4861e, #f4d27b, #b87918);
-        transform-origin: left center;
-      }
-
-      .corner-gold.top {
-        top: 29mm;
-        left: -12mm;
-        transform: rotate(-36deg);
-      }
-
-      .corner-gold.bottom {
-        right: -12mm;
-        bottom: 29mm;
-        transform: rotate(-36deg);
-      } {% endcomment %}
        .corner-navy {
   position: absolute;
   z-index: 1;
@@ -526,9 +485,9 @@
   </head>
   <body>
     <div class="screen-actions">
-      <a href="{% url 'certificate_download' stu_uuid=student.stu_uuid %}"
+      {% comment %} <a href="{% url 'certificate_download' stu_uuid=student.stu_uuid %}"
         >Download PDF</a
-      >
+      >  {% endcomment %}
       <button onclick="window.print()">Print</button>
     </div>
 

@@ -47,6 +47,23 @@
               {{ form.link }}
             </div>
 
+            <div class="mb-3">
+              <label>Project Given By Client</label>
+              {{ form.client_uuid }}
+            </div>
+
+            <div class="mb-3">
+              <label>Handled By Employees</label>
+              {{ form.assigned_employee_ids }}
+              <small class="text-muted">Hold Ctrl to select multiple employees.</small>
+            </div>
+
+            <div class="mb-3">
+              <label>Handled By Students</label>
+              {{ form.assigned_student_ids }}
+              <small class="text-muted">Hold Ctrl to select multiple students.</small>
+            </div>
+
             <button type="submit" class="btn w-100">
               Save Project
             </button>
@@ -71,7 +88,8 @@ form label {
 }
 
 form input,
-form textarea {
+form textarea,
+form select {
     width: 100%;
     padding: 10px;
     border-radius: var(--primary_radius);
@@ -81,7 +99,8 @@ form textarea {
 }
 
 form input:focus,
-form textarea:focus {
+form textarea:focus,
+form select:focus {
     outline: none;
     border-color: var(--primary_color);
 }

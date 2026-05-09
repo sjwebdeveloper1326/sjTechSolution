@@ -108,7 +108,7 @@ def login_view(request):
             return redirect("dashboard_employee", emp_uuid=emp.emp_uuid)
 
         elif emp.role == "client":
-            return redirect("dashboard_client", emp_id=emp.emp_id)
+            return redirect("dashboard_client", emp_uuid=emp.emp_uuid)
 
         else:
             messages.error(request, "Unauthorized role")
