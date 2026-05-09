@@ -199,7 +199,7 @@
         align-items: center;
         justify-content: center;
         gap: 12px;
-        margin-bottom: 8mm;
+        margin-bottom: 2mm;
         color: #c88921;
       }
 
@@ -274,7 +274,6 @@
         margin: 0 auto 4mm;
         border: 2px solid #c88921;
         border-radius: 4px;
-        padding: 2mm;
         background: #fff;
       }
       .seal-img {
@@ -300,7 +299,7 @@
         position: absolute;
         left: 76mm;
         right: 76mm;
-        bottom: 34mm;
+        bottom: 39mm;
         z-index: 4;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -349,51 +348,60 @@
         font-weight: 800;
       }
 
-      .signature {
-        position: absolute;
-        z-index: 4;
-        left: 126mm;
-        bottom: 8mm;
-        width: 45mm;
-        text-align: center;
-        font-family: Arial, sans-serif;
-        color: #152748;
-      }
+   
+       .signatures {
+  position: absolute;
+  left: 90mm;
+  right: 70mm;
+  bottom: 8mm;
+  z-index: 4;
 
-      .signature-image {
-        height: 16mm;
-        display: flex;
-        align-items: end;
-        justify-content: center;
-        font-family: Georgia, serif;
-        font-size: 20px;
-        font-style: italic;
-        color: #08285c;
-      }
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
 
-      .signature-image img {
-        max-width: 42mm;
-        max-height: 16mm;
-        object-fit: contain;
-      }
+.signature {
+  width: 48mm;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  color: #152748;
+}
 
-      .signature-line {
-        height: 1px;
-        background: #c88921;
-        margin: 0 0 2mm;
-      }
+.signature-image {
+  height: 16mm;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-style: italic;
+  color: #08285c;
+}
 
-      .signature strong {
-        display: block;
-        font-size: 13px;
-        color: #0b2a5f;
-      }
+.signature-image img {
+  max-width: 42mm;
+  max-height: 16mm;
+  object-fit: contain;
+}
 
-      .signature span {
-        display: block;
-        font-size: 11px;
-        line-height: 1.35;
-      }
+.signature-line {
+  height: 1px;
+  background: #c88921;
+  margin: 0 0 2mm;
+}
+
+.signature strong {
+  display: block;
+  font-size: 13px;
+  color: #0b2a5f;
+}
+
+.signature span {
+  display: block;
+  font-size: 11px;
+  line-height: 1.35;
+}
 
       .stamp {
         position: absolute;
@@ -481,9 +489,14 @@
           background: #fff;
         }
       }
+      img {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
     </style>
   </head>
-  <body>
+  <body oncontextmenu="return false">
     <div class="screen-actions">
       {% comment %} <a href="{% url 'certificate_download' stu_uuid=student.stu_uuid %}"
         >Download PDF</a
@@ -585,16 +598,40 @@
         </div>
       </div>
 
-      <div class="signature">
-        <div class="signature-image">
-          {% if signature_image %}
-          <img src="{{ signature_image }}" alt="Signature" />
-          {% else %} Shivam Gupta {% endif %}
-        </div>
-        <div class="signature-line"></div>
-        <strong>Shivam Gupta</strong>
-        <span>Founder &amp; CEO<br />SG.Automix Tech</span>
-      </div>
+    
+      <div class="signatures">
+
+  <!-- Founder Signature -->
+<div class="signature">
+  <div class="signature-image">
+    <img
+      src="{% static 'assets/images/signature/shubham_signature_removebg-preview.png' %}"
+      alt="Founder Signature"
+    />
+  </div>
+
+  <div class="signature-line"></div>
+
+  <strong>Shubham Gupta</strong>
+  <span>Founder<br />SG.Automix Tech</span>
+</div>
+
+<!-- CEO Signature -->
+<div class="signature">
+  <div class="signature-image">
+    <img
+      src="{% static 'assets/images/signature/shivam_signature_removebg-preview.png' %}"
+      alt="CEO Signature"
+    />
+  </div>
+
+  <div class="signature-line"></div>
+
+  <strong>Shivam Gupta</strong>
+  <span>CEO<br />SG.Automix Tech</span>
+</div>
+
+</div>
 
       <div class="stamp">
         <img
@@ -608,5 +645,18 @@
 
       <div class="site">www.{{ company_site }}</div>
     </section>
+
+    <script>
+document.addEventListener('keydown', function(e) {
+  if (
+    e.key === "F12" ||
+    (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+    (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+    (e.ctrlKey && e.key === 'U')
+  ) {
+    e.preventDefault();
+  }
+});
+</script>
   </body>
 </html>
