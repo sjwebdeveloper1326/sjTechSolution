@@ -1,0 +1,62 @@
+"""
+URL configuration for sgAutomixTech project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/4.2/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import include, path
+from django.conf import settings
+from django.conf.urls.static import static
+# from sgAutomixTech.sgAutomixTech import views
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import StaticViewSitemap
+from . import views
+
+sitemaps = {
+    'static': StaticViewSitemap,
+}
+urlpatterns = [
+     path(
+        'sitemap.xml',
+        sitemap,
+        {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'
+    ),
+    path('superAdmin/', admin.site.urls),
+    path('', views.index_page,name='home'),
+    path('about/', views.about,name='about'),
+    path('about/<slug:slug>/', views.about, name='about_slug'),
+    path('testimonial/', views.testimonial,name='testimonial'),
+    path('testimonial/<slug:slug>/', views.testimonial, name='testimonial_slug'),
+    path('courses/', views.courses,name='courses'),
+    path('courses/<slug:slug>/', views.courses, name='courses_slug'),
+    path('services/', views.services,name='services'),
+    path('services/<slug:slug>/', views.services, name='services_slug'),
+    path('controller/', views.controller,name='controller'),
+    path('projects/', views.projects,name='projects'),
+    path('projects/<slug:slug>/', views.projects, name='projects_slug'),
+    path('contact/', views.contact,name='contact'),
+    path('contact/<slug:slug>/', views.contact, name='contact_slug'),
+    path('enroll/', views.enroll_page, name='enroll_page'),
+    path('enroll/<slug:slug>/', views.enroll_page, name='enroll_page_slug'),
+    path('api/ai/chat/', views.ai_chat_api, name='ai_chat_api'),
+ # Add this line 
+    path('pages/', include('mainApp.urls')),
+    path('', include('employee_Client_student.urls')),
+]
+# Custom 404 error handler
+handler404 = "sgAutomixTech.views.custom_404"
+# Media files ke liye (photo upload)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

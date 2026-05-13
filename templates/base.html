@@ -1,70 +1,58 @@
 {% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- default meta title -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="{% block meta_description %}SG.Automix Tech helps automate your business, reduce manual work, and build reliable software solutions, practical technology courses, project support, and workflow improvements.{% endblock %}" />
-    <meta name="keywords" content="{% block meta_keywords %}SG Automix Tech, SJ Tech, business automation, reduce manual work, automation services, software development, technology courses, industrial automation, web development, certified courses{% endblock %}" />
-    <meta name="robots" content="{% block meta_robots %}index, follow{% endblock %}" />
-    <meta property="og:title" content="{% block og_title %}SG.Automix Tech{% endblock %}" />
-    <meta property="og:description" content="{% block og_description %}SG.Automix Tech helps automate your business, reduce manual work, and build reliable software solutions for real workflows.{% endblock %}" />
+    <meta name="description"
+          content="{% block meta_description %}SG.Automix Tech helps automate your business, reduce manual work, and build reliable software solutions, practical technology courses, project support, and workflow improvements.{% endblock %}" />
+    <meta name="keywords"
+          content="{% block meta_keywords %}SG Automix Tech, SJ Tech, business automation, reduce manual work, automation services, software development, technology courses, industrial automation, web development, certified courses{% endblock %}" />
+    <meta name="robots"
+          content="{% block meta_robots %}index, follow{% endblock %}" />
+    <meta property="og:title"
+          content="{% block og_title %}SG.Automix Tech{% endblock %}" />
+    <meta property="og:description"
+          content="{% block og_description %}SG.Automix Tech helps automate your business, reduce manual work, and build reliable software solutions for real workflows.{% endblock %}" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="SG.Automix Tech" />
     <meta property="og:url" content="{{ current_absolute_url }}" />
-    <meta property="og:image" content="{{ site_base_url }}{% static 'assets/images/SGAutomixTech_Black_bg_SizeFix.gif' %}" />
+    <meta property="og:image"
+          content="{{ site_base_url }}{% static 'assets/images/SGAutomixTech_Black_bg_SizeFix.gif' %}" />
     <link rel="canonical" href="{{ current_absolute_url }}" />
-
-    <title>{% block title %}SG.Automix Tech{% endblock %}</title>
-
+    <title>
+      {% block title %}SG.Automix Tech{% endblock %}
+    </title>
     <!-- favicon -->
-    <link
-      rel="icon"
-      id="favicon"
-      href="{% static 'assets/images/favIconLogo.png' %}"
-      type="image/gif"
-      sizes="16x16"
-    />
-
+    <link rel="icon"
+          id="favicon"
+          href="{% static 'assets/images/favIconLogo.png' %}"
+          type="image/gif"
+          sizes="16x16" />
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet" />
     <!-- Font Awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
-
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <!-- Slider CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/slider.css' %}" />
     <link rel="stylesheet" href="{% static 'lib/help/slick_theme.css' %}" />
-
     <!-- fancybox gallery -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css"
-    />
-
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
     <!-- Bootstrap -->
-    <link
-      rel="stylesheet"
-      href="{% static 'lib/bootstrap-5/css/bootstrap.min.css' %}"
-    />
-
+    <link rel="stylesheet"
+          href="{% static 'lib/bootstrap-5/css/bootstrap.min.css' %}" />
     <!-- Main CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/ai-assistant.css' %}" />
-
     <!-- Extra css -->
     {% block extra_css %}{% endblock %}
-
     <style>
       /* Dark theme ke liye hover effect + smooth feel */
       .dropdown-menu[data-bs-theme="dark"] .dropdown-item {
@@ -139,262 +127,176 @@
 }
     </style>
   </head>
-
   <body>
     <!-- Preloader -->
     <div class="preloader">
-      <img
-        src="{% static 'assets/images/SGAutomixTech_Black_bg_SizeFix.gif' %}"
-        alt="Preloader Logo"
-      />
+      <img src="{% static 'assets/images/SGAutomixTech_Black_bg_SizeFix.gif' %}"
+           alt="Preloader Logo" />
     </div>
-
     <!-- Header -->
     <header class="d2c_navbar sticky-top">
       <div class="container">
         <nav class="navbar navbar-expand-lg px-0 py-0" id="d2c_main_nav">
           <!-- Logo -->
           <a class="navbar-brand" href="{% url 'home' %}">
-            <img
-              src="{% static 'assets/images/SGAutomixTech_Black_bg_SizeFix.gif' %}"
-              class="w-100"
-              alt="Logo"
-            />
+            <img src="{% static 'assets/images/SGAutomixTech_Black_bg_SizeFix.gif' %}"
+                 class="w-100"
+                 alt="Logo" />
           </a>
-
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-          >
+          <button class="navbar-toggler"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarSupportedContent">
             <span><i class="fas fa-bars"></i></span>
           </button>
-
-          <div
-            class="collapse navbar-collapse js-clone-nav justify-content-end"
-          >
+          <div class="collapse navbar-collapse js-clone-nav justify-content-end">
             <ul class="navbar-nav">
               <li class="nav-item">
-  <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
-     href="{% url 'home' %}">
-    home
-  </a>
-</li>
-
-<li class="nav-item">
-  <a class="nav-link {% if request.resolver_match.url_name == 'about_slug' %}active{% endif %}"
-     href="{% url 'about_slug' 'about-us' %}">
-    about
-  </a>
-</li>
-
-<li class="nav-item">
-  <a class="nav-link {% if request.resolver_match.url_name == 'services_list_slug' %}active{% endif %}"
-     href="{% url 'services_list_slug' 'automation-services' %}">
-    service
-  </a>
-</li>
-
-<li class="nav-item">
-  <a class="nav-link {% if request.resolver_match.url_name == 'courses_slug' %}active{% endif %}"
-     href="{% url 'courses_slug' 'certified-courses' %}">
-    courses
-  </a>
-</li>
-
-<li class="nav-item">
-  <a class="nav-link {% if request.resolver_match.url_name == 'projects_slug' %}active{% endif %}"
-     href="{% url 'projects_slug' 'client-projects' %}">
-    projects
-  </a>
-</li>
-
-<li class="nav-item">
-  <a class="nav-link {% if request.resolver_match.url_name == 'testimonial_slug' %}active{% endif %}"
-     href="{% url 'testimonial_slug' 'client-testimonials' %}">
-    testimonial
-  </a>
-</li>
-
-<li class="nav-item">
-  <a class="nav-link {% if request.resolver_match.url_name == 'contact_slug' %}active{% endif %}"
-     href="{% url 'contact_slug' 'contact-us' %}">
-    contact
-  </a>
-</li>
-
+                <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                   href="{% url 'home' %}">home</a>
+              </li>
               <li class="nav-item">
-                <a href="#contact" class="btn d-block d-lg-none"
-                  >Get In touch</a
-                >
+                <a class="nav-link {% if request.resolver_match.url_name == 'about_slug' %}active{% endif %}"
+                   href="{% url 'about_slug' 'about-us' %}">about</a>
               </li>
-
-        {% if request.user.is_authenticated %}
-        <li class="nav-item d-lg-none">
-          <div class="dropdown small-with-dropdown  d-lg-none mt-2">
-            <button
-              class="btn btn-primary dropdown-toggle  px-4 py-2 fw-medium shadow-sm text-truncate user-btn"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              {{ request.user.username }}
-            </button>
-
-            <ul
-              class="dropdown-menu dropdown-menu-end shadow-lg border-0"
-              data-bs-theme="dark"
-              style="
-                background-color: #1e1e2e;
-                border-radius: 12px;
-                min-width: 220px;
-              "
-            >
-              {% if employee.is_admin_level %}
-              <li>
-                <a
-                  class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
-                  href="{% url 'controller' %}"
-                >
-                  <i class="bi bi-gear me-2"></i>Controller
-                </a>
+              <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.url_name == 'services_slug' %}active{% endif %}"
+                   href="{% url 'services_slug' 'automation-services' %}">service</a>
               </li>
-              {% endif %} {% if student %}
-              <li>
-                <a
-                  class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
-                  href="{% url 'dashboard_student' stu_uuid=student.stu_uuid %}"
-                >
-                  <i class="bi bi-person-circle me-2"></i>My Profile
-                </a>
+              <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.url_name == 'courses_slug' %}active{% endif %}"
+                   href="{% url 'courses_slug' 'certified-courses' %}">courses</a>
               </li>
-              {% endif %} {% if employee and employee.emp_uuid %}
-              <li>
-                <a
-                  class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
-                  {% if employee.role == "client" %}
-                  href="{% url 'dashboard_client' employee.emp_uuid %}"
-                  {% else %}
-                  href="{% url 'dashboard_employee' employee.emp_uuid %}"
-                  {% endif %}
-                >
-                  <i class="bi bi-person-circle me-2"></i> My Profile
-                </a>
+              <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.url_name == 'projects_slug' %}active{% endif %}"
+                   href="{% url 'projects_slug' 'client-projects' %}">projects</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.url_name == 'testimonial_slug' %}active{% endif %}"
+                   href="{% url 'testimonial_slug' 'client-testimonials' %}">testimonial</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.url_name == 'contact_slug' %}active{% endif %}"
+                   href="{% url 'contact_slug' 'contact-us' %}">contact</a>
+              </li>
+              <li class="nav-item">
+                <a href="#contact" class="btn d-block d-lg-none">Get In touch</a>
+              </li>
+              {% if request.user.is_authenticated %}
+                <li class="nav-item d-lg-none">
+                  <div class="dropdown small-with-dropdown  d-lg-none mt-2">
+                    <button class="btn btn-primary dropdown-toggle  px-4 py-2 fw-medium shadow-sm text-truncate user-btn"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">{{ request.user.username }}</button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0"
+                        data-bs-theme="dark"
+                        style="background-color: #1e1e2e;
+                               border-radius: 12px;
+                               min-width: 220px">
+                      {% if employee.is_admin_level %}
+                        <li>
+                          <a class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
+                             href="{% url 'controller' %}">
+                            <i class="bi bi-gear me-2"></i>Controller
+                          </a>
+                        </li>
+                      {% endif %}
+                      {% if student %}
+                        <li>
+                          <a class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
+                             href="{% url 'dashboard_student' stu_uuid=student.stu_uuid %}">
+                            <i class="bi bi-person-circle me-2"></i>My Profile
+                          </a>
+                        </li>
+                      {% endif %}
+                      {% if employee and employee.emp_uuid %}
+                        <li>
+                          <a class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
+                             {% if employee.role == "client" %} href="{% url 'dashboard_client' employee.emp_uuid %}" {% else %} href="{% url 'dashboard_employee' employee.emp_uuid %}" {% endif %}>
+                            <i class="bi bi-person-circle me-2"></i> My Profile
+                          </a>
+                        </li>
+                      {% endif %}
+                      <li>
+                        <hr class="dropdown-divider bg-secondary my-1" />
+                      </li>
+                      <li>
+                        <a class="dropdown-item py-2 px-4 text-danger fw-medium hover-bg"
+                           href="{% url 'logout' %}">
+                          <i class="bi bi-box-arrow-right me-2"></i>Logout
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                {% else %}
+                  <li class="nav-item">
+                    <a href="{% url 'login' %}" class="btn d-block d-lg-none">Login</a>
+                  </li>
+                </li>
               {% endif %}
-
-              <li><hr class="dropdown-divider bg-secondary my-1" /></li>
-
-              <li>
-                <a
-                  class="dropdown-item py-2 px-4 text-danger fw-medium hover-bg"
-                  href="{% url 'logout' %}"
-                >
-                  <i class="bi bi-box-arrow-right me-2"></i>Logout
-                </a>
-              </li>
-            </ul>
-          </div>
-          {% else %}
-          <a
-            href="{% url 'login' %}"
-            class="btn d-block d-lg-none"
-          >
-            Login
-          </a>
-          </li>
-          {% endif %}
             </ul>
           </div>
           {% if request.user.is_authenticated %}
-          <div class="dropdown ms-3 d-none d-lg-block">
-            <button
-              class="btn btn-primary dropdown-toggle px-4 py-2 fw-medium shadow-sm"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              {{ request.user.username }}
-            </button>
-
-            <ul
-              class="dropdown-menu dropdown-menu-end shadow-lg border-0"
-              data-bs-theme="dark"
-              style="
-                background-color: #1e1e2e;
-                border-radius: 12px;
-                min-width: 220px;
-              "
-            >
-              {% if employee.is_admin_level %}
-              <li>
-                <a
-                  class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
-                  href="{% url 'controller' %}"
-                >
-                  <i class="bi bi-gear me-2"></i>Controller
-                </a>
-              </li>
-              {% endif %} {% if student %}
-              <li>
-                <a
-                  class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
-                  href="{% url 'dashboard_student' stu_uuid=student.stu_uuid %}"
-                >
-                  <i class="bi bi-person-circle me-2"></i>My Profile
-                </a>
-              </li>
-              {% endif %} {% if employee and employee.emp_uuid %}
-              <li>
-                <a
-                  class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
-                  {% if employee.role == "client" %}
-                  href="{% url 'dashboard_client' employee.emp_uuid %}"
-                  {% else %}
-                  href="{% url 'dashboard_employee' employee.emp_uuid %}"
-                  {% endif %}
-                >
-                  <i class="bi bi-person-circle me-2"></i> My Profile
-                </a>
-              </li>
-              {% endif %}
-
-              <li><hr class="dropdown-divider bg-secondary my-1" /></li>
-
-              <li>
-                <a
-                  class="dropdown-item py-2 px-4 text-danger fw-medium hover-bg"
-                  href="{% url 'logout' %}"
-                >
-                  <i class="bi bi-box-arrow-right me-2"></i>Logout
-                </a>
-              </li>
-            </ul>
-          </div>
+            <div class="dropdown ms-3 d-none d-lg-block">
+              <button class="btn btn-primary dropdown-toggle px-4 py-2 fw-medium shadow-sm"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false">{{ request.user.username }}</button>
+              <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0"
+                  data-bs-theme="dark"
+                  style="background-color: #1e1e2e;
+                         border-radius: 12px;
+                         min-width: 220px">
+                {% if employee.is_admin_level %}
+                  <li>
+                    <a class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
+                       href="{% url 'controller' %}">
+                      <i class="bi bi-gear me-2"></i>Controller
+                    </a>
+                  </li>
+                {% endif %}
+                {% if student %}
+                  <li>
+                    <a class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
+                       href="{% url 'dashboard_student' stu_uuid=student.stu_uuid %}">
+                      <i class="bi bi-person-circle me-2"></i>My Profile
+                    </a>
+                  </li>
+                {% endif %}
+                {% if employee and employee.emp_uuid %}
+                  <li>
+                    <a class="dropdown-item py-2 px-4 text-white-emphasis hover-bg"
+                       {% if employee.role == "client" %} href="{% url 'dashboard_client' employee.emp_uuid %}" {% else %} href="{% url 'dashboard_employee' employee.emp_uuid %}" {% endif %}>
+                      <i class="bi bi-person-circle me-2"></i> My Profile
+                    </a>
+                  </li>
+                {% endif %}
+                <li>
+                  <hr class="dropdown-divider bg-secondary my-1" />
+                </li>
+                <li>
+                  <a class="dropdown-item py-2 px-4 text-danger fw-medium hover-bg"
+                     href="{% url 'logout' %}">
+                    <i class="bi bi-box-arrow-right me-2"></i>Logout
+                  </a>
+                </li>
+              </ul>
+            </div>
           {% else %}
-          <a
-            href="{% url 'login' %}"
-            class="btn btn-outline-primary d-none d-lg-block px-4 py-2 "
-          >
-            Login
-          </a>
+            <a href="{% url 'login' %}"
+               class="btn btn-outline-primary d-none d-lg-block px-4 py-2 ">Login</a>
           {% endif %}
         </nav>
-
         <!-- Mobile Nav -->
-        <div
-          class="collapse navbar-collapse d2c_mobile_view"
-          id="navbarSupportedContent"
-        >
+        <div class="collapse navbar-collapse d2c_mobile_view"
+             id="navbarSupportedContent">
           <div class="show_width container">
             <div class="text-right">
-              <button
-                class="navbar-toggler d2c_cross_btn p-0"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-              >
+              <button class="navbar-toggler d2c_cross_btn p-0"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#navbarSupportedContent">
                 <span><i class="fa fa-times"></i></span>
               </button>
             </div>
@@ -403,14 +305,11 @@
         </div>
       </div>
     </header>
-    <main
-      data-bs-spy="scroll"
-      data-bs-target="#d2c_main_nav"
-      class="position-relative"
-    >
-      {% block content %}
-      <!-- Yahan child templates (jaise index.html) ka content aayega -->
-      {% endblock %} {% include "includesUI/_messages.html" %}
+    <main data-bs-spy="scroll"
+          data-bs-target="#d2c_main_nav"
+          class="position-relative">
+      {% block content %}<!-- Yahan child templates (jaise index.html) ka content aayega -->{% endblock %}
+      {% include "includesUI/_messages.html" %}
       <!-- {% include
       "includesUI/_deleteModal.html" %} -->
     </main>
@@ -419,11 +318,9 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
-            <img
-              src="{% static 'assets/images/SGAutomixTech_Black_bg_SizeFix.gif' %}"
-              class="d2c_footer_logo img-fluid w-100 mb-4"
-              alt="Footer Logo"
-            />
+            <img src="{% static 'assets/images/SGAutomixTech_Black_bg_SizeFix.gif' %}"
+                 class="d2c_footer_logo img-fluid w-100 mb-4"
+                 alt="Footer Logo" />
             <p>
               Professionally scale cross functional human capital and extensive
               technology.
@@ -433,28 +330,23 @@
                 <a href="" target="_blank"><i class="fab fa-facebook-f"></i></a>
               </li>
               <li>
-                <a href="" target="_blank"
-                  ><i class="fab fa-linkedin-in"></i
-                ></a>
+                <a href="" target="_blank"><i class="fab fa-linkedin-in"></i></a>
               </li>
               <li>
                 <a href="" target="_blank"><i class="fab fa-twitter"></i></a>
               </li>
               <li>
-                <a
-                  href=""
-                  target="_blank"
-                  ><i class="fab fa-instagram"></i
-                ></a>
+                <a href="" target="_blank"><i class="fab fa-instagram"></i></a>
               </li>
             </ul>
           </div>
-
           <div class="col-md-4 col-lg-3 mb-5 mb-lg-0">
-            <h3><span>Quick Link</span></h3>
+            <h3>
+              <span>Quick Link</span>
+            </h3>
             <ul class="list-group">
               <li class="py-1 py-md-2">
-                <a href="{% url 'services_list_slug' 'automation-services' %}">Service</a>
+                <a href="{% url 'services_slug' 'automation-services' %}">Service</a>
               </li>
               <li class="py-1 py-md-2">
                 <a href="{% url 'projects_slug' 'client-projects' %}">Projects</a>
@@ -467,65 +359,51 @@
               </li>
             </ul>
           </div>
-
           <div class="col-md-8 col-lg-5 mb-5 mb-lg-0">
-            <h3><span>Company</span></h3>
+            <h3>
+              <span>Company</span>
+            </h3>
             <ul class="d2c_company_info list-group">
               <!-- <li class="py-1 py-md-2">
-                <a href="tel:+919888991877"
-                  ><i class="fas fa-phone-alt"></i> 9888991877</a
-                >
+                <a href="tel:+919888991877"><i class="fas fa-phone-alt"></i> 9888991877</a>
               </li> -->
               <li class="py-1 py-md-2">
-                <a href="mailto:sj.techsolution20@gmail.com"
-                  ><i class="fas fa-envelope"></i>
-                  sj.techsolution20@gmail.com</a
-                >
-              </li>
-              <!-- <li class="py-1 py-md-2">
-                <a
-                  href=""
-                  target="_blank"
-                >
-                  <i class="fas fa-map-marker-alt"></i> 123 Main Street, City, Country</a
-                </a>
+              <a href="mailto:sj.techsolution20@gmail.com"><i class="fas fa-envelope"></i>
+            sj.techsolution20@gmail.com</a>
+          </li>
+          <!-- <li class="py-1 py-md-2">
+                <a href="" target="_blank">
+                  <i class="fas fa-map-marker-alt"></i> 123 Main Street, City, Country</a </a>
               </li> -->
-            </ul>
-          </div>
-        </div>
-
-        <div class="d2c_copy_wrapper">
-          <h4 class="text-center">
-            © {% now "Y" %} <a href="#" target="_blank">SG.Automix Tech</a>. All
-            Right Reserved
-          </h4>
-        </div>
+        </ul>
       </div>
-    </footer>
-    <!-- footer section end -->
-
-    <!--   Scroll Button Start   -->
-    <div id="scrollBtn">
-      <a href="#"><i class="fas fa-chevron-up"></i></a>
     </div>
-    <!--   Scroll Button End   -->
-    {% include "includesUI/_ai_assistant.html" %}
-
-    {% block extra_script %}{% endblock %}
-    <!-- JS CDN -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- bootstrap js -->
-    <script src="{% static 'lib/bootstrap-5/js/bootstrap.bundle.min.js' %}"></script>
-
-    <!-- fancybox image -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-
-    <!-- Slider JS -->
-    <script src="{% static 'lib/help/slick.min.js' %}"></script>
-
-    <!-- main js -->
-    <script src="{% static 'assets/js/main.js' %}"></script>
-    <script src="{% static 'assets/js/ai-assistant.js' %}"></script>
-  </body>
+    <div class="d2c_copy_wrapper">
+      <h4 class="text-center">
+        © {% now "Y" %} <a href="#" target="_blank">SG.Automix Tech</a>. All
+        Right Reserved
+      </h4>
+    </div>
+  </div>
+</footer>
+<!-- footer section end -->
+<!--   Scroll Button Start   -->
+<div id="scrollBtn">
+  <a href="#"><i class="fas fa-chevron-up"></i></a>
+</div>
+<!--   Scroll Button End   -->
+{% include "includesUI/_ai_assistant.html" %}
+{% block extra_script %}{% endblock %}
+<!-- JS CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- bootstrap js -->
+<script src="{% static 'lib/bootstrap-5/js/bootstrap.bundle.min.js' %}"></script>
+<!-- fancybox image -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+<!-- Slider JS -->
+<script src="{% static 'lib/help/slick.min.js' %}"></script>
+<!-- main js -->
+<script src="{% static 'assets/js/main.js' %}"></script>
+<script src="{% static 'assets/js/ai-assistant.js' %}"></script>
+</body>
 </html>

@@ -14,10 +14,10 @@ from mainApp.views.testimonial_views import (
 )
 
 urlpatterns = [
-    path("services/", service_list, name="service_list"),
-    path("services/create/", service_create, name="service_create"),
-    path("services/update/<int:id>/", service_update, name="service_update"),
-    path("services/delete/<int:id>/", service_delete, name="service_delete"),
+    path("services-list/", service_list, name="service_list"),
+    path("services-list/create/", service_create, name="service_create"),
+    path("services-list/update/<int:id>/", service_update, name="service_update"),
+    path("services-list/delete/<int:id>/", service_delete, name="service_delete"),
     path("courses-list/", course_list, name="course_list"),
     path("courses/add/", course_create, name="course_create"),
     path("courses/edit/<int:pk>/", course_update, name="course_update"),
