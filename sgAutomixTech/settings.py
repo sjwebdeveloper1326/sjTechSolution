@@ -71,7 +71,7 @@ ROOT_URLCONF = 'sgAutomixTech.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR,'templates'],
+        'DIRS': [BASE_DIR, 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -160,23 +160,33 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Email auth
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")         # replace
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")     # replace with app password
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_HOST = "smtp.gmail.com"
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")         # replace
+# EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")     # replace with app password
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.sgautomixtech.info'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'noreply@sgautomixtech.info'
+EMAIL_HOST_PASSWORD = 'Admin@1326'
+EMAIL_USE_SSL = True
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'SG Automix Tech <noreply@sgautomixtech.info>'
+
 SITE_BASE_URL = os.getenv("SITE_BASE_URL", "https://sgautomixtech.info/")
 CERTIFICATE_SIGNATURE_IMAGE = os.getenv("CERTIFICATE_SIGNATURE_IMAGE", "")
-CERTIFICATE_STAMP_IMAGE = os.getenv("CERTIFICATE_STAMP_IMAGE", "/static/assets/images/stamp_transprent.png")
+CERTIFICATE_STAMP_IMAGE = os.getenv(
+    "CERTIFICATE_STAMP_IMAGE", "/static/assets/images/stamp_transprent.png")
 COMPANY_START_YEAR = int(os.getenv("COMPANY_START_YEAR", "2026"))
 BATCH_START_MONTH = os.getenv("BATCH_START_MONTH", "January")
 BATCH_START_DAY = int(os.getenv("BATCH_START_DAY", "6"))
 BATCH_START_YEAR = int(os.getenv("BATCH_START_YEAR", str(datetime.now().year)))
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
-
 # ---------------- EMAIL ----------------
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = 'smtp.gmail.com'

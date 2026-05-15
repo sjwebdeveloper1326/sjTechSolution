@@ -125,6 +125,10 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+.mobile-login-width{
+  width: 100%;
+}
     </style>
   </head>
   <body>
@@ -231,7 +235,8 @@
                   </div>
                 {% else %}
                   <li class="nav-item">
-                    <a href="{% url 'login' %}" class="btn d-block d-lg-none">Login</a>
+                    <a href="{% url 'login' %}"
+                       class="btn mobile-login-width d-block d-lg-none">Login</a>
                   </li>
                 </li>
               {% endif %}
@@ -368,42 +373,47 @@
                 <a href="tel:+919888991877"><i class="fas fa-phone-alt"></i> 9888991877</a>
               </li> -->
               <li class="py-1 py-md-2">
-              <a href="mailto:sj.techsolution20@gmail.com"><i class="fas fa-envelope"></i>
-            sj.techsolution20@gmail.com</a>
-          </li>
-          <!-- <li class="py-1 py-md-2">
+                <a href="mailto:support@sgautomixtech.info"><i class="fas fa-envelope"></i>support@sgautomixtech.info</a>
+              </li>
+              <!-- WhatsApp -->
+              <li class="py-1 py-md-2">
+                <a href="https://wa.me/916306272085" target="_blank">
+                  <i class="fab fa-whatsapp"></i> +91 63062 72085
+                </a>
+              </li>
+              <!-- <li class="py-1 py-md-2">
                 <a href="" target="_blank">
                   <i class="fas fa-map-marker-alt"></i> 123 Main Street, City, Country</a </a>
               </li> -->
-        </ul>
+            </ul>
+          </div>
+        </div>
+        <div class="d2c_copy_wrapper">
+          <h4 class="text-center">
+            © {% now "Y" %} <a href="#" target="_blank">SG.Automix Tech</a>. All
+            Right Reserved
+          </h4>
+        </div>
       </div>
+    </footer>
+    <!-- footer section end -->
+    <!--   Scroll Button Start   -->
+    <div id="scrollBtn">
+      <a href="#"><i class="fas fa-chevron-up"></i></a>
     </div>
-    <div class="d2c_copy_wrapper">
-      <h4 class="text-center">
-        © {% now "Y" %} <a href="#" target="_blank">SG.Automix Tech</a>. All
-        Right Reserved
-      </h4>
-    </div>
-  </div>
-</footer>
-<!-- footer section end -->
-<!--   Scroll Button Start   -->
-<div id="scrollBtn">
-  <a href="#"><i class="fas fa-chevron-up"></i></a>
-</div>
-<!--   Scroll Button End   -->
-{% include "includesUI/_ai_assistant.html" %}
-{% block extra_script %}{% endblock %}
-<!-- JS CDN -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- bootstrap js -->
-<script src="{% static 'lib/bootstrap-5/js/bootstrap.bundle.min.js' %}"></script>
-<!-- fancybox image -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-<!-- Slider JS -->
-<script src="{% static 'lib/help/slick.min.js' %}"></script>
-<!-- main js -->
-<script src="{% static 'assets/js/main.js' %}"></script>
-<script src="{% static 'assets/js/ai-assistant.js' %}"></script>
-</body>
+    <!--   Scroll Button End   -->
+    {% include "includesUI/_ai_assistant.html" %}
+    {% block extra_script %}{% endblock %}
+    <!-- JS CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="{% static 'lib/bootstrap-5/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- fancybox image -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <!-- Slider JS -->
+    <script src="{% static 'lib/help/slick.min.js' %}"></script>
+    <!-- main js -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+    <script src="{% static 'assets/js/ai-assistant.js' %}"></script>
+  </body>
 </html>
