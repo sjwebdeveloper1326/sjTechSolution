@@ -61,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'utils.error_middleware.ErrorLoggingMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -170,9 +171,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mail.sgautomixtech.info'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = 'noreply@sgautomixtech.info'
-EMAIL_HOST_PASSWORD = 'Admin@1326'
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", "465"))
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_USE_SSL = True
 EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = 'SG Automix Tech <noreply@sgautomixtech.info>'
@@ -195,3 +196,49 @@ GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 # EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 # EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 # DEFAULT_FROM_EMAIL = "Shruti Studio <noreply@shrutistudio.com>"
+
+# ---------------- LOGGING & ERROR HANDLING ----------------
+LOG_ROOT = os.path.join(BASE_DIR, 'logs')
+os.makedirs(os.path.join(LOG_ROOT, 'errors'), exist_ok=True)
+os.makedirs(os.path.join(LOG_ROOT, 'pages'), exist_ok=True)
+
+# How long (seconds) before a request is considered slow
+SLOW_REQUEST_THRESHOLD = float(os.getenv('SLOW_REQUEST_THRESHOLD', '1.0'))
+# Where to redirect users on unhandled errors
+ERROR_REDIRECT_URL = os.getenv('ERROR_REDIRECT_URL', '/')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(asctime)s | %(levelname)s | %(name)s | %(module)s:%(lineno)d | %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'rotating_file': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOG_ROOT, 'errors', 'system.log'),
+            'maxBytes': 5 * 1024 * 1024,
+            'backupCount': 5,
+            'encoding': 'utf-8',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'rotating_file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'system.errors': {
+            'handlers': ['rotating_file'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    },
+}

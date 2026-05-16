@@ -1,0 +1,14 @@
+2026-05-15 21:55:11 | INFO | page.employee_dashboard | employee_dashboard_view:25 | Employee dashboard opened for rahul role=account-manager uuid=f9322989-be01-48cc-a86b-ffbcdc575076 [user=rahul@SJAM-0004]
+2026-05-15 21:55:11 | INFO | page.employee_dashboard | employee_dashboard_view:107 | employee_dashboard duration=0.079s
+2026-05-15 22:09:35 | INFO | page.employee_dashboard | employee_dashboard_view:25 | Employee dashboard opened for Manager role=manager uuid=4f049012-8f70-4005-b79b-5e13532dd2e1 [user=manager@SJM-0001]
+2026-05-15 22:09:35 | INFO | page.employee_dashboard | employee_dashboard_view:107 | employee_dashboard duration=0.073s
+2026-05-15 22:13:05 | INFO | page.employee_dashboard | employee_dashboard_view:25 | Employee dashboard opened for shivam role=employee uuid=a674be21-3c6f-4a64-a78e-316a7921dcc6 [user=shivam@SJE-0001]
+2026-05-15 22:13:05 | INFO | page.employee_dashboard | employee_dashboard_view:107 | employee_dashboard duration=0.050s
+2026-05-15 22:13:26 | INFO | page.employee_dashboard | employee_dashboard_view:25 | Employee dashboard opened for shivam role=employee uuid=a674be21-3c6f-4a64-a78e-316a7921dcc6 [user=shivam@SJE-0001]
+2026-05-15 22:13:26 | INFO | page.employee_dashboard | employee_dashboard_view:107 | employee_dashboard duration=0.032s
+2026-05-15 22:13:31 | INFO | page.employee_dashboard | employee_dashboard_view:25 | Employee dashboard opened for shivam role=employee uuid=a674be21-3c6f-4a64-a78e-316a7921dcc6 [user=shivam@SJE-0001]
+2026-05-15 22:13:31 | INFO | page.employee_dashboard | employee_dashboard_view:107 | employee_dashboard duration=0.053s
+2026-05-15 22:15:13 | INFO | page.employee_dashboard | employee_dashboard_view:25 | Employee dashboard opened for shivam role=employee uuid=a674be21-3c6f-4a64-a78e-316a7921dcc6 [user=shivam@SJE-0001]
+2026-05-15 22:15:13 | INFO | page.employee_dashboard | employee_dashboard_view:107 | employee_dashboard duration=0.035s
+2026-05-15 22:17:12 | INFO | page.employee_dashboard | employee_dashboard_view:25 | Employee dashboard opened for shivam role=employee uuid=a674be21-3c6f-4a64-a78e-316a7921dcc6 [user=shivam@SJE-0001]
+2026-05-15 22:17:12 | INFO | page.employee_dashboard | employee_dashboard_view:107 | employee_dashboard duration=0.037s

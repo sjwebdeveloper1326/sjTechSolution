@@ -1,0 +1,202 @@
+2026-05-15 21:54:04,676 | INFO | django.utils.autoreload | autoreload:667 | Watching for file changes with StatReloader
+2026-05-15 21:54:30,772 | ERROR | system.errors | logger:107 | Slow request: 2.052s for / [user= ip=127.0.0.1 path=/ method=GET ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36]
+2026-05-15 21:54:30,774 | INFO | django.server | basehttp:213 | "GET / HTTP/1.1" 200 34433
+2026-05-15 21:54:31,993 | INFO | django.server | basehttp:213 | "GET /static/assets/css/style.css HTTP/1.1" 304 0
+2026-05-15 21:54:31,997 | INFO | django.server | basehttp:213 | "GET /static/assets/css/ai-assistant.css HTTP/1.1" 304 0
+2026-05-15 21:54:33,341 | INFO | django.server | basehttp:213 | "GET /static/assets/images/about_us.png HTTP/1.1" 304 0
+2026-05-15 21:54:34,176 | INFO | django.server | basehttp:213 | "GET /static/assets/js/ai-assistant.js HTTP/1.1" 304 0
+2026-05-15 21:54:34,893 | WARNING | django.request | log:253 | Not Found: /media/projects/about_us.png
+2026-05-15 21:54:34,896 | WARNING | django.server | basehttp:213 | "GET /media/projects/about_us.png HTTP/1.1" 404 13593
+2026-05-15 21:54:34,909 | WARNING | django.request | log:253 | Not Found: /media/projects/ChatGPT_Image_May_5_2026_12_27_58_AM.png
+2026-05-15 21:54:34,910 | WARNING | django.server | basehttp:213 | "GET /media/projects/ChatGPT_Image_May_5_2026_12_27_58_AM.png HTTP/1.1" 404 13705
+2026-05-15 21:55:05,942 | INFO | django.server | basehttp:213 | "GET /login/ HTTP/1.1" 200 17422
+2026-05-15 21:55:11,180 | ERROR | system.errors | logger:107 | Slow request: 2.280s for /login/ [user=rahul@SJAM-0004 ip=127.0.0.1 path=/login/ method=POST ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36]
+2026-05-15 21:55:11,547 | INFO | django.server | basehttp:213 | "POST /login/ HTTP/1.1" 302 0
+2026-05-15 21:55:11,897 | INFO | django.server | basehttp:213 | "GET /employee/dashboard/f9322989-be01-48cc-a86b-ffbcdc575076/ HTTP/1.1" 200 25038
+2026-05-15 21:55:18,887 | WARNING | django.request | log:253 | Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2026-05-15 21:55:18,889 | WARNING | django.server | basehttp:213 | "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13383
+2026-05-15 21:55:18,999 | WARNING | django.server | basehttp:213 | "GET /static/lib/bootstrap-5/js/bootstrap.bundle.min.js.map HTTP/1.1" 404 1952
+2026-05-15 21:55:19,161 | WARNING | django.server | basehttp:213 | "GET /static/lib/bootstrap-5/css/bootstrap.min.css.map HTTP/1.1" 404 1937
+2026-05-15 21:55:51,372 | INFO | django.server | basehttp:213 | "GET /controller/ HTTP/1.1" 200 19625
+2026-05-15 21:55:51,570 | WARNING | django.request | log:253 | Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2026-05-15 21:55:51,574 | WARNING | django.server | basehttp:213 | "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13383
+2026-05-15 21:55:51,667 | WARNING | django.server | basehttp:213 | "GET /static/lib/bootstrap-5/css/bootstrap.min.css.map HTTP/1.1" 404 1937
+2026-05-15 21:55:51,682 | WARNING | django.server | basehttp:213 | "GET /static/lib/bootstrap-5/js/bootstrap.bundle.min.js.map HTTP/1.1" 404 1952
+2026-05-15 21:57:08,862 | INFO | django.server | basehttp:213 | "GET /students HTTP/1.1" 200 24638
+2026-05-15 21:57:09,052 | WARNING | django.request | log:253 | Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2026-05-15 21:57:09,068 | WARNING | django.server | basehttp:213 | "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13383
+2026-05-15 21:57:09,272 | WARNING | django.server | basehttp:213 | "GET /static/lib/bootstrap-5/js/bootstrap.bundle.min.js.map HTTP/1.1" 404 1952
+2026-05-15 21:57:09,273 | WARNING | django.server | basehttp:213 | "GET /static/lib/bootstrap-5/css/bootstrap.min.css.map HTTP/1.1" 404 1937
+2026-05-15 21:57:14,801 | INFO | django.server | basehttp:213 | "GET /students/certificate/ed6475a2-626d-4b7c-a5da-1054140878da/preview/ HTTP/1.1" 200 15401
+2026-05-15 21:57:14,868 | INFO | django.server | basehttp:213 | "GET /static/assets/images/SGAutomixTech-removebg-certificat.png HTTP/1.1" 200 89448
+2026-05-15 21:57:15,024 | WARNING | django.request | log:253 | Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2026-05-15 21:57:15,026 | WARNING | django.server | basehttp:213 | "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13383
+2026-05-15 21:57:15,031 | INFO | django.server | basehttp:213 | "GET /static/assets/images/signature/shubham_signature_removebg-preview.png HTTP/1.1" 200 85589
+2026-05-15 21:57:15,036 | INFO | django.server | basehttp:213 | "GET /static/assets/images/badg_SG.png HTTP/1.1" 200 715398
+2026-05-15 21:57:15,039 | INFO | django.server | basehttp:213 | "GET /static/assets/images/signature/shivam_signature_removebg-preview.png HTTP/1.1" 200 10794
+2026-05-15 21:57:15,042 | INFO | django.server | basehttp:213 | "GET /static/assets/images/stamp_dark1-removebg-preview.png HTTP/1.1" 200 292366
+2026-05-15 22:05:18,526 | INFO | django.server | basehttp:213 | "GET / HTTP/1.1" 200 37702
+2026-05-15 22:05:19,077 | WARNING | django.request | log:253 | Not Found: /media/projects/about_us.png
+2026-05-15 22:05:19,078 | WARNING | django.server | basehttp:213 | "GET /media/projects/about_us.png HTTP/1.1" 404 13593
+2026-05-15 22:05:19,106 | WARNING | django.request | log:253 | Not Found: /media/projects/ChatGPT_Image_May_5_2026_12_27_58_AM.png
+2026-05-15 22:05:19,107 | WARNING | django.server | basehttp:213 | "GET /media/projects/ChatGPT_Image_May_5_2026_12_27_58_AM.png HTTP/1.1" 404 13705
+2026-05-15 22:05:33,150 | INFO | django.server | basehttp:213 | "GET /controller/ HTTP/1.1" 200 19625
+2026-05-15 22:05:34,619 | INFO | django.server | basehttp:213 | "GET /employees HTTP/1.1" 200 21194
+2026-05-15 22:05:36,514 | INFO | django.server | basehttp:213 | "GET /employees/add/ HTTP/1.1" 200 23794
+2026-05-15 22:06:23,835 | INFO | django.server | basehttp:213 | "GET / HTTP/1.1" 200 34433
+2026-05-15 22:06:24,858 | INFO | django.server | basehttp:213 | "GET /static/assets/css/responsive.css HTTP/1.1" 200 12864
+2026-05-15 22:06:24,864 | INFO | django.server | basehttp:213 | "GET /static/assets/css/slider.css HTTP/1.1" 200 1845
+2026-05-15 22:06:24,869 | INFO | django.server | basehttp:213 | "GET /static/lib/help/slick_theme.css HTTP/1.1" 200 3335
+2026-05-15 22:06:24,878 | INFO | django.server | basehttp:213 | "GET /static/assets/css/ai-assistant.css HTTP/1.1" 200 3695
+2026-05-15 22:06:24,891 | INFO | django.server | basehttp:213 | "GET /static/lib/bootstrap-5/css/bootstrap.min.css HTTP/1.1" 200 194907
+2026-05-15 22:06:24,908 | INFO | django.server | basehttp:213 | "GET /static/assets/css/style.css HTTP/1.1" 200 24900
+2026-05-15 22:06:24,997 | INFO | django.server | basehttp:213 | "GET /static/assets/images/SGAutomixTech_Black_bg_SizeFix.gif HTTP/1.1" 200 1633351
+2026-05-15 22:06:25,036 | INFO | django.server | basehttp:213 | "GET /static/assets/images/home-hero-vector-unscreen.gif HTTP/1.1" 200 1698739
+2026-05-15 22:06:25,195 | INFO | django.server | basehttp:213 | "GET /static/lib/help/slick.min.js HTTP/1.1" 200 52038
+2026-05-15 22:06:25,199 | INFO | django.server | basehttp:213 | "GET /static/lib/bootstrap-5/js/bootstrap.bundle.min.js HTTP/1.1" 200 80426
+2026-05-15 22:06:25,207 | INFO | django.server | basehttp:213 | "GET /static/assets/images/about_one.jpg HTTP/1.1" 200 197741
+2026-05-15 22:06:25,287 | INFO | django.server | basehttp:213 | "GET /static/assets/js/ai-assistant.js HTTP/1.1" 200 5585
+2026-05-15 22:06:25,292 | INFO | django.server | basehttp:213 | "GET /static/assets/images/about_shade.png HTTP/1.1" 200 4432
+2026-05-15 22:06:25,314 | WARNING | django.request | log:253 | Not Found: /media/projects/about_us.png
+2026-05-15 22:06:25,314 | INFO | django.server | basehttp:213 | "GET /static/assets/images/feature_bg_img.png HTTP/1.1" 200 3844
+2026-05-15 22:06:25,315 | INFO | django.server | basehttp:213 | "GET /static/assets/js/main.js HTTP/1.1" 200 4686
+2026-05-15 22:06:25,316 | WARNING | django.server | basehttp:213 | "GET /media/projects/about_us.png HTTP/1.1" 404 13593
+2026-05-15 22:06:25,332 | WARNING | django.request | log:253 | Not Found: /media/projects/ChatGPT_Image_May_5_2026_12_27_58_AM.png
+2026-05-15 22:06:25,333 | WARNING | django.server | basehttp:213 | "GET /media/projects/ChatGPT_Image_May_5_2026_12_27_58_AM.png HTTP/1.1" 404 13705
+2026-05-15 22:06:25,334 | INFO | django.server | basehttp:213 | "GET /static/assets/images/feature_uppper_img.jpg HTTP/1.1" 200 103685
+2026-05-15 22:06:25,336 | INFO | django.server | basehttp:213 | "GET /static/assets/images/feature_down_img.jpg HTTP/1.1" 200 139728
+2026-05-15 22:06:25,379 | INFO | django.server | basehttp:213 | "GET /static/assets/images/testimonial_one.jpg HTTP/1.1" 200 9430
+2026-05-15 22:06:25,585 | INFO | django.server | basehttp:213 | "GET /static/assets/images/about_us.png HTTP/1.1" 200 2031053
+2026-05-15 22:06:25,887 | INFO | django.server | basehttp:213 | "GET /static/assets/images/service_circle.jpg HTTP/1.1" 200 14068
+2026-05-15 22:06:25,903 | INFO | django.server | basehttp:213 | "GET /static/assets/images/hero_vector_bg.png HTTP/1.1" 200 7232
+2026-05-15 22:06:25,914 | INFO | django.server | basehttp:213 | "GET /static/assets/images/about_line.png HTTP/1.1" 200 2581
+2026-05-15 22:06:25,927 | INFO | django.server | basehttp:213 | "GET /static/assets/images/quotation_right.png HTTP/1.1" 200 13175
+2026-05-15 22:06:25,941 | INFO | django.server | basehttp:213 | "GET /static/assets/images/quotation_left.png HTTP/1.1" 200 13443
+2026-05-15 22:06:25,945 | INFO | django.server | basehttp:213 | "GET /static/assets/images/shade_bg.png HTTP/1.1" 200 384259
+2026-05-15 22:06:26,046 | INFO | django.server | basehttp:213 | "GET /static/assets/images/footer_bg.png HTTP/1.1" 200 751232
+2026-05-15 22:06:26,087 | INFO | django.server | basehttp:213 | "GET /static/assets/images/hero_vector_bg_shade.png HTTP/1.1" 200 1532259
+2026-05-15 22:06:26,144 | INFO | django.server | basehttp:213 | "GET /static/assets/images/hero_bg.png HTTP/1.1" 200 2616208
+2026-05-15 22:06:26,161 | INFO | django.server | basehttp:213 | "GET /static/assets/images/newsletter_bg.png HTTP/1.1" 200 1761044
+2026-05-15 22:06:26,427 | INFO | django.server | basehttp:213 | "GET /static/lib/help/ajax-loader.gif HTTP/1.1" 200 4178
+2026-05-15 22:06:27,471 | INFO | django.server | basehttp:213 | "GET /static/assets/images/favIconLogo.png HTTP/1.1" 200 247410
+2026-05-15 22:06:30,955 | ERROR | system.errors | logger:107 | Slow request: 15.417s for /employees/add/ [user=rahul@SJAM-0004 ip=127.0.0.1 path=/employees/add/ method=POST ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36]
+2026-05-15 22:06:30,955 | INFO | django.server | basehttp:213 | "POST /employees/add/ HTTP/1.1" 302 0
+2026-05-15 22:06:30,984 | INFO | django.server | basehttp:213 | "GET /employees HTTP/1.1" 200 24555
+2026-05-15 22:08:12,218 | INFO | django.server | basehttp:213 | "GET /login/ HTTP/1.1" 200 17422
+2026-05-15 22:08:16,840 | INFO | django.server | basehttp:213 | "GET /password-reset/ HTTP/1.1" 200 15502
+2026-05-15 22:08:37,818 | ERROR | system.errors | logger:107 | Slow request: 14.931s for /password-reset/ [user= ip=127.0.0.1 path=/password-reset/ method=POST ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36]
+2026-05-15 22:08:37,819 | INFO | django.server | basehttp:213 | "POST /password-reset/ HTTP/1.1" 302 0
+2026-05-15 22:08:37,837 | INFO | django.server | basehttp:213 | "GET /login/ HTTP/1.1" 200 20144
+2026-05-15 22:09:35,132 | ERROR | system.errors | logger:107 | Slow request: 1.868s for /login/ [user=manager@SJM-0001 ip=127.0.0.1 path=/login/ method=POST ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36]
+2026-05-15 22:09:35,192 | INFO | django.server | basehttp:213 | "POST /login/ HTTP/1.1" 302 0
+2026-05-15 22:09:35,274 | INFO | django.server | basehttp:213 | "GET /employee/dashboard/4f049012-8f70-4005-b79b-5e13532dd2e1/ HTTP/1.1" 200 22131
+2026-05-15 22:09:35,338 | INFO | django.server | basehttp:213 | "GET /static/assets/images/default/dummy_img.png HTTP/1.1" 200 1728
+2026-05-15 22:09:38,153 | INFO | django.server | basehttp:213 | "GET /controller/ HTTP/1.1" 200 17328
+2026-05-15 22:10:10,262 | INFO | django.server | basehttp:213 | "GET /students HTTP/1.1" 200 24640
+2026-05-15 22:10:18,152 | INFO | django.server | basehttp:213 | "POST /students/delete/5302b362-cbd3-46c4-8c47-1e92bb715d03/ HTTP/1.1" 302 0
+2026-05-15 22:10:18,200 | INFO | django.server | basehttp:213 | "GET /students HTTP/1.1" 200 25016
+2026-05-15 22:10:26,701 | INFO | django.server | basehttp:213 | "GET /logout/ HTTP/1.1" 302 0
+2026-05-15 22:10:26,767 | INFO | django.server | basehttp:213 | "GET / HTTP/1.1" 200 34433
+2026-05-15 22:10:26,832 | INFO | django.server | basehttp:213 | "GET /static/assets/images/about_shade.png HTTP/1.1" 200 4432
+2026-05-15 22:10:26,837 | INFO | django.server | basehttp:213 | "GET /static/assets/images/home-hero-vector-unscreen.gif HTTP/1.1" 200 1698739
+2026-05-15 22:10:26,847 | INFO | django.server | basehttp:213 | "GET /static/assets/images/feature_uppper_img.jpg HTTP/1.1" 200 103685
+2026-05-15 22:10:26,868 | INFO | django.server | basehttp:213 | "GET /static/assets/images/feature_bg_img.png HTTP/1.1" 200 3844
+2026-05-15 22:10:26,895 | INFO | django.server | basehttp:213 | "GET /static/assets/images/feature_down_img.jpg HTTP/1.1" 200 139728
+2026-05-15 22:10:26,901 | INFO | django.server | basehttp:213 | "GET /static/assets/images/about_one.jpg HTTP/1.1" 200 197741
+2026-05-15 22:10:26,936 | WARNING | django.request | log:253 | Not Found: /media/projects/about_us.png
+2026-05-15 22:10:26,971 | WARNING | django.request | log:253 | Not Found: /media/projects/ChatGPT_Image_May_5_2026_12_27_58_AM.png
+2026-05-15 22:10:26,972 | INFO | django.server | basehttp:213 | "GET /static/assets/images/testimonial_one.jpg HTTP/1.1" 200 9430
+2026-05-15 22:10:27,001 | WARNING | django.server | basehttp:213 | "GET /media/projects/about_us.png HTTP/1.1" 404 13593
+2026-05-15 22:10:27,003 | WARNING | django.server | basehttp:213 | "GET /media/projects/ChatGPT_Image_May_5_2026_12_27_58_AM.png HTTP/1.1" 404 13705
+2026-05-15 22:10:27,038 | INFO | django.server | basehttp:213 | "GET /static/assets/images/about_us.png HTTP/1.1" 200 2031053
+2026-05-15 22:10:27,060 | INFO | django.server | basehttp:213 | "GET /static/assets/images/newsletter_bg.png HTTP/1.1" 200 1761044
+2026-05-15 22:10:28,678 | INFO | django.server | basehttp:213 | "GET /login/ HTTP/1.1" 200 17422
+2026-05-15 22:11:21,564 | ERROR | system.errors | logger:107 | Slow request: 1.682s for /login/ [user= ip=127.0.0.1 path=/login/ method=POST ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36]
+2026-05-15 22:11:21,565 | INFO | django.server | basehttp:213 | "POST /login/ HTTP/1.1" 200 20081
+2026-05-15 22:11:24,932 | INFO | django.server | basehttp:213 | "GET /password-reset/ HTTP/1.1" 200 15502
+2026-05-15 22:11:39,708 | ERROR | system.errors | logger:107 | Slow request: 11.118s for /password-reset/ [user= ip=127.0.0.1 path=/password-reset/ method=POST ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36]
+2026-05-15 22:11:39,709 | INFO | django.server | basehttp:213 | "POST /password-reset/ HTTP/1.1" 302 0
+2026-05-15 22:11:39,725 | INFO | django.server | basehttp:213 | "GET /login/ HTTP/1.1" 200 20144
+2026-05-15 22:11:39,905 | ERROR | system.errors | logger:107 | Slow request: 11.375s for /password-reset/ [user= ip=127.0.0.1 path=/password-reset/ method=POST ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36]
+2026-05-15 22:11:39,926 | INFO | django.server | basehttp:81 | - Broken pipe from ('127.0.0.1', 53910)
+2026-05-15 22:11:57,202 | INFO | django.server | basehttp:213 | "GET /password-reset/ HTTP/1.1" 200 15502
+2026-05-15 22:12:11,911 | INFO | django.server | basehttp:213 | "GET /reset/Nw/d8n4b4-9c7cf0201fd8685ea6eeb3bc55a4c57c/ HTTP/1.1" 302 0
+2026-05-15 22:12:12,060 | INFO | django.server | basehttp:213 | "GET /reset/Nw/set-password/ HTTP/1.1" 200 18873
+2026-05-15 22:12:12,266 | INFO | django.server | basehttp:213 | "GET /static/assets/css/slider.css HTTP/1.1" 200 1845
+2026-05-15 22:12:12,279 | INFO | django.server | basehttp:213 | "GET /static/lib/help/slick_theme.css HTTP/1.1" 200 3335
+2026-05-15 22:12:12,401 | INFO | django.server | basehttp:213 | "GET /static/lib/bootstrap-5/css/bootstrap.min.css HTTP/1.1" 200 194907
+2026-05-15 22:12:12,454 | INFO | django.server | basehttp:213 | "GET /static/assets/css/style.css HTTP/1.1" 200 24900
+2026-05-15 22:12:12,460 | INFO | django.server | basehttp:213 | "GET /static/assets/css/responsive.css HTTP/1.1" 200 12864
+2026-05-15 22:12:12,524 | INFO | django.server | basehttp:213 | "GET /static/assets/css/ai-assistant.css HTTP/1.1" 200 3695
+2026-05-15 22:12:12,652 | ERROR | system.errors | logger:107 | Slow request: 11.282s for /password-reset/ [user= ip=127.0.0.1 path=/password-reset/ method=POST ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36]
+2026-05-15 22:12:12,655 | INFO | django.server | basehttp:213 | "POST /password-reset/ HTTP/1.1" 302 0
+2026-05-15 22:12:12,687 | INFO | django.server | basehttp:213 | "GET /static/lib/bootstrap-5/js/bootstrap.bundle.min.js HTTP/1.1" 200 80426
+2026-05-15 22:12:12,695 | INFO | django.server | basehttp:213 | "GET /static/assets/images/SGAutomixTech_Black_bg_SizeFix.gif HTTP/1.1" 200 1633351
+2026-05-15 22:12:12,735 | INFO | django.server | basehttp:213 | "GET /login/ HTTP/1.1" 200 20144
+2026-05-15 22:12:12,762 | INFO | django.server | basehttp:213 | "GET /static/lib/help/slick.min.js HTTP/1.1" 200 52038
+2026-05-15 22:12:12,789 | INFO | django.server | basehttp:213 | "GET /static/assets/js/main.js HTTP/1.1" 200 4686
+2026-05-15 22:12:12,871 | INFO | django.server | basehttp:213 | "GET /static/assets/js/ai-assistant.js HTTP/1.1" 200 5585
+2026-05-15 22:12:12,907 | INFO | django.server | basehttp:213 | "GET /static/assets/images/footer_bg.png HTTP/1.1" 200 751232
+2026-05-15 22:12:39,652 | ERROR | system.errors | logger:107 | Slow request: 1.791s for /reset/Nw/set-password/ [user= ip=127.0.0.1 path=/reset/Nw/set-password/ method=POST ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36]
+2026-05-15 22:12:39,709 | INFO | django.server | basehttp:213 | "POST /reset/Nw/set-password/ HTTP/1.1" 302 0
+2026-05-15 22:12:39,718 | INFO | django.server | basehttp:213 | "GET /reset/done/ HTTP/1.1" 302 0
+2026-05-15 22:12:39,745 | INFO | django.server | basehttp:213 | "GET /login/ HTTP/1.1" 200 20167
+2026-05-15 22:13:04,889 | ERROR | system.errors | logger:107 | Slow request: 2.070s for /login/ [user=shivam@SJE-0001 ip=127.0.0.1 path=/login/ method=POST ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36]
+2026-05-15 22:13:05,014 | INFO | django.server | basehttp:213 | "POST /login/ HTTP/1.1" 302 0
+2026-05-15 22:13:05,075 | INFO | django.server | basehttp:213 | "GET /employee/dashboard/a674be21-3c6f-4a64-a78e-316a7921dcc6/ HTTP/1.1" 200 22916
+2026-05-15 22:13:26,172 | INFO | django.server | basehttp:213 | "GET /employee/dashboard/a674be21-3c6f-4a64-a78e-316a7921dcc6/ HTTP/1.1" 200 22916
+2026-05-15 22:13:28,825 | INFO | django.server | basehttp:213 | "GET /employees/edit/a674be21-3c6f-4a64-a78e-316a7921dcc6/ HTTP/1.1" 200 23570
+2026-05-15 22:13:31,874 | INFO | django.server | basehttp:213 | "POST /employees/edit/a674be21-3c6f-4a64-a78e-316a7921dcc6/ HTTP/1.1" 302 0
+2026-05-15 22:13:31,940 | INFO | django.server | basehttp:213 | "GET /employee/dashboard/a674be21-3c6f-4a64-a78e-316a7921dcc6/ HTTP/1.1" 200 25619
+2026-05-15 22:13:58,092 | INFO | django.server | basehttp:213 | "GET /courses/certified-courses/ HTTP/1.1" 200 33121
+2026-05-15 22:13:58,134 | INFO | django.server | basehttp:213 | "GET /static/assets/images/home-hero-vector-unscreen.gif HTTP/1.1" 200 1698739
+2026-05-15 22:14:00,588 | INFO | django.server | basehttp:213 | "GET /projects/client-projects/ HTTP/1.1" 200 17744
+2026-05-15 22:14:00,656 | WARNING | django.request | log:253 | Not Found: /media/projects/about_us.png
+2026-05-15 22:14:00,659 | WARNING | django.server | basehttp:213 | "GET /media/projects/about_us.png HTTP/1.1" 404 13593
+2026-05-15 22:14:00,675 | WARNING | django.request | log:253 | Not Found: /media/projects/ChatGPT_Image_May_5_2026_12_27_58_AM.png
+2026-05-15 22:14:00,677 | WARNING | django.server | basehttp:213 | "GET /media/projects/ChatGPT_Image_May_5_2026_12_27_58_AM.png HTTP/1.1" 404 13705
+2026-05-15 22:14:31,369 | INFO | django.server | basehttp:213 | "GET /controller/ HTTP/1.1" 200 19625
+2026-05-15 22:14:32,938 | INFO | django.server | basehttp:213 | "GET /pages/services-list/ HTTP/1.1" 200 19364
+2026-05-15 22:14:37,021 | INFO | django.server | basehttp:213 | "GET /controller/ HTTP/1.1" 200 19625
+2026-05-15 22:14:38,503 | INFO | django.server | basehttp:213 | "GET /students HTTP/1.1" 200 22305
+2026-05-15 22:14:45,856 | INFO | django.server | basehttp:213 | "GET /students/edit/ed6475a2-626d-4b7c-a5da-1054140878da/ HTTP/1.1" 200 30427
+2026-05-15 22:15:03,080 | INFO | django.server | basehttp:213 | "POST /students/edit/ed6475a2-626d-4b7c-a5da-1054140878da/ HTTP/1.1" 302 0
+2026-05-15 22:15:03,129 | INFO | django.server | basehttp:213 | "GET /students HTTP/1.1" 200 25000
+2026-05-15 22:15:09,409 | INFO | django.server | basehttp:213 | "GET /projects/client-projects/ HTTP/1.1" 200 17744
+2026-05-15 22:15:09,459 | WARNING | django.request | log:253 | Not Found: /media/projects/ChatGPT_Image_May_5_2026_12_27_58_AM.png
+2026-05-15 22:15:09,479 | WARNING | django.server | basehttp:213 | "GET /media/projects/ChatGPT_Image_May_5_2026_12_27_58_AM.png HTTP/1.1" 404 13705
+2026-05-15 22:15:09,485 | WARNING | django.request | log:253 | Not Found: /media/projects/about_us.png
+2026-05-15 22:15:09,495 | WARNING | django.server | basehttp:213 | "GET /media/projects/about_us.png HTTP/1.1" 404 13593
+2026-05-15 22:15:13,555 | INFO | django.server | basehttp:213 | "GET /employee/dashboard/a674be21-3c6f-4a64-a78e-316a7921dcc6/ HTTP/1.1" 200 24037
+2026-05-15 22:15:38,782 | ERROR | system.errors | logger:107 | Slow request: 9.045s for /api/ai/chat/ [user=shivam@SJE-0001 ip=127.0.0.1 path=/api/ai/chat/ method=POST ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36]
+2026-05-15 22:15:38,783 | INFO | django.server | basehttp:213 | "POST /api/ai/chat/ HTTP/1.1" 200 146
+2026-05-15 22:15:40,896 | WARNING | django.request | log:253 | Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2026-05-15 22:15:40,920 | WARNING | django.server | basehttp:213 | "GET /static/lib/bootstrap-5/js/bootstrap.bundle.min.js.map HTTP/1.1" 404 1952
+2026-05-15 22:15:40,934 | WARNING | django.server | basehttp:213 | "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13383
+2026-05-15 22:15:41,238 | WARNING | django.server | basehttp:213 | "GET /static/lib/bootstrap-5/css/bootstrap.min.css.map HTTP/1.1" 404 1937
+2026-05-15 22:16:08,186 | ERROR | system.errors | logger:107 | Slow request: 3.076s for /api/ai/chat/ [user=shivam@SJE-0001 ip=127.0.0.1 path=/api/ai/chat/ method=POST ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36]
+2026-05-15 22:16:08,186 | INFO | django.server | basehttp:213 | "POST /api/ai/chat/ HTTP/1.1" 200 306
+2026-05-15 22:16:50,832 | INFO | django.server | basehttp:213 | "GET /about/about-us/ HTTP/1.1" 200 17888
+2026-05-15 22:16:50,884 | INFO | django.server | basehttp:213 | "GET /static/assets/images/about_us.png HTTP/1.1" 200 2031053
+2026-05-15 22:16:50,891 | INFO | django.server | basehttp:213 | "GET /static/assets/images/about_one.jpg HTTP/1.1" 200 197741
+2026-05-15 22:16:50,909 | INFO | django.server | basehttp:213 | "GET /static/assets/images/about_shade.png HTTP/1.1" 200 4432
+2026-05-15 22:17:12,306 | INFO | django.server | basehttp:213 | "GET /employee/dashboard/a674be21-3c6f-4a64-a78e-316a7921dcc6/ HTTP/1.1" 200 24037
+2026-05-15 22:19:35,970 | INFO | django.server | basehttp:213 | "GET / HTTP/1.1" 200 37923
+2026-05-15 22:19:36,070 | WARNING | django.request | log:253 | Not Found: /media/projects/about_us.png
+2026-05-15 22:19:36,070 | WARNING | django.server | basehttp:213 | "GET /media/projects/about_us.png HTTP/1.1" 404 13593
+2026-05-15 22:19:36,195 | WARNING | django.request | log:253 | Not Found: /media/projects/ChatGPT_Image_May_5_2026_12_27_58_AM.png
+2026-05-15 22:19:36,196 | WARNING | django.server | basehttp:213 | "GET /media/projects/ChatGPT_Image_May_5_2026_12_27_58_AM.png HTTP/1.1" 404 13705
+2026-05-15 22:25:42,933 | INFO | django.utils.autoreload | autoreload:265 | D:\Django Projects\sjTack solution\sjTachSolution\git pull 18-04-2026\sgAutomixTech\sgAutomixTech\settings.py changed, reloading.
+2026-05-15 22:26:18,063 | INFO | django.utils.autoreload | autoreload:667 | Watching for file changes with StatReloader
+2026-05-15 22:31:31,763 | INFO | django.utils.autoreload | autoreload:265 | D:\Django Projects\sjTack solution\sjTachSolution\git pull 18-04-2026\sgAutomixTech\sgAutomixTech\settings.py changed, reloading.
+2026-05-15 22:31:37,050 | INFO | django.utils.autoreload | autoreload:667 | Watching for file changes with StatReloader
+2026-05-15 22:32:03,005 | INFO | django.utils.autoreload | autoreload:265 | D:\Django Projects\sjTack solution\sjTachSolution\git pull 18-04-2026\sgAutomixTech\sgAutomixTech\settings.py changed, reloading.
+2026-05-15 22:32:07,176 | INFO | django.utils.autoreload | autoreload:667 | Watching for file changes with StatReloader
+2026-05-15 22:32:14,924 | INFO | django.utils.autoreload | autoreload:265 | D:\Django Projects\sjTack solution\sjTachSolution\git pull 18-04-2026\sgAutomixTech\sgAutomixTech\settings.py changed, reloading.
+2026-05-15 22:32:19,890 | INFO | django.utils.autoreload | autoreload:667 | Watching for file changes with StatReloader
+2026-05-15 22:33:08,830 | INFO | django.utils.autoreload | autoreload:265 | D:\Django Projects\sjTack solution\sjTachSolution\git pull 18-04-2026\sgAutomixTech\sgAutomixTech\settings.py changed, reloading.
+2026-05-15 22:33:14,887 | INFO | django.utils.autoreload | autoreload:667 | Watching for file changes with StatReloader
+2026-05-15 22:35:30,718 | INFO | django.utils.autoreload | autoreload:265 | D:\Django Projects\sjTack solution\sjTachSolution\git pull 18-04-2026\sgAutomixTech\utils\ai_helper.py changed, reloading.
+2026-05-15 22:35:35,515 | INFO | django.utils.autoreload | autoreload:667 | Watching for file changes with StatReloader
+2026-05-15 22:36:20,446 | INFO | django.utils.autoreload | autoreload:265 | D:\Django Projects\sjTack solution\sjTachSolution\git pull 18-04-2026\sgAutomixTech\sgAutomixTech\settings.py changed, reloading.
+2026-05-15 22:36:25,190 | INFO | django.utils.autoreload | autoreload:667 | Watching for file changes with StatReloader

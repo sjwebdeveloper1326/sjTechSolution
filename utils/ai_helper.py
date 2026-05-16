@@ -265,7 +265,7 @@ def _build_targeted_context(user_message: str) -> str:
 
 CONTACT_INFO = {
     "email":     "support@sgautomixtech.info",
-    "phone":     "+91 98889 91877",
+    "phone":     "+91 63062 72085",
     "whatsapp":  "https://wa.me/919888991877",
     "website":   "https://sgautomixtech.info",
 }
