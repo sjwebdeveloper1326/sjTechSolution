@@ -1,156 +1,146 @@
-{% extends "base.html" %} {% load static %} {% block title %} Testimonial create
-/ edit {% endblock %} {% block content %}
-<section class="d2c_contact_wrapper" id="testimonial">
-  <div class="container">
-    <h3 class="d2c_sub_title position-relative">
-      Add <span>Testimonial</span>
-    </h3>
-    <h2>Share your <span>experience</span></h2>
-
-    <form
-      method="POST"
-      enctype="multipart/form-data"
-      class="row needs-validation"
-      novalidate
-    >
-      {% csrf_token %}
-
-      <!-- Django Messages -->
-      {% if messages %} {% for message in messages %}
-      <!-- <div class="alert alert-{{ message.tags }}">{{ message }}</div> -->
-      {% endfor %} {% endif %}
-      <div class="avatar-preview" id="avatarPreview">
-        <span id="avatarText">A</span>
-        <img id="previewImage" src="#" alt="Preview" />
-      </div>
-
-      <!-- ⭐ Rating -->
-      <div class="col-md-6">
-        <label class="form-label">Rating</label>
-
-        <div class="star-rating">
-          <input
-            type="radio"
-            name="rating"
-            value="5"
-            id="star5"
-            {%
-            if
-            form.instance.rating=""
-            ="5"
-            %}checked{%
-            endif
-            %}
-          />
-          <label for="star5">★</label>
-
-          <input
-            type="radio"
-            name="rating"
-            value="4"
-            id="star4"
-            {%
-            if
-            form.instance.rating=""
-            ="4"
-            %}checked{%
-            endif
-            %}
-          />
-          <label for="star4">★</label>
-
-          <input
-            type="radio"
-            name="rating"
-            value="3"
-            id="star3"
-            {%
-            if
-            form.instance.rating=""
-            ="3"
-            %}checked{%
-            endif
-            %}
-          />
-          <label for="star3">★</label>
-
-          <input
-            type="radio"
-            name="rating"
-            value="2"
-            id="star2"
-            {%
-            if
-            form.instance.rating=""
-            ="2"
-            %}checked{%
-            endif
-            %}
-          />
-          <label for="star2">★</label>
-
-          <input
-            type="radio"
-            name="rating"
-            value="1"
-            id="star1"
-            {%
-            if
-            form.instance.rating=""
-            ="1"
-            %}checked{%
-            endif
-            %}
-          />
-          <label for="star1">★</label>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  Testimonial create
+  / edit
+{% endblock %}
+{% block content %}
+  <section class="d2c_contact_wrapper" id="testimonial">
+    <div class="container">
+      <h3 class="d2c_sub_title position-relative">
+        Add <span>Testimonial</span>
+      </h3>
+      <h2>
+        Share your <span>experience</span>
+      </h2>
+      <form method="POST"
+            enctype="multipart/form-data"
+            class="row needs-validation"
+            novalidate>
+        {% csrf_token %}
+        <!-- Django Messages -->
+        {% if messages %}
+          {% for message in messages %}<!-- <div class="alert alert-{{ message.tags }}">{{ message }}</div> -->{% endfor %}
+        {% endif %}
+        <div class="avatar-preview" id="avatarPreview">
+          <span id="avatarText">A</span>
+          <img id="previewImage" src="#" alt="Preview" />
         </div>
-
-        <div class="text-danger">{{ form.rating.errors }}</div>
-      </div>
-
-      <!-- Name -->
-      <div class="col-md-6">
-        <label class="form-label">Name</label>
-        {{ form.name }}
-        <div class="text-danger">{{ form.name.errors }}</div>
-      </div>
-
-      <!-- Designation -->
-      <div class="col-md-6">
-        <label class="form-label">Designation</label>
-        {{ form.designation }}
-        <div class="text-danger">{{ form.designation.errors }}</div>
-      </div>
-
-      <!-- ✅ Email + Image SAME ROW -->
-      <div class="col-md-6">
-        <label class="form-label">Email</label>
-        {{ form.email }}
-        <div class="text-danger">{{ form.email.errors }}</div>
-      </div>
-
-      <div class="col-md-6">
-        <label class="form-label">Profile Image</label>
-        <input type="file" name="image" class="form-control" id="imageInput" />
-        <div class="text-danger">{{ form.image.errors }}</div>
-      </div>
-
-      <!-- ✅ Message (UPPER) -->
-      <div class="col-md-12">
-        <label class="form-label">Message</label>
-        {{ form.message }}
-        <div class="text-danger">{{ form.message.errors }}</div>
-      </div>
-
-      <!-- Submit -->
-      <div class="col-12 mt-3">
-        <button class="btn" type="submit">Submit Testimonial</button>
-      </div>
-    </form>
-  </div>
-</section>
-{% block extra_css %}
-<style>
+        <!-- ⭐ Rating -->
+        <div class="col-md-6">
+          <label class="form-label">Rating</label>
+          <div class="star-rating">
+            <input
+              type="radio"
+              name="rating"
+              value="5"
+              id="star5"
+              {%
+              if
+              form.instance.rating=""
+              ="5"
+              %}checked{%
+              endif
+              %}
+              />
+              <label for="star5">★</label>
+              <input
+                type="radio"
+                name="rating"
+                value="4"
+                id="star4"
+                {%
+                if
+                form.instance.rating=""
+                ="4"
+                %}checked{%
+                endif
+                %}
+                />
+                <label for="star4">★</label>
+                <input
+                  type="radio"
+                  name="rating"
+                  value="3"
+                  id="star3"
+                  {%
+                  if
+                  form.instance.rating=""
+                  ="3"
+                  %}checked{%
+                  endif
+                  %}
+                  />
+                  <label for="star3">★</label>
+                  <input
+                    type="radio"
+                    name="rating"
+                    value="2"
+                    id="star2"
+                    {%
+                    if
+                    form.instance.rating=""
+                    ="2"
+                    %}checked{%
+                    endif
+                    %}
+                    />
+                    <label for="star2">★</label>
+                    <input
+                      type="radio"
+                      name="rating"
+                      value="1"
+                      id="star1"
+                      {%
+                      if
+                      form.instance.rating=""
+                      ="1"
+                      %}checked{%
+                      endif
+                      %}
+                      />
+                      <label for="star1">★</label>
+                    </div>
+                    <div class="text-danger">{{ form.rating.errors }}</div>
+                  </div>
+                  <!-- Name -->
+                  <div class="col-md-6">
+                    <label class="form-label">Name</label>
+                    {{ form.name }}
+                    <div class="text-danger">{{ form.name.errors }}</div>
+                  </div>
+                  <!-- Designation -->
+                  <div class="col-md-6">
+                    <label class="form-label">Designation</label>
+                    {{ form.designation }}
+                    <div class="text-danger">{{ form.designation.errors }}</div>
+                  </div>
+                  <!-- ✅ Email + Image SAME ROW -->
+                  <div class="col-md-6">
+                    <label class="form-label">Email</label>
+                    {{ form.email }}
+                    <div class="text-danger">{{ form.email.errors }}</div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Profile Image</label>
+                    <input type="file" name="image" class="form-control" id="imageInput" />
+                    <div class="text-danger">{{ form.image.errors }}</div>
+                  </div>
+                  <!-- ✅ Message (UPPER) -->
+                  <div class="col-md-12">
+                    <label class="form-label">Message</label>
+                    {{ form.message }}
+                    <div class="text-danger">{{ form.message.errors }}</div>
+                  </div>
+                  <!-- Submit -->
+                  <div class="col-12 mt-3">
+                    <button class="btn" type="submit">Submit Testimonial</button>
+                  </div>
+                </form>
+              </div>
+            </section>
+            {% block extra_css %}
+              <style>
   .avatar-preview {
     width: 90px;
     height: 90px;
@@ -200,9 +190,11 @@
 .star-rating label:hover ~ label {
   color: #ff6dba;
 }
-</style>
-{% endblock %} {% endblock %} {% block extra_script %}
-<script>
+              </style>
+            {% endblock %}
+          {% endblock %}
+          {% block extra_script %}
+            <script>
   const nameInput = document.querySelector('[name="name"]');
   const avatarText = document.getElementById("avatarText");
   const imageInput = document.getElementById("imageInput");
@@ -227,5 +219,14 @@
       avatarText.style.display = "block";
     }
   });
-</script>
-{% endblock %}
+  
+   // 👉 Sirf valid form pe button disable
+  document.querySelector("form").addEventListener("submit", function (e) {
+    if (!this.checkValidity()) return; // invalid hai toh kuch mat karo
+    const btn = this.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = "Submitting...";
+  });
+
+            </script>
+          {% endblock %}

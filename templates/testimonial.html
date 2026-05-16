@@ -1,59 +1,60 @@
-{% extends "base.html" %} {% load static %} {% block title %}Client Testimonials - SG.Automix Tech{% endblock %}
-{% block meta_description %}Read client feedback and testimonials for SG.Automix Tech business automation, manual-work reduction, software solutions, training, and project delivery.{% endblock %}
-{% block meta_keywords %}SG Automix Tech testimonials, client reviews, business automation reviews, reduce manual work, automation service reviews, software company feedback, student training feedback{% endblock %}
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Client Testimonials - SG.Automix Tech{% endblock %}
+{% block meta_description %}
+  Read client feedback and testimonials for SG.Automix Tech business automation, manual-work reduction, software solutions, training, and project delivery.
+{% endblock %}
+{% block meta_keywords %}
+  SG Automix Tech testimonials, client reviews, business automation reviews, reduce manual work, automation service reviews, software company feedback, student training feedback
+{% endblock %}
 {% block og_title %}Client Testimonials - SG.Automix Tech{% endblock %}
 {% block og_description %}Client feedback and reviews for SG.Automix Tech services and training programs.{% endblock %}
 {% block content %}
-<section class="d2c_testimonial_wrapper" id="testimonial">
-  <div class="container">
-    <h3 class="d2c_sub_title text_start text-md-center position-relative">
-      Our <span>Testimonial</span>
-    </h3>
-    <h2 class="d2c_title text_start text-md-center position-relative">
-      here are some client feedback<span></span>
-    </h2>
-    <div class="text-end mb-3">
-      <a href="{% url 'add_testimonial' %}" class="btn">+ Add Testimonial</a>
-    </div>
-    <div class="row testimonial_slider">
-      {% for t in testimonials %}
-      <div class="col">
-        <div class="d2c_card_wrapper text-center">
-          <h5>{{ t.message }}</h5>
-
-          {% if t.image %}
-          <img
-            src="{{ t.image.url }}"
-            class="img-fluid mb-2"
-            alt="Testimonial"
-          />
-          {% else %}
-          <img
-            src="{% static 'assets/images/testimonial_one.jpg' %}"
-            class="img-fluid mb-2"
-            alt="Testimonial"
-          />
-          {% endif %}
-
-          <h3 class="mb-2"><span>{{ t.name }}</span></h3>
-          <p class="mb-0">{{ t.designation }}</p>
-          <div class="mb-2">
-            {% for i in "12345" %} {% if forloop.counter <= t.rating %}
-            <span class="rating-star-active">★</span>
-            {% else %}
-            <span class="rating-star-inactive">★</span>
-            {% endif %} {% endfor %}
-          </div>
-        </div>
+  <section class="d2c_testimonial_wrapper" id="testimonial">
+    <div class="container">
+      <h3 class="d2c_sub_title text_start text-md-center position-relative">
+        Our <span>Testimonial</span>
+      </h3>
+      <h2 class="d2c_title text_start text-md-center position-relative">
+        here are some client feedback<span></span>
+      </h2>
+      <div class="text-end mb-3">
+        <a href="{% url 'add_testimonial' %}" class="btn">+ Add Testimonial</a>
       </div>
-      {% empty %}
-      <p class="text-center">No testimonials available</p>
-      {% endfor %}
+      <div class="row testimonial_slider">
+        {% for t in testimonials %}
+          <div class="col">
+            <div class="d2c_card_wrapper text-center">
+              <h5>{{ t.message }}</h5>
+              {% if t.image %}
+                <img src="{{ t.image.url }}" class="img-fluid mb-2" alt="Testimonial" />
+              {% else %}
+                {% comment %} <img src="{% static 'assets/images/testimonial_one.jpg' %}" class="img-fluid mb-2" alt="Testimonial" /> {% endcomment %}
+                <div class="avatar-circle mb-2">{{ t.name|first|upper }}</div>
+              {% endif %}
+              <h3 class="mb-2">
+                <span>{{ t.name }}</span>
+              </h3>
+              <p class="mb-0">{{ t.designation }}</p>
+              <div class="mb-2">
+                {% for i in "12345" %}
+                  {% if forloop.counter <= t.rating %}
+                    <span class="rating-star-active">★</span>
+                  {% else %}
+                    <span class="rating-star-inactive">★</span>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% empty %}
+          <p class="text-center">No testimonials available</p>
+        {% endfor %}
+      </div>
     </div>
-  </div>
-</section>
-{% block extra_css %}
-<style>
+  </section>
+  {% block extra_css %}
+    <style>
   .rating-star-active {
     color: var(--primary_color);
   }
@@ -61,6 +62,30 @@
   .rating-star-inactive {
     color: var(--primary_text_shade);
   }
-</style>
-{% endblock %}
+
+
+  .testimonial-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .avatar-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--primary_color);
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+    </style>
+  {% endblock %}
 {% endblock %}

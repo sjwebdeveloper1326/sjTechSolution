@@ -14,24 +14,37 @@ from employee_Client_student.decorators import admin_level_required
 from utils.site_urls import absolute_url
 
 
-def _get_superadmin_emails():
-    user_model = get_user_model()
-    emails = list(
-        user_model.objects.filter(is_superuser=True)
-        .exclude(email="")
-        .values_list("email", flat=True)
-    )
-    if not emails and getattr(settings, "EMAIL_HOST_USER", ""):
-        emails = [settings.EMAIL_HOST_USER]
+# def _get_superadmin_emails():
+#     user_model = get_user_model()
+#     emails = list(
+#         user_model.objects.filter(is_superuser=True)
+#         .exclude(email="")
+#         .values_list("email", flat=True)
+#     )
+#     if not emails and getattr(settings, "EMAIL_HOST_ADMIN", ""):
+#         emails = [settings.EMAIL_HOST_ADMIN]
+#     return emails
+def _get_admin_emails():
+    emails = []
+
+    # ENV Email
+    env_email = getattr(settings, "EMAIL_HOST_ADMIN", "")
+
+    if env_email:
+        emails.append(env_email)
+
+    # print("📧 Admin Emails:", emails)
+
     return emails
 
 
 def _send_testimonial_approval_email(request, testimonial):
-    recipients = _get_superadmin_emails()
+    recipients = _get_admin_emails()
     if not recipients:
         return False
 
-    token = signing.dumps({"testimonial_id": testimonial.id}, salt="testimonial-approval")
+    token = signing.dumps(
+        {"testimonial_id": testimonial.id}, salt="testimonial-approval")
     approve_link = absolute_url(
         reverse("testimonial_accept_from_email", kwargs={"token": token}),
         request,
@@ -51,7 +64,8 @@ def _send_testimonial_approval_email(request, testimonial):
     send_mail(
         subject=subject,
         message=message,
-        from_email=getattr(settings, "DEFAULT_FROM_EMAIL", settings.EMAIL_HOST_USER),
+        from_email=getattr(settings, "DEFAULT_FROM_EMAIL",
+                           settings.EMAIL_HOST_USER),
         recipient_list=recipients,
         fail_silently=False,
     )
@@ -76,7 +90,8 @@ def add_testimonial(request, slug=None):
             testimonial.save()
 
             try:
-                mail_sent = _send_testimonial_approval_email(request, testimonial)
+                mail_sent = _send_testimonial_approval_email(
+                    request, testimonial)
                 if mail_sent:
                     messages.success(
                         request,
@@ -108,7 +123,8 @@ def add_testimonial(request, slug=None):
 def edit_testimonial(request, id):
     testimonial = get_object_or_404(Testimonial, id=id)
     if request.method == "POST":
-        form = TestimonialForm(request.POST, request.FILES, instance=testimonial)
+        form = TestimonialForm(
+            request.POST, request.FILES, instance=testimonial)
         if form.is_valid():
             form.save()
             messages.success(request, "Testimonial updated successfully.")
@@ -142,7 +158,8 @@ def accept_testimonial(request, id):
 
 def accept_testimonial_from_email(request, token):
     try:
-        data = signing.loads(token, salt="testimonial-approval", max_age=60 * 60 * 24 * 7)
+        data = signing.loads(
+            token, salt="testimonial-approval", max_age=60 * 60 * 24 * 7)
         testimonial = get_object_or_404(Testimonial, id=data["testimonial_id"])
     except signing.BadSignature:
         messages.error(request, "Approval link is invalid or expired.")

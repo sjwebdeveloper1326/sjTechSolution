@@ -1,70 +1,70 @@
-
 {% extends "base.html" %}
 {% load static %}
-
-{% block title %}
-    Automation and Software Services - SG.Automix Tech
+{% block title %}Automation and Software Services - SG.Automix Tech{% endblock %}
+{% block meta_description %}
+    SG.Automix Tech helps automate your business, reduce manual work, and provides software development, workflow improvement, consulting, and practical technology solutions.
 {% endblock %}
-{% block meta_description %}SG.Automix Tech helps automate your business, reduce manual work, and provides software development, workflow improvement, consulting, and practical technology solutions.{% endblock %}
-{% block meta_keywords %}automation services, automate business, reduce manual work, software development, tech consulting, workflow automation, SG Automix Tech services, business technology solutions{% endblock %}
+{% block meta_keywords %}
+    automation services, automate business, reduce manual work, software development, tech consulting, workflow automation, SG Automix Tech services, business technology solutions
+{% endblock %}
 {% block og_title %}Automation and Software Services - SG.Automix Tech{% endblock %}
-{% block og_description %}Automation, manual-work reduction, software development, and business workflow solutions from SG.Automix Tech.{% endblock %}
-
+{% block og_description %}
+    Automation, manual-work reduction, software development, and business workflow solutions from SG.Automix Tech.
+{% endblock %}
 {% block content %}
-<!-- service section start -->
-<section class="d2c_service_wrapper" id="service">
-    <div class="container">
-        <div class="row align-items-center">
-            <!-- Left Side Text (unchanged) -->
-            <div class="col-xl-6 mb-4 mb-xl-0">
-                <h3 class="d2c_sub_title position-relative">
-                    Our <span>Services</span>
-                </h3>
-                <h2 class="d2c_title position-relative">
-                    We have <span>Everything</span> What you Need...
-                </h2>
-                <p>
-                    Discover the range of services we offer at SG.Automix Tech. We help
-                    automate your business, reduce manual work, and provide software
-                    solutions that support real operational needs.
-                </p>
-                <div class="row">
-                    <div class="col-md-5">
-                        <ul>
-                            <li>Tech Consulting</li>
-                            <li>Product Reviews</li>
-                            <li>Tech Teaching</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-7">
-                        <ul>
-                            <li>Tech Trend</li>
-                            <li>Coding Workshops</li>
-                            <li>Online Bootcamps</li>
-                        </ul>
-                    </div>
-                </div>
-                <a href="{% url 'contact_slug' 'contact-us' %}" class="btn">get in touch</a>
-            </div>
-
-            <!-- Right Side Cards - Dynamic with Same Layout -->
-            <div class="col-xl-6">
-                <div class="row">
-                    {% for service in services %}
-                        <div class="col-md-6 {% if forloop.counter|divisibleby:2 %}mt-xl-4{% endif %} {% if forloop.counter == 3 %}mb-4 mb-md-0{% else %}mb-4{% endif %} {% if forloop.counter == 3 %}d2c_service_card position-relative{% endif %}">
-                            <div class="d2c_card_wrapper">
-                                <div class="d2c_icon_wrapper">
-                                    <i class="{{ service.icon }}"></i>
-                                </div>
-                                <h3>{{ service.title }}</h3>
-                                <p>{{ service.description }}</p>
-                            </div>
+    <!-- service section start -->
+    <section class="d2c_service_wrapper" id="service">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Left Side Text (unchanged) -->
+                <div class="col-xl-6 mb-4 mb-xl-0">
+                    <h3 class="d2c_sub_title position-relative">
+                        Our <span>Services</span>
+                    </h3>
+                    <h2 class="d2c_title position-relative">
+                        We have <span>Everything</span> What you Need...
+                    </h2>
+                    <p>
+                        Discover the range of services we offer at SG.Automix Tech. We help
+                        automate your business, reduce manual work, and provide software
+                        solutions that support real operational needs.
+                    </p>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <ul>
+                                <li>Automation Consulting</li>
+                                <li>Process Optimization</li>
+                                <li>Technical Training</li>
+                            </ul>
                         </div>
-                    {% endfor %}
+                        <div class="col-md-7">
+                            <ul>
+                                <li>Web Development</li>
+                                <li>API Integration</li>
+                                <li>Student Certification Courses</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="{% url 'contact_slug' 'contact-us' %}" class="btn">get in touch</a>
+                </div>
+                <!-- Right Side Cards - Dynamic with Same Layout -->
+                <div class="col-xl-6">
+                    <div class="row">
+                        {% for service in services %}
+                            <div class="col-md-6 {% if forloop.counter|divisibleby:2 %}mt-xl-4{% endif %} {% if forloop.counter == 3 %}mb-4 mb-md-0{% else %}mb-4{% endif %} {% if forloop.counter == 3 %}d2c_service_card position-relative{% endif %}">
+                                <div class="d2c_card_wrapper">
+                                    <div class="d2c_icon_wrapper">
+                                        <i class="{{ service.icon }}"></i>
+                                    </div>
+                                    <h3>{{ service.title }}</h3>
+                                    <p>{{ service.description }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!-- service section end -->
+    </section>
+    <!-- service section end -->
 {% endblock %}

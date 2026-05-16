@@ -100,6 +100,12 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'dbTest.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -172,6 +178,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mail.sgautomixtech.info'
 EMAIL_PORT = int(os.getenv("EMAIL_PORT", "465"))
+EMAIL_HOST_ADMIN = os.getenv("EMAIL_HOST_ADMIN")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_USE_SSL = True
